@@ -18,6 +18,9 @@ O slide da palestra assíncrona intitulada **“Aprendizado de Máquina na
 Mensuração Florestal: Técnicas, Modelagem e Aplicação Web”** está
 disponível a seguir.
 
+\#:ledger: [Slide da
+apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
+
 <!--
 #:ledger: [Slide da apresentação](https://deivisonsouza.github.io/IA-Potencial-IF/)
 -->
