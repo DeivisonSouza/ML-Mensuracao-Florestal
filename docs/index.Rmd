@@ -1,12 +1,12 @@
 ---
-title: ".font120[Aprendizado de Máquina <BR> no Inventário Florestal:]"
+title: ".font120[Aprendizado de Máquina <BR> na Mensuração Florestal:]"
 subtitle: "Técnicas, Modelagem e Aplicação Web  <BR> <BR>"
 #subtitle: "Potencial para modelagem de variáveis florestais"
 author: "<BR> Prof. Dr. Deivison Venicio Souza"
 institute: |
   | Universidade Federal do Pará (UFPA) <BR> <span class="isDisabled"><a href="E-mail: deivisonvs@ufpa.br">E-mail: deivisonvs@ufpa.br</a></span> <BR> <BR>
 date: | 
-  .center[`r format(Sys.Date(),"%d/%B/%Y")` | 
+  .center[`r format(Sys.Date(),"%d/%B/%Y")` <BR> 
    Altamira, Pará <BR> ]
 encoding: "UTF-8"
 #output: revealjs::revealjs_presentation
@@ -50,23 +50,23 @@ knitr::opts_chunk$set(
 ```
 
 ```{r xaringanExtra, echo=FALSE}
-library(xaringanExtra)
-use_logo(
-  image_url = "fig/ufpa.png",
-  position = css_position(top = ".8em", right = "1em"),
-  width = "140px",
-  height = "140px"
-)
-
-use_extra_styles(
-  hover_code_line = TRUE,         #<<
-  mute_unhighlighted_code = TRUE  #<<
-)
-
-use_tachyons()
-use_panelset()
-use_clipboard()
-style_panelset(panel_tab_color_active = "red")
+# library(xaringanExtra)
+# use_logo(
+#   image_url = "fig/ufpa.png",
+#   position = css_position(top = ".8em", right = "1em"),
+#   width = "140px",
+#   height = "140px"
+# )
+# 
+# use_extra_styles(
+#   hover_code_line = TRUE,         #<<
+#   mute_unhighlighted_code = TRUE  #<<
+# )
+# 
+# use_tachyons()
+# use_panelset()
+# use_clipboard()
+# style_panelset(panel_tab_color_active = "red")
 ```
 
 ```{r xaringanthemer, warning=FALSE, include=FALSE}
@@ -116,63 +116,6 @@ BibOptions(check.entries = FALSE,
     + Área: Big Data e Data Science
 ]
 
----
-# 👋 Olá!
-
-.pull-left[
-## <bdi style="color:magenta;">2. Interesses atuais</bdi>
-
-* <bdi style="font-weight:bold">Linguagem de programação</bdi>
-    + R
-    + Python
-    
-* <bdi style="font-weight:bold">Modelagem preditiva aplicada à ciência florestal</bdi>
-    + Aprendizado de máquina
-    
-* <bdi style="font-weight:bold">Visão computacional</bdi> 
-    + reconhecimento de imagens
-    
-* <bdi style="font-weight:bold">Criação de Dashboard - Shiny</bdi>
-]
-
-.pull-right[
-## <bdi style="color:magenta;">3. Websites e contatos </bdi>
-
-<html>
-<head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-</head>
-<body>
-<i class="fa fa-github fa-2x"></i>
-<!--use the fa-lg (33% increase), fa-2x, fa-3x, fa-4x, or fa-5x classes-->
-</body>
-</html>
-<bdi style="font-weight:bold">GitHub:</bdi> https://github.com/DeivisonSouza
-
-<span class="iconify" data-icon="fa-brands:orcid" data-inline="false"></span>
-
-
-<div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0002-2975-0927" href="https://orcid.org/0000-0002-2975-0927" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_128x128.png" style="width:1.5em;margin-right:1em;" alt="ORCID iD icon">https://orcid.org/0000-0002-2975-0927</a></div>
-
-```{r, echo=FALSE, out.width='20%', fig.align='center', fig.cap=''}
-knitr::include_graphics('fig/ORCID.png')
-```
-
-Email: deivisonvs@ufpa.br
-]
-
-<!-- --- -->
-<!-- # A IA está no cotidiano! -->
-
-<!-- * <bdi style="font-weight:bold">1. Reconhecimento Facial</bdi> (Face Recognition) -->
-
-<!--  + Como o `Facebook` é capaz de reconhecer uma pessoa em uma foto? -->
-
-<!-- * <bdi style="font-weight:bold">2. Sistemas de Recomendação</bdi> (*Recommendation Systems*) -->
-
-<!--  + Como o `Google Maps` é capaz de traçar a melhor rota para um destino? -->
-
-<!--  + Como a `NetFlix` faz para recomendar séries e filmes (e outros) para os usuários? [(SR NetFlix)](https://help.netflix.com/pt/node/100639) -->
 ---
 background-image: url(fig/white.jpg)
 background-size: cover

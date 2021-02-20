@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>.font120[Aprendizado de Máquina  no Inventário Florestal:]</title>
+    <title>.font120[Aprendizado de Máquina  na Mensuração Florestal:]</title>
     <meta charset="utf-8" />
     <meta name="author" content=" Prof. Dr. Deivison Venicio Souza" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
     <link href="libs/remark-css/tamu-fonts.css" rel="stylesheet" />
-    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <link href="libs/tachyons/tachyons.min.css" rel="stylesheet" />
-    <link href="libs/panelset/panelset.css" rel="stylesheet" />
-    <script src="libs/panelset/panelset.js"></script>
-    <script src="libs/clipboard/clipboard.min.js"></script>
-    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
-    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# .font120[Aprendizado de Máquina <BR> no Inventário Florestal:]
+# .font120[Aprendizado de Máquina <BR> na Mensuração Florestal:]
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <span class="isDisabled"><a href="E-mail: deivisonvs@ufpa.br">E-mail: deivisonvs@ufpa.br</a></span> <BR> <BR></div>
-### <p>.center[23/outubro/2020 | Altamira, Pará <BR> ]</p>
+### <p>.center[20/fevereiro/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -33,35 +25,7 @@ name: toc
 
 
 
-<script>
-(function() {
-let tries = 0
-function addLogo() {
-  if (typeof slideshow === 'undefined') {
-    ++tries < 10 ? setTimeout(addLogo, 100) : null
-    return
-  } else {
-  	document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
-    	.forEach(el => el.innerHTML += '<div class="xaringan-extra-logo"></div>')
-  }
-}
-document.addEventListener('DOMContentLoaded', addLogo)
-})()
-</script>
-<style type="text/css">
-.xaringan-extra-logo {
-  width: 140px;
-  height: 140px;
-  z-index: 0;
-  background-image: url('fig/ufpa.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  top:.8em;right:1em;
-}
-</style><style>.panelset {
-  --panel-tab-color-active: red;
-}</style>
+
 
 
 
@@ -93,61 +57,6 @@ document.addEventListener('DOMContentLoaded', addLogo)
     + Área: Big Data e Data Science
 ]
 
----
-# 👋 Olá!
-
-.pull-left[
-## &lt;bdi style="color:magenta;"&gt;2. Interesses atuais&lt;/bdi&gt;
-
-* &lt;bdi style="font-weight:bold"&gt;Linguagem de programação&lt;/bdi&gt;
-    + R
-    + Python
-    
-* &lt;bdi style="font-weight:bold"&gt;Modelagem preditiva aplicada à ciência florestal&lt;/bdi&gt;
-    + Aprendizado de máquina
-    
-* &lt;bdi style="font-weight:bold"&gt;Visão computacional&lt;/bdi&gt; 
-    + reconhecimento de imagens
-    
-* &lt;bdi style="font-weight:bold"&gt;Criação de Dashboard - Shiny&lt;/bdi&gt;
-]
-
-.pull-right[
-## &lt;bdi style="color:magenta;"&gt;3. Websites e contatos &lt;/bdi&gt;
-
-&lt;html&gt;
-&lt;head&gt;
-&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;i class="fa fa-github fa-2x"&gt;&lt;/i&gt;
-&lt;!--use the fa-lg (33% increase), fa-2x, fa-3x, fa-4x, or fa-5x classes--&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-&lt;bdi style="font-weight:bold"&gt;GitHub:&lt;/bdi&gt; https://github.com/DeivisonSouza
-
-&lt;span class="iconify" data-icon="fa-brands:orcid" data-inline="false"&gt;&lt;/span&gt;
-
-
-&lt;div itemscope itemtype="https://schema.org/Person"&gt;&lt;a itemprop="sameAs" content="https://orcid.org/0000-0002-2975-0927" href="https://orcid.org/0000-0002-2975-0927" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"&gt;&lt;img src="https://orcid.org/sites/default/files/images/orcid_128x128.png" style="width:1.5em;margin-right:1em;" alt="ORCID iD icon"&gt;https://orcid.org/0000-0002-2975-0927&lt;/a&gt;&lt;/div&gt;
-
-&lt;img src="fig/ORCID.png" width="20%" style="display: block; margin: auto;" /&gt;
-
-Email: deivisonvs@ufpa.br
-]
-
-&lt;!-- --- --&gt;
-&lt;!-- # A IA está no cotidiano! --&gt;
-
-&lt;!-- * &lt;bdi style="font-weight:bold"&gt;1. Reconhecimento Facial&lt;/bdi&gt; (Face Recognition) --&gt;
-
-&lt;!--  + Como o `Facebook` é capaz de reconhecer uma pessoa em uma foto? --&gt;
-
-&lt;!-- * &lt;bdi style="font-weight:bold"&gt;2. Sistemas de Recomendação&lt;/bdi&gt; (*Recommendation Systems*) --&gt;
-
-&lt;!--  + Como o `Google Maps` é capaz de traçar a melhor rota para um destino? --&gt;
-
-&lt;!--  + Como a `NetFlix` faz para recomendar séries e filmes (e outros) para os usuários? [(SR NetFlix)](https://help.netflix.com/pt/node/100639) --&gt;
 ---
 background-image: url(fig/white.jpg)
 background-size: cover
@@ -363,7 +272,7 @@ background-size: cover
 # Referências
 &lt;br&gt;
 
-&lt;p&gt;&lt;cite&gt;Corte, A. P. D, D. V. Souza, F. E. Rex, et al.
+&lt;p&gt;&lt;cite&gt;Corte, A. P. D., D. V. Souza, F. E. Rex, et al.
 (2020).
 &amp;ldquo;Forest inventory with high-density UAV-Lidar: Machine learning approaches for predicting individual tree attributes&amp;rdquo;.
 In: &lt;em&gt;Computers and Electronics in Agriculture&lt;/em&gt; 179, p. 105815.
@@ -381,7 +290,7 @@ DOI: &lt;a href="https://doi.org/10.1016/j.compag.2005.04.002"&gt;10.1016/j.comp
 In: &lt;em&gt;Biosystems engineering&lt;/em&gt; 105.3, pp. 306&amp;ndash;315.
 DOI: &lt;a href="https://doi.org/10.1016/j.biosystemseng.2009.11.010"&gt;10.1016/j.biosystemseng.2009.11.010&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Fehrmann, L, A. Lehtonen, C. Kleinn, et al.
+&lt;p&gt;&lt;cite&gt;Fehrmann, L., A. Lehtonen, C. Kleinn, et al.
 (2008).
 &amp;ldquo;Comparison of linear and mixed-effect regression models and ak-nearest neighbour approach for estimation of single-tree biomass&amp;rdquo;.
 In: &lt;em&gt;Canadian Journal of Forest Research&lt;/em&gt; 38.1, pp. 1&amp;ndash;9.
@@ -414,13 +323,13 @@ Springer.&lt;/cite&gt;&lt;/p&gt;
 In: &lt;em&gt;Silva Fennica&lt;/em&gt; 35.4, pp. 437&amp;ndash;451.
 DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Montaño, R. A. N. R, C. R. Sanquetta, J. Wojciechowski, et al.
+&lt;p&gt;&lt;cite&gt;Montaño, R. A. N. R., C. R. Sanquetta, J. Wojciechowski, et al.
 (2017).
 &amp;ldquo;Artificial Intelligence Models to Estimate Biomass of Tropical Forest Trees&amp;rdquo;.
 In: &lt;em&gt;Polibits&lt;/em&gt; 56, pp. 29&amp;ndash;37.
 DOI: &lt;a href="https://doi.org/10.17562/PB-56-4"&gt;10.17562/PB-56-4&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Nieto, P. G, J. M. Torres, M. A. Fernández, et al.
+&lt;p&gt;&lt;cite&gt;Nieto, P. G., J. M. Torres, M. A. Fernández, et al.
 (2012).
 &amp;ldquo;Support vector machines and neural networks used to evaluate paper manufactured using Eucalyptus globulus&amp;rdquo;.
 In: &lt;em&gt;Applied Mathematical Modelling&lt;/em&gt; 36.12, pp. 6137&amp;ndash;6145.
@@ -435,7 +344,7 @@ DOI: &lt;a href="https://doi.org/10.1016/j.apm.2012.02.016"&gt;10.1016/j.apm.201
 In: &lt;em&gt;PloS one&lt;/em&gt; 11.5, p. e0154738.
 DOI: &lt;a href="https://doi.org/10.1371/journal.pone.0154738"&gt;10.1371/journal.pone.0154738&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Özçelik, R, M. J. Diamantopoulou, J. R. Brooks, et al.
+&lt;p&gt;&lt;cite&gt;Özçelik, R., M. J. Diamantopoulou, J. R. Brooks, et al.
 (2010).
 &amp;ldquo;Estimating tree bole volume using artificial neural network models for four species in Turkey&amp;rdquo;.
 In: &lt;em&gt;Journal of environmental management&lt;/em&gt; 91.3, pp. 742&amp;ndash;753.
@@ -447,13 +356,13 @@ DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jen
 In: &lt;em&gt;IBM Journal of research and development&lt;/em&gt;, pp. 211&amp;ndash;229.
 DOI: &lt;a href="https://doi.org/10.1147/rd.33.0210"&gt;10.1147/rd.33.0210&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Sanquetta, C. R, L. R. Piva, J. Wojciechowski, et al.
+&lt;p&gt;&lt;cite&gt;Sanquetta, C. R., L. R. Piva, J. Wojciechowski, et al.
 (2018).
 &amp;ldquo;Volume estimation of Cryptomeria japonica logs in southern Brazil using artificial intelligence models&amp;rdquo;.
 In: &lt;em&gt;Southern Forests: a Journal of Forest Science&lt;/em&gt; 80.1, pp. 29&amp;ndash;36.
 DOI: &lt;a href="https://doi.org/10.2989/20702620.2016.1263013"&gt;10.2989/20702620.2016.1263013&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Sanquetta, C. R, J. Wojciechowski, A. P. Dalla Corte, et al.
+&lt;p&gt;&lt;cite&gt;Sanquetta, C. R., J. Wojciechowski, A. P. Dalla Corte, et al.
 (2015).
 &amp;ldquo;Comparison of data mining and allometric model in estimation of tree biomass&amp;rdquo;.
 In: &lt;em&gt;BMC bioinformatics&lt;/em&gt; 16.1, p. 247.
@@ -462,13 +371,13 @@ DOI: &lt;a href="https://doi.org/10.1186/s12859-015-0662-5"&gt;10.1186/s12859-01
 # Referências
 &lt;br&gt;
 
-&lt;p&gt;&lt;cite&gt;Sanquetta, C. R, J. Wojciechowski, A. P. Dalla Corte, et al.
+&lt;p&gt;&lt;cite&gt;Sanquetta, C. R., J. Wojciechowski, A. P. Dalla Corte, et al.
 (2013).
 &amp;ldquo;On the use of data mining for estimating carbon storage in the trees&amp;rdquo;.
 In: &lt;em&gt;Carbon balance and management&lt;/em&gt; 8.1, p. 6.
 DOI: &lt;a href="https://doi.org/10.1186/1750-0680-8-6"&gt;10.1186/1750-0680-8-6&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Schikowski, A. B, A. P. D. Corte, and C. R. Sanquetta
+&lt;p&gt;&lt;cite&gt;Schikowski, A. B., A. P. D. Corte, and C. R. Sanquetta
 (2015).
 &amp;ldquo;Estudo da forma do fuste utilizando redes neurais artificiais e funções de afilamento&amp;rdquo;.
 In: &lt;em&gt;Pesquisa Florestal Brasileira&lt;/em&gt; 35.82, pp. 119&amp;ndash;127.
@@ -480,7 +389,7 @@ DOI: &lt;a href="https://doi.org/10.4336/2015.pfb.35.82.867"&gt;10.4336/2015.pfb
 Tese de Doutorado.
 Curitiba, Paraná, p. 171.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Souza, D. V, J. C. Nievola, J. X. Santos, et al.
+&lt;p&gt;&lt;cite&gt;Souza, D. V., J. C. Nievola, J. X. Santos, et al.
 (2019).
 &amp;ldquo;k-Nearest Neighbor Regression in the Estimation of Tectona Grandis Trunk Volume in the State of Pará, Brazil&amp;rdquo;.
 In: &lt;em&gt;Journal of Sustainable Forestry&lt;/em&gt; 38.8, p. 755–768.
@@ -732,7 +641,7 @@ h2, h3, h4 {
 }
 
 .title-slide {
-  background-image: url(fig/img.jpg);
+  background-image: url(fig/imgD.jpg);
   border-image: 0px none;
   background-size: cover;
   border-top: 0px solid #FAFAFA;
