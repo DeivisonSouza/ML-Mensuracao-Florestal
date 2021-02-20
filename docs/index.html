@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>.font120[Aprendizado de Máquina  no Inventário Florestal:]</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Prof. Dr. Deivison Venicio Souza" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/tamu-fonts.css" rel="stylesheet" />
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="libs/tachyons/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# .font120[Aprendizado de Máquina <BR> no Inventário Florestal:]
+## Técnicas, Modelagem e Aplicação Web <BR> <BR>
+### <BR> Prof. Dr. Deivison Venicio Souza
+### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <span class="isDisabled"><a href="E-mail: deivisonvs@ufpa.br">E-mail: deivisonvs@ufpa.br</a></span> <BR> <BR></div>
+### <p>.center[23/outubro/2020 | Altamira, Pará <BR> ]</p>
+
+---
+
+
+name: toc
+
+
+
+<script>
+(function() {
+let tries = 0
+function addLogo() {
+  if (typeof slideshow === 'undefined') {
+    ++tries < 10 ? setTimeout(addLogo, 100) : null
+    return
+  } else {
+  	document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+    	.forEach(el => el.innerHTML += '<div class="xaringan-extra-logo"></div>')
+  }
+}
+document.addEventListener('DOMContentLoaded', addLogo)
+})()
+</script>
+<style type="text/css">
+.xaringan-extra-logo {
+  width: 140px;
+  height: 140px;
+  z-index: 0;
+  background-image: url('fig/ufpa.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top:.8em;right:1em;
+}
+</style><style>.panelset {
+  --panel-tab-color-active: red;
+}</style>
+
+
+
+
+
+# 👋 Olá!
+
+## &lt;bdi style="color:magenta;"&gt;1. Deivison Souza &lt;/bdi&gt;
+
+.pull-left[
+* &lt;bdi style="font-weight:bold"&gt;Graduação (Titulação: ano 2008)&lt;/bdi&gt;
+    + Universidade Federal Rural da Amazônia (UFRA); e
+    + Título: Bacharel em Engenharia Florestal.
+
+* &lt;bdi style="font-weight:bold"&gt;Mestrado (Titulação: ano 2011)&lt;/bdi&gt;
+    + Universidade Federal Rural da Amazônia (UFRA);
+    + Programa de Pós-graduação em Ciências Florestais (PPGCF); e
+    + Área de Concentração: Manejo de ecossistemas florestais.
+]
+
+.pull-right[
+* &lt;bdi style="font-weight:bold"&gt;Doutorado (Titulação: ano 2020)&lt;/bdi&gt;
+    + Universidade Federal do Paraná (UFPR);
+    + Programa de Pós-graduação em Engenharia Florestal (PPGEF); e
+    + Área de Concentração: Manejo Florestal.
+    
+* &lt;bdi style="font-weight:bold"&gt;Especialização (Defesa: ano 2019)&lt;/bdi&gt;
+    + Universidade Federal do Paraná (UFPR);
+    + Área: Big Data e Data Science
+]
+
+---
+# 👋 Olá!
+
+.pull-left[
+## &lt;bdi style="color:magenta;"&gt;2. Interesses atuais&lt;/bdi&gt;
+
+* &lt;bdi style="font-weight:bold"&gt;Linguagem de programação&lt;/bdi&gt;
+    + R
+    + Python
+    
+* &lt;bdi style="font-weight:bold"&gt;Modelagem preditiva aplicada à ciência florestal&lt;/bdi&gt;
+    + Aprendizado de máquina
+    
+* &lt;bdi style="font-weight:bold"&gt;Visão computacional&lt;/bdi&gt; 
+    + reconhecimento de imagens
+    
+* &lt;bdi style="font-weight:bold"&gt;Criação de Dashboard - Shiny&lt;/bdi&gt;
+]
+
+.pull-right[
+## &lt;bdi style="color:magenta;"&gt;3. Websites e contatos &lt;/bdi&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;i class="fa fa-github fa-2x"&gt;&lt;/i&gt;
+&lt;!--use the fa-lg (33% increase), fa-2x, fa-3x, fa-4x, or fa-5x classes--&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;bdi style="font-weight:bold"&gt;GitHub:&lt;/bdi&gt; https://github.com/DeivisonSouza
+
+&lt;span class="iconify" data-icon="fa-brands:orcid" data-inline="false"&gt;&lt;/span&gt;
+
+
+&lt;div itemscope itemtype="https://schema.org/Person"&gt;&lt;a itemprop="sameAs" content="https://orcid.org/0000-0002-2975-0927" href="https://orcid.org/0000-0002-2975-0927" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"&gt;&lt;img src="https://orcid.org/sites/default/files/images/orcid_128x128.png" style="width:1.5em;margin-right:1em;" alt="ORCID iD icon"&gt;https://orcid.org/0000-0002-2975-0927&lt;/a&gt;&lt;/div&gt;
+
+&lt;img src="fig/ORCID.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+Email: deivisonvs@ufpa.br
+]
+
+&lt;!-- --- --&gt;
+&lt;!-- # A IA está no cotidiano! --&gt;
+
+&lt;!-- * &lt;bdi style="font-weight:bold"&gt;1. Reconhecimento Facial&lt;/bdi&gt; (Face Recognition) --&gt;
+
+&lt;!--  + Como o `Facebook` é capaz de reconhecer uma pessoa em uma foto? --&gt;
+
+&lt;!-- * &lt;bdi style="font-weight:bold"&gt;2. Sistemas de Recomendação&lt;/bdi&gt; (*Recommendation Systems*) --&gt;
+
+&lt;!--  + Como o `Google Maps` é capaz de traçar a melhor rota para um destino? --&gt;
+
+&lt;!--  + Como a `NetFlix` faz para recomendar séries e filmes (e outros) para os usuários? [(SR NetFlix)](https://help.netflix.com/pt/node/100639) --&gt;
+---
+background-image: url(fig/white.jpg)
+background-size: cover
+# Conteúdo
+
+.pull-left[
+[1 - O que é aprendizado de Máquina (AM)](#AM)
+
+[2 - Tipos de Aprendizagem](#tipos)
+
+[3 - Aplicações nas ciências florestais](#aplicacoes)
+
+[4 - Aprendizado de Máquina com linguagem R](#AMLR)
+
+[5 - Pacote CARET](#caret)
+
+[6 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+
+[7 - Aplicação Web com MAM: um exemplo prático.](#shiny)
+
+]
+
+---
+# Aprendizado de Máquina: um subconjunto da IA!
+
+&lt;img src="fig/diag.png" width="50%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[Fonte: [Bial-R](https://www.bial-r.com/2019/05/22/comprendre-le-machine-learning-et-le-deep-learning/)]]
+
+---
+name: AM
+# Aprendizado de Máquina (*Machine Learning*)
+
+.bg-washed-near-white.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+.center[&lt;bdi style="font-weight:bold"&gt; 🤔 *Machine Learning*&lt;/bdi&gt;]
+
+&lt;bdi style="font-weight:bold"&gt;1959&lt;/bdi&gt;: `Arthur Lee Samuel` cunhou pela primeira vez o termo *Machine Learning*.
+
+&lt;bdi style="font-weight:bold"&gt;Definição&lt;/bdi&gt;: É um `subconjunto de inteligência artificial` que frequentemente usa técnicas estatísticas para dar aos computadores a capacidade de `"aprender"` com dados, sem serem explicitamente programados.
+
+.tr[
+— (Parafraseado de Arthur Lee Samuel, 1959)
+]
+
+&lt;br&gt;
+
+&lt;bdi style="color:blue;"&gt; *Some Studies in Machine Learning Using the Game of Checkers* &lt;/bdi&gt; (Samuel, 1959).
+
+] 
+
+---
+name: tipos
+# Tipos de Aprendizagem
+
+&lt;img src="fig/ML.png" width="80%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[Fonte: O Autor.]]
+
+---
+name: AS
+# Aprendizado Supervisionado
+
+&lt;img src="fig/intuicao-ML.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.left[.footnote[Fonte: O Autor.]] 
+
+---
+name: MAM
+# Um modelo de aprendizado de máquina: CART
+
+&lt;img src="fig/CART.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.left[.footnote[Fonte: O Autor.]] 
+
+---
+name: aplicacoes
+# Aplicações nas ciências florestais
+
+&lt;img src="fig/MindMap.png" width="57%" style="display: block; margin: auto;" /&gt;
+
+.left[.footnote[Fonte: O Autor.]]
+
+---
+name: AMIF
+# AM no Inventário Florestal: estudos indicam potencial!
+
+&lt;img src="fig/ML-TEC.png" width="80%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[Fonte: O Autor.]]
+
+
+```r
+Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019"))
+```
+
+```
+## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019)"
+```
+
+---
+name: AMLR
+class: middle, center
+# Aprendizado de máquina com linguagem R
+
+.pull-left[
+
+.thick[Alguns pacotes publicados no Cran Task View: Machine Learning &amp; Statistical learning]
+
+&lt;img src="fig/ML-FR.png" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;BR&gt; &lt;BR&gt; &lt;BR&gt; &lt;BR&gt; &lt;BR&gt;
+.thick[Veja outros pacotes disponíveis em Task View:]
+
+[Machine Learning &amp; Statistical learning](https://cran.r-project.org/)
+
+&lt;BR&gt; &lt;BR&gt;
+.thick[Web scraping feito em 21/07/2018:]
+
+Até julho de 2018 existiam 102 pacotes sobre AM
+publicados no CRAN Task View.
+]
+
+.left[.footnote[Fonte: O Autor.]]
+
+---
+name: caret
+background-image: url(fig/white.jpg)
+background-size: cover
+
+# Pacote CARET: um framework para aprendizado de máquina
+
+.font300[.thick[CARET]]
+	
+.font200[(.red[C]lassication .red[A]nd .red[Re]gression .red[T]raining)]
+	
+(Kuhn and Johnson, 2013; Kuhn, 2018).
+		
+.font120["Constitui um conjunto de funções que tentam simplificar &lt;br&gt; o processo de construção de modelos preditivos."]
+
+&lt;br&gt; &lt;br&gt; &lt;br&gt;
+
+Web page: [CARET Package](https://topepo.github.io/caret/index.html)
+
+.left[.footnote[Imagem de &lt;a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;pen_ash&lt;/a&gt; por &lt;a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;Pixabay&lt;/a&gt;]]
+---
+# Pacote CARET: Ferramentas
+
+&lt;img src="fig/CARET.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+name: fluxo
+background-image: url(fig/white.jpg)
+background-size: cover
+
+# Fluxograma - Construção de modelos de AM usando CARET
+
+&lt;img src="fig/FM.png" width="90%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[Fonte: Souza (2020).]]
+
+---
+name: exemploR
+class: inverse, middle, center
+background-image: url(fig/imgC.jpg)
+background-size: cover
+
+&lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt;
+## .thick[.black[MACHINE LEARNING NO R]]
+
+&lt;br&gt; &lt;br&gt;
+.left[.thick[.black[Acesse o R-script:]]
+
+[01-wkNN](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/01-wkNN.R)
+
+.thick[.black[Acesse os dados:]]
+
+[Tectona-grandis](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/Tectona.csv)]
+
+.left[.footnote[Créditos: Imagem de .green[Willas Lima].]]
+---
+name: shiny
+class: inverse, top
+background-image: url(fig/white.jpg)
+background-size: cover
+
+## .thick[.black[Como disponibilizar os modelos de aprendizado de máquina?]]
+
+.pull-left[
+&lt;img src="fig/sh.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+.thick[.black[Biblioteca Shiny]]
+
+.black[Biblioteca que facilita a criação de aplicativos da Web interativos usando diretamente a Linguagem R.]
+
+.thick[.black[Shinyapps.io:]]
+
+.black[Servidor gratuito para hospedar os aplicativos Shiny.]
+&lt;BR&gt;
+
+.thick[.black[Acesse aplicações Web para predição de biomassa e volume: (Souza, 2020)]]
+
+.font80[
+[1-Shiny-MLMBio-Biomassa](https://deivisonsouza.shinyapps.io/MLBiomass/)
+
+[2-Shiny-MLMVol-Volume](https://deivisonsouza.shinyapps.io/MLVolume/)
+]
+]
+
+.column-right[
+.thick[.black[Acesse a base para uso na aplicação MLMBio:]] [Biomass-data](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/data.csv)]
+
+]
+
+---
+# Referências
+&lt;br&gt;
+
+&lt;p&gt;&lt;cite&gt;Corte, A. P. D, D. V. Souza, F. E. Rex, et al.
+(2020).
+&amp;ldquo;Forest inventory with high-density UAV-Lidar: Machine learning approaches for predicting individual tree attributes&amp;rdquo;.
+In: &lt;em&gt;Computers and Electronics in Agriculture&lt;/em&gt; 179, p. 105815.
+DOI: &lt;a href="https://doi.org/10.1016/j.compag.2020.105815"&gt;10.1016/j.compag.2020.105815&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Diamantopoulou, M. J.
+(2005).
+&amp;ldquo;Artificial neural networks as an alternative tool in pine bark volume estimation&amp;rdquo;.
+In: &lt;em&gt;Computers and electronics in agriculture&lt;/em&gt; 48.3, pp. 235&amp;ndash;244.
+DOI: &lt;a href="https://doi.org/10.1016/j.compag.2005.04.002"&gt;10.1016/j.compag.2005.04.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Diamantopoulou, M. J. and E. Milios
+(2010).
+&amp;ldquo;Modelling total volume of dominant pine trees in reforestations via multivariate analysis and artificial neural network models&amp;rdquo;.
+In: &lt;em&gt;Biosystems engineering&lt;/em&gt; 105.3, pp. 306&amp;ndash;315.
+DOI: &lt;a href="https://doi.org/10.1016/j.biosystemseng.2009.11.010"&gt;10.1016/j.biosystemseng.2009.11.010&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Fehrmann, L, A. Lehtonen, C. Kleinn, et al.
+(2008).
+&amp;ldquo;Comparison of linear and mixed-effect regression models and ak-nearest neighbour approach for estimation of single-tree biomass&amp;rdquo;.
+In: &lt;em&gt;Canadian Journal of Forest Research&lt;/em&gt; 38.1, pp. 1&amp;ndash;9.
+DOI: &lt;a href="https://doi.org/10.1139/X07-119"&gt;10.1139/X07-119&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Korhonen, K. T. and A. Kangas
+(1997).
+&amp;ldquo;Application of nearest-neighbour regression for generalizing sample tree information&amp;rdquo;.
+In: &lt;em&gt;Scandinavian Journal of Forest Research&lt;/em&gt; 12.1, pp. 97&amp;ndash;101.
+DOI: &lt;a href="https://doi.org/10.1080/02827589709355389"&gt;10.1080/02827589709355389&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
+
+&lt;p&gt;&lt;cite&gt;Kuhn, M.
+(2018).
+&lt;em&gt;caret: Classification and Regression Training&lt;/em&gt;.
+R package version 6.0-79.
+URL: &lt;a href="https://CRAN.R-project.org/package=caret"&gt;https://CRAN.R-project.org/package=caret&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Kuhn, M. and K. Johnson
+(2013).
+&lt;em&gt;Applied predictive modeling&lt;/em&gt;.
+Vol. 810.
+Springer.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Maltamo, M. and K. Eerikainen
+(2001).
+&amp;ldquo;The most similar neighbour reference in the yield prediction of Pinus kesiya stands in Zambia&amp;rdquo;.
+In: &lt;em&gt;Silva Fennica&lt;/em&gt; 35.4, pp. 437&amp;ndash;451.
+DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Montaño, R. A. N. R, C. R. Sanquetta, J. Wojciechowski, et al.
+(2017).
+&amp;ldquo;Artificial Intelligence Models to Estimate Biomass of Tropical Forest Trees&amp;rdquo;.
+In: &lt;em&gt;Polibits&lt;/em&gt; 56, pp. 29&amp;ndash;37.
+DOI: &lt;a href="https://doi.org/10.17562/PB-56-4"&gt;10.17562/PB-56-4&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Nieto, P. G, J. M. Torres, M. A. Fernández, et al.
+(2012).
+&amp;ldquo;Support vector machines and neural networks used to evaluate paper manufactured using Eucalyptus globulus&amp;rdquo;.
+In: &lt;em&gt;Applied Mathematical Modelling&lt;/em&gt; 36.12, pp. 6137&amp;ndash;6145.
+DOI: &lt;a href="https://doi.org/10.1016/j.apm.2012.02.016"&gt;10.1016/j.apm.2012.02.016&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
+
+&lt;p&gt;&lt;cite&gt;Nunes, M. H. and E. B. Görgens
+(2016).
+&amp;ldquo;Artificial intelligence procedures for tree taper estimation within a complex vegetation mosaic in Brazil&amp;rdquo;.
+In: &lt;em&gt;PloS one&lt;/em&gt; 11.5, p. e0154738.
+DOI: &lt;a href="https://doi.org/10.1371/journal.pone.0154738"&gt;10.1371/journal.pone.0154738&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Özçelik, R, M. J. Diamantopoulou, J. R. Brooks, et al.
+(2010).
+&amp;ldquo;Estimating tree bole volume using artificial neural network models for four species in Turkey&amp;rdquo;.
+In: &lt;em&gt;Journal of environmental management&lt;/em&gt; 91.3, pp. 742&amp;ndash;753.
+DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jenvman.2009.10.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Samuel, A. L.
+(1959).
+&amp;ldquo;Some studies in machine learning using the game of checkers&amp;rdquo;.
+In: &lt;em&gt;IBM Journal of research and development&lt;/em&gt;, pp. 211&amp;ndash;229.
+DOI: &lt;a href="https://doi.org/10.1147/rd.33.0210"&gt;10.1147/rd.33.0210&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Sanquetta, C. R, L. R. Piva, J. Wojciechowski, et al.
+(2018).
+&amp;ldquo;Volume estimation of Cryptomeria japonica logs in southern Brazil using artificial intelligence models&amp;rdquo;.
+In: &lt;em&gt;Southern Forests: a Journal of Forest Science&lt;/em&gt; 80.1, pp. 29&amp;ndash;36.
+DOI: &lt;a href="https://doi.org/10.2989/20702620.2016.1263013"&gt;10.2989/20702620.2016.1263013&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Sanquetta, C. R, J. Wojciechowski, A. P. Dalla Corte, et al.
+(2015).
+&amp;ldquo;Comparison of data mining and allometric model in estimation of tree biomass&amp;rdquo;.
+In: &lt;em&gt;BMC bioinformatics&lt;/em&gt; 16.1, p. 247.
+DOI: &lt;a href="https://doi.org/10.1186/s12859-015-0662-5"&gt;10.1186/s12859-015-0662-5&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
+
+&lt;p&gt;&lt;cite&gt;Sanquetta, C. R, J. Wojciechowski, A. P. Dalla Corte, et al.
+(2013).
+&amp;ldquo;On the use of data mining for estimating carbon storage in the trees&amp;rdquo;.
+In: &lt;em&gt;Carbon balance and management&lt;/em&gt; 8.1, p. 6.
+DOI: &lt;a href="https://doi.org/10.1186/1750-0680-8-6"&gt;10.1186/1750-0680-8-6&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Schikowski, A. B, A. P. D. Corte, and C. R. Sanquetta
+(2015).
+&amp;ldquo;Estudo da forma do fuste utilizando redes neurais artificiais e funções de afilamento&amp;rdquo;.
+In: &lt;em&gt;Pesquisa Florestal Brasileira&lt;/em&gt; 35.82, pp. 119&amp;ndash;127.
+DOI: &lt;a href="https://doi.org/10.4336/2015.pfb.35.82.867"&gt;10.4336/2015.pfb.35.82.867&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Souza, D. V.
+(2020).
+&amp;ldquo;Aprendizado de máquina para predição de biomassa e volume comercial de árvores em florestas tropicais&amp;rdquo;.
+Tese de Doutorado.
+Curitiba, Paraná, p. 171.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Souza, D. V, J. C. Nievola, J. X. Santos, et al.
+(2019).
+&amp;ldquo;k-Nearest Neighbor Regression in the Estimation of Tectona Grandis Trunk Volume in the State of Pará, Brazil&amp;rdquo;.
+In: &lt;em&gt;Journal of Sustainable Forestry&lt;/em&gt; 38.8, p. 755–768.
+DOI: &lt;a href="https://doi.org/10.1080/10549811.2019.1607391"&gt;10.1080/10549811.2019.1607391&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+---
+class: inverse, middle
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.pull-left[
+.font300[.thick[.black[Obrigado!]]] &lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt;
+
+
+.left[
+.thick[.black[**Contato**:]]
+
+.black[Email:] &lt;a href="mailto:deivisonvs@ufpa.br"&gt;deivisonvs@ufpa.br&lt;/a&gt;
+
+.black[Github:] &lt;a href="https://github.com/DeivisonSouza"&gt;@DeivisonSouza&lt;/a&gt;
+
+&lt;br&gt; &lt;br&gt;
+.font80[.black[Os códigos e demais arquivos desta apresentação estão disponíveis no repositório GitHub:] [IA-Potencial-IF](https://github.com/DeivisonSouza/IA-Potencial-IF).]
+
+]
+]
+
+&lt;!-- # Modelagem preditiva: linguagens (softwares) e frameworks --&gt;
+
+&lt;!-- ```{r, engine='tikz', cache=TRUE, echo=FALSE, out.width='50%', fig.ext = 'png', bg = "transparent"} --&gt;
+&lt;!-- \usetikzlibrary{mindmap} --&gt;
+&lt;!-- \begin{tikzpicture} --&gt;
+&lt;!-- 		[mindmap, --&gt;
+&lt;!-- 		every node/.style={concept, execute at begin node=\hskip0pt, font=\bfseries}, --&gt;
+&lt;!-- 		root concept/.append style={concept color=black, fill=white, line width=1ex, text=black, font=\huge\bfseries}, --&gt;
+&lt;!-- 		method a/.style={concept color=red, line width=1ex, text=white}, --&gt;
+&lt;!-- 		method b/.style={concept color=orange, line width=1ex, text=white}, --&gt;
+&lt;!-- 		method c/.style={concept color=brown, line width=1ex, text=white}, --&gt;
+&lt;!-- 		methods a/.style={concept color=red!50, line width=1ex, text=black}, --&gt;
+&lt;!-- 		methods b/.style={concept color=orange!50, line width=1ex, text=black}, --&gt;
+&lt;!-- 		methods c/.style={concept color=brown!50, line width=1ex, text=black}, --&gt;
+&lt;!-- 		grow cyclic, --&gt;
+&lt;!-- 		level 1/.append style={level distance=4.5cm, sibling angle=60}, --&gt;
+&lt;!-- 		level 2/.append style={level distance=3cm, sibling angle=45}] --&gt;
+&lt;!-- 		\node [root concept] {Liguagens/ \\ Software} % root --&gt;
+&lt;!-- 		child [missing] {} --&gt;
+&lt;!-- 		child [missing] {} --&gt;
+&lt;!-- 		child [missing] {} --&gt;
+&lt;!-- 		child [method a] { node {Python} --&gt;
+&lt;!-- 			child [methods a] { node {A1} } --&gt;
+&lt;!-- 			child [methods a] { node {A2} } --&gt;
+&lt;!-- 			child [methods a] { node {A3} } --&gt;
+&lt;!-- 			child [methods a] { node {A4} } --&gt;
+&lt;!-- 			child [methods a] { node {A5} } --&gt;
+&lt;!-- 			child [methods a] { node {A6} } --&gt;
+&lt;!-- 			child [methods a] { node {A7} } } --&gt;
+&lt;!-- 		child [missing] {} --&gt;
+&lt;!-- 		child [method b] { node {R} --&gt;
+&lt;!-- 			child [methods b] { node {B1} } --&gt;
+&lt;!-- 			child [methods b] { node {B2} } --&gt;
+&lt;!-- 			child [methods b] { node {B3} } --&gt;
+&lt;!-- 			child [methods b] { node {B4} } --&gt;
+&lt;!-- 			child [methods b] { node {B5} } --&gt;
+&lt;!-- 			child [methods b] { node {B6} } --&gt;
+&lt;!-- 			child [methods b] { node {B7} } } --&gt;
+&lt;!-- 		child [missing] {} --&gt;
+&lt;!-- 		child [method c] { node {Weka} --&gt;
+&lt;!-- 			child [methods c] { node {C1} } --&gt;
+&lt;!-- 			child [methods c] { node {C2} } --&gt;
+&lt;!-- 			child [methods c] { node {C3} } --&gt;
+&lt;!-- 			child [methods c] { node {C4} } --&gt;
+&lt;!-- 			child [methods c] { node {C5} } --&gt;
+&lt;!-- 			child [methods c] { node {C6} } --&gt;
+&lt;!-- 			child [methods c] { node {C7} } }; --&gt;
+&lt;!-- 		\end{tikzpicture} --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "idea",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.remark-slide-content {
+  background-color: #FAFAFA;
+  /* border-top: 80px solid #23373B;*/
+  border-image: url(fig/flw.jpg) 50 round;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em;
+}
+
+.title-slide .inverse .remark-slide-content {
+  background-color: #FAFAFA;
+}
+
+.inverse {
+ /* background-image: url(fig/img.jpg);*/
+  border-image: 0px none;
+  background-size: cover;
+  border-top: 0px solid #FAFAFA;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em;
+  text-align: center;
+}
+
+/* Removes colored bar from top of the slide resulting in a clear slide */
+.clear{
+  border-top: 0px solid #FAFAFA;
+}
+
+h1 {
+  font-weight: normal;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #FAFAFA;
+}
+
+h2, h3, h4 {
+  padding-top: -15px;
+  padding-bottom: 00px;
+  color: #FAFAFA;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 00px;
+  margin-bottom: -10px;
+}
+
+.remark-slide-content h1 {
+  font-size: 45px;
+}
+
+.remark-slide-content h2 {
+  font-size: 35px;
+}
+
+.remark-slide-content h3 {
+  font-size: 30px;
+}
+
+.left-column h2, .left-column h3, .left-column h4 {
+  color: #777;
+}
+
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #1A292C;
+}
+
+.logo {
+  background-image: url(floresta.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 110px;
+  height: 128px;
+  z-index: 0;
+}
+
+.title-slide {
+  background-image: url(fig/img.jpg);
+  border-image: 0px none;
+  background-size: cover;
+  border-top: 0px solid #FAFAFA;
+}
+
+
+.title-slide h1  {
+  color: #ffffff;
+  font-size: 60px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 15px;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.title-slide h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #ffffff;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 40px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide h3  {
+  color: #ffffff;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 25px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -30px;
+}
+
+hr, .title-slide h2::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: transparent;
+  color: none;
+  height: 1px;
+  margin-right: 10px;
+}
+
+hr, .mline h1::after {
+  margin: 1em 5px 0 5px;
+}
+
+.title-slide h2::after {
+  margin: 10px 15px 35px 0;
+}
+
+.mline h1::after {
+  margin: 10px 15px 0 15px;
+}
+
+.isDisabled > a {
+  color: currentColor;
+  display: inline-block;  /* For IE11/ MS Edge bug */
+  pointer-events: none;
+  text-decoration: none;
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  color: #272822;
+  opacity: 1;
+}
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+/* turns off slide numbers for title page: https://github.com/gnab/remark/issues/298 */
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+.remark-inline-code {
+  /* background: #F5F5F5; /* lighter */
+  background: #e7e8e2; /* darker */
+  border-radius: 3px;
+  padding: 4px;
+}
+
+.footnote {
+    position: absolute;
+    bottom: .5em;
+    padding-left: 10px;
+    font-size: 70%;
+    text-align: left;
+}
+
+.red { color: red; }
+.remark-code-line-highlighted { background-color: #d9f2d9; }
+.remark-code, .remark-inline-code {
+    color: #7c347f;
+    font-weight: 300;
+}
+
+.thick {
+  font-weight: bold;
+}
+
+.code10 .remark-code {
+  font-size: 10%;
+}
+
+.code20 .remark-code {
+  font-size: 20%;
+}
+
+.code30 .remark-code {
+  font-size: 30%;
+}
+
+.code40 .remark-code {
+  font-size: 40%;
+}
+
+.code50 .remark-code {
+  font-size: 50%;
+}
+
+.code60 .remark-code {
+  font-size: 60%;
+}
+
+.code70 .remark-code {
+  font-size: 70%;
+}
+
+.code80 .remark-code {
+  font-size: 80%;
+}
+
+.code90 .remark-code {
+  font-size: 90%;
+}
+
+.code100 .remark-code {
+  font-size: 100%;
+}
+
+.font10 {
+  font-size: 10%;
+}
+
+.font20 {
+  font-size: 20%;
+}
+
+.font30 {
+  font-size: 30%;
+}
+
+.font40 {
+  font-size: 40%;
+}
+
+.font50 {
+  font-size: 50%;
+}
+
+.font60 {
+  font-size: 60%;
+}
+
+.font70 {
+  font-size: 70%;
+}
+
+.font80 {
+  font-size: 80%;
+}
+
+.font90 {
+  font-size: 90%;
+}
+
+.font100 {
+  font-size: 100%;
+}
+
+.font110 {
+  font-size: 110%;
+}
+
+.font120 {
+  font-size: 120%;
+}
+
+.font130 {
+  font-size: 130%;
+}
+
+.font140 {
+  font-size: 140%;
+}
+
+.font150 {
+  font-size: 150%;
+}
+
+.font160 {
+  font-size: 160%;
+}
+.font170 {
+  font-size: 170%;
+}
+.font180 {
+  font-size: 180%;
+}
+.font190 {
+  font-size: 190%;
+}
+.font200 {
+  font-size: 200%;
+}
+
+.font250 {
+  font-size: 250%;
+}
+
+.font300 {
+  font-size: 300%;
+}
+
+
+</style>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
