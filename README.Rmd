@@ -6,7 +6,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Olá, seja bem vindo(a)! :smiley: :grin:
+# Olá, seja bem vindo(a)! :deciduous_tree: :smiley: :grin:
 
 # Descrição
 
