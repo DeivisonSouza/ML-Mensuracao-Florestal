@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>.font120[Aprendizado de Máquina  na Mensuração Florestal:]</title>
+    <title>Aprendizado de Máquina  na Mensuração Florestal:</title>
     <meta charset="utf-8" />
     <meta name="author" content=" Prof. Dr. Deivison Venicio Souza" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
-    <link href="libs/remark-css/tamu-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <script src="libs/jszip/jszip.min.js"></script>
+    <link href="libs/dt-ext-buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="libs/dt-ext-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.flash.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.html5.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.colVis.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.print.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# .font120[Aprendizado de Máquina <BR> na Mensuração Florestal:]
-## Técnicas, Modelagem e Aplicação Web <BR> <BR>
+# Aprendizado de Máquina <BR> na Mensuração Florestal:
+## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
-### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <span class="isDisabled"><a href="E-mail: deivisonvs@ufpa.br">E-mail: deivisonvs@ufpa.br</a></span> <BR> <BR></div>
-### <p>.center[20/fevereiro/2021 <BR> Altamira, Pará <BR> ]</p>
+### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
+### <p>.center[23/fevereiro/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
 
 name: toc
+
 
 
 
@@ -57,61 +73,167 @@ name: toc
     + Área: Big Data e Data Science
 ]
 
+&lt;!-- Slide2 --&gt;
 ---
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
 
-.pull-left[
+.pull-top[
+&lt;p style="font-weight:bold;"&gt; Parte 1 - Fundamentação teórica &lt;/p&gt;
 [1 - O que é aprendizado de Máquina (AM)](#AM)
 
 [2 - Tipos de Aprendizagem](#tipos)
 
-[3 - Aplicações nas ciências florestais](#aplicacoes)
-
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
 [5 - Pacote CARET](#caret)
-
-[6 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
-
-[7 - Aplicação Web com MAM: um exemplo prático.](#shiny)
-
 ]
 
+.pull-bottom[
+&lt;p style="font-weight:bold;"&gt; Parte 2 - Aplicações nas Ciências Florestais &lt;/p&gt;
+[1 - Aplicações nas ciências florestais](#aplicacoes)
+
+[2 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+
+[3 - Aplicação Web com MAM: um exemplo prático.](#shiny)
+]
+
+&lt;!--Slide3 --&gt;
 ---
 # Aprendizado de Máquina: um subconjunto da IA!
 
 &lt;img src="fig/diag.png" width="50%" style="display: block; margin: auto;" /&gt;
 .left[.footnote[Fonte: [Bial-R](https://www.bial-r.com/2019/05/22/comprendre-le-machine-learning-et-le-deep-learning/)]]
 
+&lt;!--Slide4 --&gt;
 ---
 name: AM
 # Aprendizado de Máquina (*Machine Learning*)
 
-.bg-washed-near-white.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
-.center[&lt;bdi style="font-weight:bold"&gt; 🤔 *Machine Learning*&lt;/bdi&gt;]
+**História:**
+- Surgiu em 1959;
+- Arthur Lee Samuel: Cunhou pela primeira vez o termo *Machine Learning*; e
+- Manuscrito: .blue[*Some Studies in Machine Learning Using the Game of Checkers*] &lt;a id='cite-samuel1959some'&gt;&lt;/a&gt;(&lt;a href='https://doi.org/10.1147/rd.33.0210'&gt;Samuel, 1959&lt;/a&gt;).
 
-&lt;bdi style="font-weight:bold"&gt;1959&lt;/bdi&gt;: `Arthur Lee Samuel` cunhou pela primeira vez o termo *Machine Learning*.
+--
 
-&lt;bdi style="font-weight:bold"&gt;Definição&lt;/bdi&gt;: É um `subconjunto de inteligência artificial` que frequentemente usa técnicas estatísticas para dar aos computadores a capacidade de `"aprender"` com dados, sem serem explicitamente programados.
+.pull-left[
+.blockquote[
+**Definição:** &lt;br&gt;
+É um .content-box-red[subconjunto de inteligência artificial] que frequentemente usa técnicas estatísticas para dar aos computadores a capacidade de .content-box-red["aprender"] com dados, sem serem explicitamente programados. &lt;br&gt;
 
 .tr[
 — (Parafraseado de Arthur Lee Samuel, 1959)
 ]
+]
+]
 
-&lt;br&gt;
+.pull-right[
+Arthur Samuel demonstrates how machine &lt;br&gt; learning can be used to play checkers in 1962.
+&lt;img src="fig/ArtSam.jpg" width="80%" style="display: block; margin: auto auto auto 0;" /&gt;
+.left[.footnote[Fonte: [artsandculture.google.com](https://artsandculture.google.com/asset/arthur-samuel-demonstrates-how-machine-learning-can-be-used-to-play-checkers-in-1962-ibm-watson-media/vgH46mpas8dL4g)]]
+]
 
-&lt;bdi style="color:blue;"&gt; *Some Studies in Machine Learning Using the Game of Checkers* &lt;/bdi&gt; (Samuel, 1959).
-
-] 
-
+&lt;!--Slide5 --&gt;
 ---
 name: tipos
 # Tipos de Aprendizagem
 
 &lt;img src="fig/ML.png" width="80%" style="display: block; margin: auto;" /&gt;
 .left[.footnote[Fonte: O Autor.]]
+
+&lt;!--Slide6 --&gt;
+---
+class: middle, left
+# A idéia de "Supervisionar"...
+&lt;br&gt;
+
+.blockquote[
+**Em um conjunto de dados...** &lt;br&gt;
+
+(..) para cada observação de preditora(s), `\(x_{i}\)` (i = 1, ..., n), existe uma resposta associada `\(y_{i}\)` (James, et al., 2013).
+] &lt;br&gt;
+
+
+\[
+\normalsize
+\underbrace{
+\overbrace{\begin{bmatrix}
+x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1n} \\
+x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nn}
+  \end{bmatrix}
+    }^{\mathbf{X}}
+    }_{\mathbf{Preditoras}}
+\underbrace{
+\overbrace{
+  \begin{bmatrix}
+    y_1     \\
+    y_2     \\
+    \vdots  \\
+    y_n     \\
+  \end{bmatrix}
+    }^{\mathbf{y}}
+    }_{\mathbf{Resposta}}
+\]
+
+.blockquote[
+**O papel de Supervisor...** &lt;br&gt;
+A idéia é que cada `\(y_{i}\)` exerça um papel de .content-box-red[“Professor”], responsável por .content-box-red[“Supervisionar”] o processo de aprendizagem de uma
+função `\(f(x)\)` (Hastie, Tibshirani, and Friedman, 2016).
+]
+
+&lt;!--Slide7 --&gt;
+---
+# Um conjunto de dados...
+
+
+```r
+data &lt;- data.table::fread("../docs/R-scripts/data.csv")
+
+data %&gt;% 
+  DT::datatable(class = "compact", rownames = FALSE, extensions = "Buttons",
+                options = list(dom = 'tBp', buttons = c("csv","excel"), 
+                               pageLength = 8))
+```
+
+```{=html}
+&lt;div id="htmlwidget-6b86f18154203e92ea8c" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-6b86f18154203e92ea8c"&gt;{"x":{"filter":"none","extensions":["Buttons"],"data":[[6.4,11.8,15,20,9.7,20.8,8,10.2,10.5,10.2,11.1,11.5,15.8,16.6,23,13.6,16.7,22.6,38.2,8.2,15.5,17,6.8,11.3,8.4,9.6,10.7,15.3,16.4,9.3,9.7,12.5,15.4,10,21,12,11,19,21,11,13,28,60,14,11,18,13,18,31,12,10,11,11,18,26,35,10,10,28.1,45.3,31,40.3,32.1,5.3,5,7.5,37,16.6,5.2,79.4,92.5,100,113.5,106.5,129,119.8,112.8,104.5,111,105,96.9,44,28.8,54.9,7.8,57.7,13.6,38.5,8.2,17.1,56.3,10.7,27.3,76.7,25.1,17.8,19.5,63.1,70.9,49.8,23.8,50.2,10.7,6.2,43.3,21.1,60.8,62.1,6.8,26.4,51.4,54.5,65.8,76,97.5,66.4,93.9,112.4,28.2,31.6,14.9,35.3,21.7,26.5,38.8,47,72,80,21.3,8.9,14.6,18.1,16.6,9.7,15,10.2,44.3,6.1,12.1,27.9,5,5.1,7.3,10.5,15.4,27.7,35,10.8,5.7,13.7,15.3,19.7,7.6,8.9,7,11.6,17.2,23.9,6.5,10.8,12.7,5.1,5.2,6.1,11.1,11.1,11.3,11.5,12.7,13.9,14,52.2,14.3,5.1,7.3,8.9,18.1,9.1,7.3,21.3,5.1,5.7,6.7,78.5,7,7,8,8.3,11.1,6.8,10.2,6.8,23.6,7.6,6.4,11.1,5.7,10.5,18.8,23.1,12.7,20.1,20.7,25.5,31.8,36,38.2,38.5,41.4,43.9,48.4,79.9,80.1,80.5,85.3,85.8,88,93.8,104.9,107,20.5,29.5,132,100,90,26.5,12,21.6,30.2,34.7,17.1,19.2,9.5,7.1,9.2,6.2,8.9,8.8,10,16.1,7.5,6.7,17.2,8,6.1,7.4,8.9,6.8,21.4,12.8,10.6,10.4,8.7,8.3,9.5,75.2,46.2,25,20.9,5.4,6,25.4,11.4,16.3,25,5.1,6.8,11.9,48.1,5.6,12.2,10.5,21.8,42.1,11.9,67.7,6,68.9,53,45,36.9,43.9,49.7,58.9,75.1,9.6,11,13.2,13.4,13.5,14.5,14.8,14.9,16.5,17.5,18,18.6,19,20.4,20.7,20.7,24.7,25.3,25.4,26,26.1,26.5,27.3,27.6,27.7,28.7,30.3,31.2,31.8,32.2,32.5,35.4,36,39.7,40.6,47.2,47.8,12.9,12.4,22,9.2,42.2,15.7,23.7,12,15.8,12.6,34.7,33.6,50.6,16.2,44.1,15.4,35.4,45.6,14.5,32.1,16.6,23.2,15.1,27,8.6,29.9,14.6,28.7,15.9,17.8,15.9,9.2,15,29,16.9,29.6,18.5,9.6,15.9,16.6,19.1,29,6.8,10.2,5.1,5.7,12.3,6.7,7.5,6.4,7.1,13.8,7,14,19.1,24.8,9.1,17.5,8.4,14,19,28,14,15,16,24,10,14,16,19,27,33,9,11,27,6.5,28,17.5,25,30,16.5,35,7,8,27,6,8,27,28,7,30,36,7.5,13.8,10.7,77.9,13.6,37.2,21.7,12.9,66.7,5.1,5.8,6.2,6.2,6.3,6.7,7.3,8.2,8.4,10,10.9,12,20.1,29,37.5,39.6,55.6,89,46.1,6.3,66.7,26.1,13.8,6.8,5.3,6,6.7,8.1,9,9,15.8,18,19.5,21.9,7.4,9.6,12.2,12.4,20.1,14.4,12.3,23.5,24.8,14.1,22.5,30.7,46,6,18.5,16.6,48.4,28.6,64.9,17.5,33.1,11.8,27.7,15.1,32,41.1,47.5,62.8,75.5,76,80.8,81,93.8,21.6,20.8,6.1,10.3,11.7,5.8,22.5,23.2,45,11.1,7.7,35.8,8.4,16.6,18.1,19.1,12.1,14.3,14.7,22.3,22.9,9.5,13.1,15.3,17.2,8.4,21,8.3,9,10.3,5.4,79.3,5,5,5.3,5.3,5.4,5.4,5.4,5.4,5.5,5.7,5.8,5.9,6,6.3,6.4,6.6,6.8,6.8,7,7.1,7.8,8,8,8,8.1,8.2,8.3,8.4,8.8,9.5,9.9,10,10.1,10.2,10.5,12.7,13.4,14,15,15.3,16.2,17.2,17.2,17.5,18.1,19.1,22.6,27.1,6.1,7.1,7.5,7.5,7.6,7.6,7.8,7.8,7.9,7.9,8.3,8.9,9.2,9.5,10.1,10.1,10.5,11.1,12,13.7,5.3,5.7,6.2,6.5,8.5,9.5,19.1,5.1,10.7,5.8,6.3,8.1,9.8,15.6,22.6,22.9,11.5,30.9,40.7,8.6,8.6,10.5,22.3,12,7.6,11.9,14.8,12,11.6,24.6,49,19.2,22.9,14.7,45.4,12.4,20,8.5,5.7,9.9,13.9,6,9.4,42.7,9.3,49.2,70.5,13.4,45.2,9.5,37.8,9.8,12.4,124.8,15.4,8.9,5.6,13.9,11.8,7.7,42.8,18.9,11,8.2,7.6,11.6,5.5,12.4,7.9,16.5,13.2,11.6,8.9,15.9,7.6,17.2,12.4,10.5,21,22.6,32.5,14,28,32,34,48,73.3,78,9,20.3,20.9,25,30.2,35.3,45,54,17,18,18,25,52,54,63,6.7,22,27.2,36,41,48.5,21.7,42,38.8,47.8,19.3,30.1,11.9,52.8,5.7,7.8,8.2,9.3,12.4,14.8,16.7,27.8,11.3,15.3,25.5,12.8,20.3,41.7,14,17.2,11.3,12.1,17.2,28.2,12.3,23,23.2,25.2,35,37.3,25.6,13.6,14.1,15.1,18,31.7,10.4,10.5,10.6,11.5,11.6,11.7,12.4,12.8,12.9,13.7,14.5,9.1,16.6,6.7,10.7,16.6,5.7,6,6.2,6.4,7.3,8.3,9.5,10.5,13.2,13.7,20.4,32.5,6,9.4,11.5,8.3,5.4,7,10.8,10.3,13.1,15.8,6.4],[5,8.7,8.9,11.6,11.3,14.3,6.7,7.2,6.8,12,12,15,16.5,12,18.3,16.3,14.2,13.1,14.6,9.1,14.2,19.1,10.8,11.5,13.5,14.7,13.5,17.2,19.3,15,14.6,16,15.6,7,19,19,11,22,23,14,18,24,34,12,16,21,13,20,24,16,11,16,12,17,18,20,15,12,26,27.7,26.8,33.5,33,8.3,8.2,10.3,24,17.2,6.3,35,47.4,49.3,43.3,49.3,48.3,52.7,47,47.7,47.2,46.5,46.4,39.2,26.9,35.9,10.1,31.1,15.9,27.8,14.9,19.8,32.9,15,22.9,33.8,23.9,18.8,18.7,29.8,28,33,26.1,29,15.5,11.9,28.8,17.4,45.1,46.4,9.5,26.7,34.7,36.5,42,41.7,36,36.9,32.5,37,22.2,18.1,17.1,30.7,18.9,18,25.3,25.9,31.4,36,24.8,9,17.1,22.3,22.3,10.6,17.2,12.4,31,9.5,16.6,29.6,10.5,9.1,9.8,10.8,16.1,25.3,28,15.5,5.6,18.6,16,23.6,10.3,10.6,6.9,18.4,20.8,24.7,10.5,12,16.2,9.2,7.1,8.4,12.9,16.3,15.5,15.3,19.2,14.4,17.1,31.2,16,7.5,6.2,13.8,21.5,14.5,12.6,19,5.4,6.2,8.2,32,9.5,10.4,11,11.5,13.5,10,13.5,7.5,20.8,15.5,11.4,14.4,7.8,15.4,22,28.1,16.9,18,22,21.9,27,18.1,28.6,27.1,36.3,25.3,39.4,39.1,44.9,41.4,45.1,42.1,40.4,31.3,43.5,39.3,21.2,22.5,45,50.5,50.5,26,17,9.5,14.5,17,8.5,11.1,5,6.4,5.4,6.6,9.2,8.8,6.9,8.5,6.3,7.4,9,8.1,7.6,7.1,9.3,7.1,10.4,8.6,8.2,8,7.7,6,5.5,50.5,32.6,28.1,25.1,8.6,8.9,24.4,13.7,20,27.7,9.6,11.2,16.3,38.3,8.1,18.6,11.6,20.2,27.9,17.4,43.5,11.1,35.1,31,37,22.4,42.4,38.5,38.5,46.3,11.6,14.6,18.5,10.2,16.2,18.6,13.1,15.3,14.9,14.8,16.8,18.4,13,19.9,17,18,27,18,19,21.5,23,19.4,8.9,26.5,26.8,18.5,23.5,21.5,28.7,20.5,23,19,21.5,28,24,21.5,24.1,14,16,15,10.5,27,13,22,7.5,6.5,11.3,17.5,22.3,28.1,15.5,14.2,18,20.8,31.7,16.9,20.9,14.1,10.5,12.5,13.2,10.2,11,12.5,14,9.3,9.2,13.2,6,9.2,11,10.5,12,8.5,8.5,10.5,8.4,10.5,6.5,6.7,7.7,3.5,5.1,8.2,3.9,5.6,3.4,4.2,7,3.8,5.3,5.4,4.4,3.4,5.2,6.7,19,21,25,20,14,14,11,11,14,18,15,21,25,11,12,17,6.5,17,13,18,10.5,12.5,16.5,8.5,7,15.5,10,10.5,18,17,11.5,20,21,7,21.4,13.5,50,18,34.4,22.7,16.3,42,5.8,9.9,12.2,8.7,9.2,9.5,10.6,10.7,12.4,12.8,11.1,19.3,24,25.9,31,28,42.5,48,32.5,12.2,40.4,25.8,16.2,7.8,8,10.9,10.5,11.2,9.6,12.6,15,16,16.3,13.8,8.7,10.3,14.5,14.1,13.8,14.8,13.2,23.6,16.6,15,12.2,10,16,4.7,5,20,28,26.8,37.8,13,28.9,15.8,24,18,25.1,18.5,34,27.2,36,33.9,35.2,42.3,41.5,19.9,12,8.4,8.5,15.8,8.3,13.4,12.2,15.3,5.9,4.6,14.1,7.7,14.3,12.8,12.6,7.2,9,9.2,12.3,10.2,6.2,9.7,8.4,9.9,7,25,10,9.8,12,3.6,13.3,3.5,2.9,2.9,2.8,4,4,4,2.9,3,3.4,3.1,4,3.6,2.4,3.9,4.5,4.2,3.7,3.6,3,4.4,4.4,3.3,3.9,4.9,4.1,4.6,3.6,4.2,3.8,3.6,2.5,4.8,4.6,5,4.5,6,5.2,4,4.8,6.1,6.2,6.2,4.5,3.1,6.5,6.2,7.4,3.9,4.4,4.5,4,3,4,5.1,3.4,5.4,4.5,4,3.5,4.3,4.1,4.7,5.1,3.7,4.4,4.5,4.8,3.4,3.5,3.1,3,4.2,3.4,4.1,3.2,5,3.6,2.1,3.2,4.6,6.4,7.9,6.4,2.3,8,6.7,3.3,3,3.7,3.4,14.1,12,14.8,19.5,18.5,17.3,28.2,30.1,24.6,21.4,13.5,29.5,17,19.6,13.2,9,13.8,15.2,8.9,15.3,27.6,13.6,28.2,39.4,15.4,24.9,13.8,25.2,13.8,18.8,45.9,18.5,11.2,9.1,16.8,15,10.6,28.3,20.8,11.8,11.6,11.7,13.4,9.4,18.9,12.5,17.9,20.4,16,12.6,23.9,12.3,10.6,12.5,11,20.7,23.4,32.9,5.2,8.3,12,9.8,17,18.5,17.9,6,10.5,14,12.3,10.6,18,14.8,15.7,10.6,9.8,8.1,12.9,19.2,13.6,12.3,7.3,9.2,13.4,18.2,15.5,22,24.6,22.9,23.4,28.9,24.9,26.3,19.3,25.9,4.5,3.5,7.4,7.3,12.8,13,14.3,20.7,12.1,14.2,19,13.6,17.3,23.2,12.5,16.8,14.3,14.6,16.6,17,11.1,13.3,15.4,16.5,10.6,18.1,14.5,13.4,8.2,14.4,14.2,20.5,11.3,8.7,11.9,10,12.3,10.9,9.9,11.4,11,12.6,13.6,7.4,10.4,7.4,8.3,7.4,4.3,7.5,5.8,5,6,8,6,7.6,9.5,8.2,9.4,13.3,6,4.1,5,4.6,3,5,5.6,7.5,7.6,9.3,3.8],[1.04,1.04,0.83,0.83,0.92,0.92,0.63,0.63,0.63,0.57,0.51,0.52,0.55,0.58,0.57,0.4,0.4,0.4,0.4,0.39,0.48,0.44,0.74,0.72,0.54,0.58,0.65,0.7,0.45,0.6,0.51,0.66,0.55,0.61,0.34,0.78,0.67,0.67,0.67,0.85,0.85,0.83,0.52,0.6,0.55,0.82,0.61,0.53,0.46,0.72,0.39,0.63,0.63,0.63,0.63,0.63,0.77,0.58,0.65,0.85,0.79,0.65,0.65,0.47,0.74,0.68,0.46,0.48,0.77,0.81,0.67,0.67,0.67,0.78,0.57,0.57,0.75,0.55,0.33,0.33,0.33,0.75,0.71,0.53,0.48,0.43,0.42,0.72,0.44,0.71,0.49,0.5,0.32,0.49,0.48,0.3,0.25,0.33,0.3,0.83,0.56,0.47,0.4,0.39,0.53,0.55,0.7,0.73,0.55,0.53,0.53,0.53,0.53,0.53,0.53,0.6,0.6,0.6,0.72,0.72,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.52,0.68,0.64,0.25,0.63,0.56,0.77,0.25,0.64,0.68,0.59,0.69,0.74,0.74,0.65,0.74,0.69,0.69,0.74,0.72,0.75,0.48,0.53,0.63,0.48,0.56,0.69,0.69,0.73,0.55,0.74,0.74,0.6,0.82,0.62,0.62,0.67,0.6,0.52,0.58,0.72,0.61,0.61,0.72,0.46,0.76,0.57,0.54,0.53,0.38,0.73,0.73,0.63,0.63,0.63,0.74,0.59,0.59,0.59,0.59,0.59,0.5,0.65,0.6,0.6,0.39,0.7,0.59,0.71,0.68,0.63,0.61,0.92,0.61,0.76,0.72,0.66,0.46,0.57,0.5,0.8,0.57,0.66,0.72,0.61,0.66,0.5,0.5,0.5,0.57,0.61,0.66,0.23,0.27,0.54,0.58,0.57,0.73,0.78,0.41,0.73,0.73,0.73,0.81,0.79,0.78,0.78,0.64,0.76,0.85,0.59,0.84,0.59,0.34,0.34,0.8,0.8,0.6,0.77,0.81,0.81,0.81,0.81,0.81,0.81,0.81,0.69,0.37,0.36,0.62,0.44,0.59,0.59,0.5,0.34,0.34,0.55,0.6,0.69,0.79,0.57,0.46,0.52,0.56,0.7,0.71,0.53,0.72,0.68,0.51,0.53,0.5,0.37,0.53,0.52,0.54,0.52,0.7,0.78,0.49,0.77,0.49,0.7,0.77,0.76,0.77,0.78,0.7,0.78,0.76,0.7,0.7,0.86,0.86,0.89,0.53,0.89,0.86,0.7,0.76,0.86,0.75,0.98,0.49,0.89,0.49,0.85,0.89,0.89,0.89,0.53,0.75,0.53,0.89,0.3,0.16,0.16,0.59,0.87,0.67,0.67,0.36,0.52,0.81,0.61,0.55,0.57,0.76,0.39,0.8,0.76,0.81,0.8,0.71,0.46,0.53,0.56,0.68,0.61,0.68,0.73,0.76,0.43,0.36,0.58,0.73,0.72,0.78,0.66,0.56,0.55,0.62,0.58,0.68,0.61,0.56,0.52,0.57,0.2,0.73,0.79,0.23,0.71,0.46,0.31,0.29,0.18,0.23,0.25,0.22,0.1,0.1,0.86,0.45,0.48,0.52,0.56,0.58,0.57,0.66,0.64,0.68,0.69,0.65,0.67,0.64,0.66,0.65,0.64,0.53,0.54,0.27,0.26,0.26,0.54,0.45,0.36,0.47,0.77,0.41,0.39,0.44,0.53,0.55,0.69,0.64,0.57,0.58,0.48,0.6,0.61,0.57,0.56,0.63,0.57,0.56,0.58,0.62,0.72,0.63,0.59,0.46,0.4,0.68,0.41,0.64,0.69,0.64,0.6,0.75,0.65,0.65,0.6,0.58,0.67,0.74,0.59,0.43,0.78,0.61,0.61,0.61,0.61,0.78,0.61,0.61,0.61,0.61,0.61,0.93,0.93,0.93,0.93,0.93,0.58,0.66,0.73,0.59,0.56,0.66,0.65,0.63,0.6,0.62,0.43,0.56,0.46,0.53,0.37,0.65,0.43,0.43,0.6,0.36,0.26,0.61,0.59,0.7,0.58,0.89,0.78,0.71,0.71,0.59,0.71,0.9,0.58,0.46,0.77,0.77,0.77,0.31,0.73,0.59,0.61,0.66,0.66,0.89,0.81,0.81,0.81,0.42,0.42,0.39,0.39,0.39,0.39,1.05,0.74,0.56,0.32,0.62,0.9,0.87,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.85,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.84,0.89,0.84,0.86,0.84,0.84,0.84,0.84,1.04,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.94,0.43,0.43,0.43,0.43,0.43,0.43,0.43,0.6,0.6,0.56,0.56,0.56,0.56,0.56,0.85,0.71,0.51,0.49,0.51,0.8,0.72,0.75,0.78,0.79,0.84,0.66,0.67,0.54,1.08,0.9,0.41,0.6,0.56,0.65,0.59,0.58,0.58,0.57,0.62,1.05,1.05,0.65,0.51,0.44,0.56,0.51,0.51,0.71,0.71,0.63,0.56,0.61,0.84,0.71,0.54,1.05,0.52,0.62,0.66,0.45,0.76,0.71,0.51,0.51,0.74,0.74,0.56,0.78,0.94,0.51,0.72,0.61,0.63,0.84,0.52,0.5,0.5,0.5,0.42,0.48,0.49,0.42,0.42,0.55,0.74,0.55,0.55,0.55,0.41,0.62,0.56,0.63,0.56,0.67,0.72,0.56,0.76,0.63,0.55,0.74,0.74,0.63,0.7,1.08,0.79,0.72,0.69,0.63,0.74,0.72,0.73,0.53,0.71,0.71,0.73,0.63,0.58,0.44,0.36,0.44,0.44,0.42,0.44,0.42,0.44,0.54,0.64,0.87,0.6,0.6,0.6,0.63,0.64,0.51,0.51,0.73,0.57,0.81,0.81,0.81,0.81,0.81,0.81,0.79,0.71,0.71,0.71,0.9,0.94,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.69,0.69,0.61,0.61,0.56,0.73,0.73,0.73,0.73,0.73,0.73,0.73,0.73,0.73,0.73,0.73,0.73,0.76,0.62,0.62,0.62,0.65,0.58,0.58,0.65,0.65,0.65,0.4],[7.07,46.44,81.42,158.66,27.18,232.32,18.1,22.53,42.16,46.73,37.45,55.79,140.31,105.17,243.02,40.19,94.04,159.49,627.41,17.09,74.28,105.56,17.41,55.99,25.54,35.49,39.68,129.87,131.92,43.85,43.09,88.71,102.27,18.24,190.29,36.97,54.67,329.86,335.33,90.12,137.2,1312.46,3204.19,85.38,77.82,357.12,74.63,192.19,699.05,95.94,35.39,46.41,70.8,154.1,689.6,1290.55,46.37,31.2,668.9,2375.7,1299.6,1661.6,893.75,7.8,8.58,20.77,660.66,115.57,5.28,10045,13078.38,21735.71,27678.53,22657.58,19776.42,24377.97,30530.99,17663.89,8650.35,8845.14,6135.58,2832.8,951.3,1708.34,20.78,2681.67,81.66,1589.64,41.94,212.44,2167.89,42.45,531.76,6082.54,382.72,121.29,131.28,1939.67,2519.89,2259.24,545.36,1330.51,32.51,16.96,4666.75,194.58,4374.88,5403.71,8.33,420.71,2441.73,2137.32,3287.95,5066.42,5453.61,3576.06,5615.16,5848.68,455.05,464.26,62.58,740.11,150.12,223.47,648.89,974.02,3392.88,3976.15,245.89,38.17,95.27,83.53,216.41,21.06,118.53,11.45,1736.3,7.3,67.13,654.53,6.93,5.55,9.64,49.57,102.15,818.61,1657.59,65.46,8.08,49.29,52.84,219.76,16.16,14.92,7.69,71.47,174.46,312.57,12.07,28.77,56.47,5.87,4.17,3.2,28.75,36.22,44.82,52.04,64.7,56.6,110,3299.79,43.78,6,9.43,28.97,151.11,42.17,12.89,193.82,6.42,4.73,11.31,5931.03,4.38,15.01,19.96,32.8,56.29,5.96,54.25,10.55,250.26,16.19,8.02,40.09,5.77,32.27,157.33,323.11,98.49,148.44,324.25,730.11,705.52,618.87,1257.93,626.57,2272.15,1011.08,2436.77,6887.79,8440.24,7245.16,5295.96,2967.47,5497.54,5130.72,6685.88,7130.94,100,300,15380,18610,12340,790,130,194.6,398.5,554.8,81.8,98.33,14.43,14.93,13.49,10.48,23.55,20.33,12.28,34.11,11.22,4.62,39.27,22.55,6.42,8.64,27.84,5.77,100.89,38.9,40.31,43.79,20.55,26.9,19.41,8340.57,2537.03,486,298.67,9.76,13.85,477.72,22.18,165.77,485.49,7.59,23.73,107.04,2353.01,6.07,75.32,38.84,254.18,1743.91,63.48,6270.05,19.09,3546.68,2583.27,1785.34,588.63,1660.94,2017.15,3360.43,5426.59,95.01,119.08,137.32,130.49,93.82,279.97,173.83,167.39,290.58,220.86,326.84,339.24,236.31,495.05,457.77,408,782.61,843.23,446.69,1150.24,911.95,750.05,589.8,958.09,895.61,750.23,611.74,1142.69,862.46,870.02,1545.07,1410.63,1783.17,1214.04,2277.79,1578.23,3412.33,20.42,24.26,87.29,23.65,1887.94,190.48,266.21,18.77,37.66,94.5,447.99,680.98,1777.74,166.65,754.91,174.44,857.64,2321.47,141.15,636.66,58.93,112.95,95.12,307.42,18.61,546.06,109.97,511.72,85.14,73.96,126.48,29.6,89.09,581.25,172.32,522.37,168.71,31.48,84.32,110.77,125.97,208.65,9.42,30.37,1.26,11.56,99.45,2.67,15.92,12.62,9.52,24.91,2.28,13.45,24.44,30.22,1.23,3.51,34.88,118.16,224.45,654.97,153.39,127.67,164.17,286.02,45.3,77.93,165.14,213.22,436.57,898.39,40.89,66.18,274.63,11.37,281.91,105.86,188.46,141.27,85.99,305.61,8.53,14.04,330.88,7.36,13.2,264.49,318.58,22.98,538.71,1062.26,17.88,136.47,34.63,9836.28,116.78,1265.64,316.45,81.91,6297.34,8.31,10.74,11.96,14.7,13.69,12.43,9.96,15.87,36.02,28.39,33.77,100.67,269.98,577,1543.03,1563.88,4363.15,14062.9,1608.99,18.22,6172,726.18,59.75,14.9,7.89,11,9.73,22.13,24.4,30.3,77.1,126.6,183.3,199.7,22.9,39.6,82.6,124.5,276.4,144.5,76.1,530.6,358.1,142.3,236.16,385.3,1245.5,4.9,102.66,113.8,1047.3,430,1692.7,77.4,1158,63.5,374.9,145.27,365.48,484.87,2032.59,3669.27,8947.61,5215.23,12610.39,10484.1,14255.43,224.66,177.38,14.92,48.78,63.6,6.1,321.6,444.5,1104.5,20.2,15.1,550.95,17.58,56.13,81.84,120.03,53.86,76.61,115.09,118.15,86.15,12.11,33.57,41.56,59.15,24.23,194.69,14.33,16.8,42.63,1.87,4538.06,2.98,1.4,3.31,3.31,7.14,4.63,3.31,3.32,3.82,3.74,3.97,5.64,6.11,6.33,6.19,4.01,7.7,4.67,6.22,8.38,7.81,9.45,9.27,8.48,5.18,11.92,26.07,15.18,12.34,15.14,18.44,11.72,27.19,15.15,28.22,16.25,137.81,41.27,37.31,28.56,65.96,49.98,46.76,40.01,35.76,84.93,113.21,268.12,6.99,16.5,13.14,11.86,11.14,8.74,14.55,7.71,41.45,15.43,10.52,16.82,17.44,9.23,26,22.02,20.67,25.78,29.3,38.76,2.38,2.59,4.25,6.5,6.61,3.95,40.95,2.16,14.54,2.92,3.07,4.7,21.01,30.49,175.36,148.1,8.96,136.02,313.5,11.03,9.33,26.29,82.47,71.59,21.62,74.51,103.53,76.82,64.35,659.23,2227.8,193.19,197.81,132.43,1942.14,84.74,369.82,30.54,9.59,55.53,124.37,18.21,26.77,1053.73,35.97,1479.68,4405.57,85.25,1877.75,34.69,805.47,47.62,112.04,20415.96,82.92,46.11,9.49,128.52,72.97,20.53,1361.67,274.32,73.7,44.79,31.21,91.84,16.62,132.86,29.45,150.65,118.71,92.29,54.58,292.07,13.3,80.7,27.2,34.4,276.3,308.23,728.08,63.2,445.02,533.45,698.69,1724.51,4510.53,4345.78,23.52,183.31,194.89,231.55,485.68,779.81,1322.39,1909.19,172.72,115.94,111.64,338.44,1972.29,1958.52,2081.16,17.82,241.4,527.48,940.31,958.88,1739.36,341.67,1715.81,1163.61,1831.62,387.49,836.04,71,1228.16,4.09,5.67,11.87,12.05,35.38,74.04,89.14,278.88,60.45,99.16,290.27,93.63,265.23,1041.84,132.2,209.12,81.24,94.82,315.48,328.67,91.86,433.39,358.09,539.56,455.01,1163.54,456.21,130.57,36.99,183.57,159.37,305.32,59.92,71.99,77.75,75.65,83.88,59.9,56.92,65.57,78.39,109.37,169.17,27.64,80.1,8.1,44.05,88.69,6.79,17,19.25,20.39,14.11,24.87,23.11,46.24,87.25,94.08,180.15,704.4,9.03,25.2,33.29,9.1,2.9,8.94,23.03,54.05,73.62,119,6.35]],"container":"&lt;table class=\"compact\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt;D&lt;\/th&gt;\n      &lt;th&gt;H&lt;\/th&gt;\n      &lt;th&gt;WSG&lt;\/th&gt;\n      &lt;th&gt;AGB&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"dom":"tBp","buttons":["csv","excel"],"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[0,1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+```
+
+---
+# Uma análise de regressão...
+&lt;br&gt;
+
+.blockquote[
+**Motivos para fazer uma análise de regressão...** (Izbicki and Santos, 2020) &lt;br&gt;
+
+- **Inferencial**: Tirar conclusões sobre a população:
+  - Interpretar parâmetros;
+  - Estimar intervalos de confiança (IC) dos parâmetros; e
+  - Testes de hipóteses (normalidade, homocedasticidade dos resíduos, etc.) `\(\Rightarrow\)` .content-box-red[Suposições da RL]
+
+
+- **Preditivista**: Foco na capacidade preditiva. Deseja-se boas predições!
+]
+
+---
+# As duas culturas...
+&lt;br&gt;
+
+.blockquote[
+**Culturas de modelagem...** 
+
+Data modeling culture
+- Objetivo principal: interpretação dos parâmetros 
+
+Algorithmic modeling culture. 
+
+(Breiman, 1984)
+]
 
 ---
 name: AS
@@ -121,6 +243,7 @@ name: AS
 
 .left[.footnote[Fonte: O Autor.]] 
 
+&lt;!--Slide6 --&gt;
 ---
 name: MAM
 # Um modelo de aprendizado de máquina: CART
@@ -146,11 +269,12 @@ name: AMIF
 
 
 ```r
-Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019"))
+Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019",
+               "james2013introduction"))
 ```
 
 ```
-## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019)"
+## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019; James, Witten, Hastie, et al., 2013)"
 ```
 
 ---
@@ -296,14 +420,32 @@ DOI: &lt;a href="https://doi.org/10.1016/j.biosystemseng.2009.11.010"&gt;10.1016
 In: &lt;em&gt;Canadian Journal of Forest Research&lt;/em&gt; 38.1, pp. 1&amp;ndash;9.
 DOI: &lt;a href="https://doi.org/10.1139/X07-119"&gt;10.1139/X07-119&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;cite&gt;Hastie, T., R. Tibshirani, and J. Friedman
+(2016).
+&lt;em&gt;The Elements of Statistical Learning: Data Mining, Inference, and Prediction&lt;/em&gt;.
+New York: Springer.
+745 pp.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
+
+&lt;p&gt;&lt;cite&gt;Izbicki, R. and T. M. Santos
+(2020).
+&lt;em&gt;Aprendizado de máquina: uma abordagem estat\'istica&lt;/em&gt;.
+268 pp.
+ISBN: 978-65-00-02410-4.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;James, G., D. Witten, T. Hastie, et al.
+(2013).
+&lt;em&gt;An introduction to statistical learning&lt;/em&gt;.
+Vol. 112.
+Springer.&lt;/cite&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;cite&gt;Korhonen, K. T. and A. Kangas
 (1997).
 &amp;ldquo;Application of nearest-neighbour regression for generalizing sample tree information&amp;rdquo;.
 In: &lt;em&gt;Scandinavian Journal of Forest Research&lt;/em&gt; 12.1, pp. 97&amp;ndash;101.
 DOI: &lt;a href="https://doi.org/10.1080/02827589709355389"&gt;10.1080/02827589709355389&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Kuhn, M.
 (2018).
@@ -316,6 +458,9 @@ URL: &lt;a href="https://CRAN.R-project.org/package=caret"&gt;https://CRAN.R-pro
 &lt;em&gt;Applied predictive modeling&lt;/em&gt;.
 Vol. 810.
 Springer.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Maltamo, M. and K. Eerikainen
 (2001).
@@ -334,9 +479,6 @@ DOI: &lt;a href="https://doi.org/10.17562/PB-56-4"&gt;10.17562/PB-56-4&lt;/a&gt;
 &amp;ldquo;Support vector machines and neural networks used to evaluate paper manufactured using Eucalyptus globulus&amp;rdquo;.
 In: &lt;em&gt;Applied Mathematical Modelling&lt;/em&gt; 36.12, pp. 6137&amp;ndash;6145.
 DOI: &lt;a href="https://doi.org/10.1016/j.apm.2012.02.016"&gt;10.1016/j.apm.2012.02.016&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Nunes, M. H. and E. B. Görgens
 (2016).
@@ -349,8 +491,11 @@ DOI: &lt;a href="https://doi.org/10.1371/journal.pone.0154738"&gt;10.1371/journa
 &amp;ldquo;Estimating tree bole volume using artificial neural network models for four species in Turkey&amp;rdquo;.
 In: &lt;em&gt;Journal of environmental management&lt;/em&gt; 91.3, pp. 742&amp;ndash;753.
 DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jenvman.2009.10.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
-&lt;p&gt;&lt;cite&gt;Samuel, A. L.
+&lt;p&gt;&lt;cite&gt;&lt;a id='bib-samuel1959some'&gt;&lt;/a&gt;&lt;a href="#cite-samuel1959some"&gt;Samuel, A. L.&lt;/a&gt;
 (1959).
 &amp;ldquo;Some studies in machine learning using the game of checkers&amp;rdquo;.
 In: &lt;em&gt;IBM Journal of research and development&lt;/em&gt;, pp. 211&amp;ndash;229.
@@ -367,33 +512,12 @@ DOI: &lt;a href="https://doi.org/10.2989/20702620.2016.1263013"&gt;10.2989/20702
 &amp;ldquo;Comparison of data mining and allometric model in estimation of tree biomass&amp;rdquo;.
 In: &lt;em&gt;BMC bioinformatics&lt;/em&gt; 16.1, p. 247.
 DOI: &lt;a href="https://doi.org/10.1186/s12859-015-0662-5"&gt;10.1186/s12859-015-0662-5&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Sanquetta, C. R., J. Wojciechowski, A. P. Dalla Corte, et al.
 (2013).
 &amp;ldquo;On the use of data mining for estimating carbon storage in the trees&amp;rdquo;.
 In: &lt;em&gt;Carbon balance and management&lt;/em&gt; 8.1, p. 6.
 DOI: &lt;a href="https://doi.org/10.1186/1750-0680-8-6"&gt;10.1186/1750-0680-8-6&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;cite&gt;Schikowski, A. B., A. P. D. Corte, and C. R. Sanquetta
-(2015).
-&amp;ldquo;Estudo da forma do fuste utilizando redes neurais artificiais e funções de afilamento&amp;rdquo;.
-In: &lt;em&gt;Pesquisa Florestal Brasileira&lt;/em&gt; 35.82, pp. 119&amp;ndash;127.
-DOI: &lt;a href="https://doi.org/10.4336/2015.pfb.35.82.867"&gt;10.4336/2015.pfb.35.82.867&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;cite&gt;Souza, D. V.
-(2020).
-&amp;ldquo;Aprendizado de máquina para predição de biomassa e volume comercial de árvores em florestas tropicais&amp;rdquo;.
-Tese de Doutorado.
-Curitiba, Paraná, p. 171.&lt;/cite&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;cite&gt;Souza, D. V., J. C. Nievola, J. X. Santos, et al.
-(2019).
-&amp;ldquo;k-Nearest Neighbor Regression in the Estimation of Tectona Grandis Trunk Volume in the State of Pará, Brazil&amp;rdquo;.
-In: &lt;em&gt;Journal of Sustainable Forestry&lt;/em&gt; 38.8, p. 755–768.
-DOI: &lt;a href="https://doi.org/10.1080/10549811.2019.1607391"&gt;10.1080/10549811.2019.1607391&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
 ---
 class: inverse, middle
@@ -559,9 +683,22 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
 <style>
+/***********
+ Slide margins and spacings
+ ***********/
+ /*
+.remark-slide-content {
+  padding-top: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 25px;
+  border-image: url(fig/flw.jpg) 50 round;
+}
+*/
+
 .remark-slide-content {
   background-color: #FAFAFA;
-  /* border-top: 80px solid #23373B;*/
+  /*border-top: 80px solid #23373B;*/
   border-image: url(fig/flw.jpg) 50 round;
   font-size: 20px;
   font-weight: 300;
@@ -572,6 +709,81 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 .title-slide .inverse .remark-slide-content {
   background-color: #FAFAFA;
 }
+
+
+/*
+To specify the margin of the first title h1
+*/
+.remark-slide-content > h1:first-of-type {
+  margin-top: -95px;
+  margin-bottom: 10px;
+}
+
+.remark-slide-content > h2:first-of-type {
+  color: #ffffff;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.remark-slide-content > h3:first-of-type {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.remark-slide-content > h4:first-of-type {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/*
+Remove linha central do slide de titulo
+*/
+hr, .title-slide h2::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: transparent;
+  color: none;
+  height: 1px;
+  margin-right: 10px;
+}
+
+
+/*************************
+  Custom classes
+**************************/
+
+.pull-left-2 {
+  float: left;
+  width: 60%;
+}
+.pull-right-1 {
+  float: right;
+  width: 36%;
+}
+
+.pull-left-1 {
+  float: left;
+  width: 36%;
+}
+.pull-right-2 {
+  float: right;
+  width: 60%;
+}
+
+
+/* use to position text at the bottom */
+.pull-down {
+  position: absolute;
+  bottom: 50px;
+}
+
+/* Change default inverse background colour */
+
+/*
+.inverse {
+  background-color: #0148A4;
+  text-shadow: 0 0 20px #333;
+}
+*/
 
 .inverse {
  /* background-image: url(fig/img.jpg);*/
@@ -585,294 +797,509 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   text-align: center;
 }
 
-/* Removes colored bar from top of the slide resulting in a clear slide */
-.clear{
-  border-top: 0px solid #FAFAFA;
+
+.inverse .remark-slide-number {
+  display: none;
+}
+/* background colour classes */
+.sydney-blue {
+  background-color: #0148A4;
+  color: white;
+}
+.sydney-yellow {
+  background-color: #FFB800;
+}
+.sydney-red {
+  background-color: #e64626;
+  color: white;
+}
+/* segue */
+.segue {
+  text-align:center;
+  vertical-align: middle;
+  background-color: #0148A4;
+  color: #ffffff;
+  text-shadow: 0 0 20px #333;
+}
+.segue .remark-slide-number {
+  display: none;
 }
 
+.segue-red {
+  text-align:center;
+  vertical-align: middle;
+  background-color: #e64626;
+  color: #ffffff;
+  text-shadow: 0 0 20px #333;
+}
+.segue-red .remark-slide-number {
+  display: none;
+}
+
+.segue-yellow {
+  text-align:center;
+  vertical-align: middle;
+  background-color: #FFB800;
+  color: #424242;
+  text-shadow: 0 0 2px #333;
+}
+.segue-yellow .remark-slide-number {
+  display: none;
+}
+
+/* example slide with background colour to distinguish
+it from other content slides */
+.eg {
+  background-color: #F1F1F1;
+  /* rgb(231, 238, 242); */
+}
+.eg.nobackground {
+  background-color:white;
+}
+
+/* link colour */
+a {
+    color: #0148A4;
+}
+
+.columns-2 {
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+  -webkit-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+}
+
+.columns-21 {
+  -webkit-columns: 66%, 33%;
+  -moz-columns: 66%, 33%;
+  columns: 66%, 33%;
+  -webkit-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+}
+
+/******************
+ * Slide scrolling
+ * (non-functional)
+ * not sure if it is a good idea anyway
+slides > slide {
+  overflow: scroll;
+ padding: 5px 40px;
+}
+.scrollable-slide .remark-slide {
+  height: 400px;
+  overflow: scroll !important;
+}
+ ******************/
+
+.scroll-box-8 {
+  height:8em;
+  overflow-y: scroll;
+}
+.scroll-box-10 {
+  height:10em;
+  overflow-y: scroll;
+}
+.scroll-box-12 {
+  height:12em;
+  overflow-y: scroll;
+}
+.scroll-box-14 {
+  height:14em;
+  overflow-y: scroll;
+}
+.scroll-box-16 {
+  height:16em;
+  overflow-y: scroll;
+}
+.scroll-box-18 {
+  height:18em;
+  overflow-y: scroll;
+}
+.scroll-box-20 {
+  height:20em;
+  overflow-y: scroll;
+}
+.scroll-output {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+
+
+
+ /* inline code background */
+ .remark-inline-code {
+   /* until the link between code and mathjax
+   is broken, we need to use transparent */
+  background: transparent; /* #F5F5F5; /* lighter */
+  /* background: #e7e8e2; /* darker */
+  border-radius: 3px;
+  padding: 2px;
+}
+
+
+
+/******************
+ * Coloured content boxes
+ ****************/
+.content-box {
+    box-sizing: border-box;
+    background-color: #e2e2e2;
+}
+.content-box-blue,
+.content-box-gray,
+.content-box-grey,
+.content-box-army,
+.content-box-green,
+.content-box-purple,
+.content-box-red,
+.content-box-yellow {
+  box-sizing: border-box;
+  border-radius: 15px;
+  margin: 0 0 15px;
+  overflow: hidden;
+  padding: 0px 20px 0px 20px;
+  width: 100%;
+}
+.content-box-blue { background-color: #F0F8FF; }
+.content-box-gray { background-color: #e2e2e2; }
+.content-box-grey {	background-color: #F5F5F5; }
+.content-box-army {	background-color: #737a36; }
+.content-box-green { background-color: #d9edc2; }
+.content-box-purple { background-color: #e2e2f9; }
+.content-box-red { background-color: #ffcccc; }
+.content-box-yellow { background-color: #fef5c4; }
+.content-box-blue .remark-inline-code,
+.content-box-blue .remark-inline-code,
+.content-box-gray .remark-inline-code,
+.content-box-grey .remark-inline-code,
+.content-box-army .remark-inline-code,
+.content-box-green .remark-inline-code,
+.content-box-purple .remark-inline-code,
+.content-box-red .remark-inline-code,
+.content-box-yellow .remark-inline-code {
+  background: none;
+}
+
+.full-width {
+    display: flex;
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+
+
+/***********
+ Changed CSS
+ **************/
+
+.opacity{ opacity: 0.5; }
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+.grayscale img {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+/**************
+ * Fancy stuff
+ **************/
+.rotate-left {
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+.rotate-right {
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    transform: rotate(2deg);
+}
+/**********
+ * Image stuff
+ ************/
+.polaroid img {
+    border: 10px solid #fff;
+    border-bottom: 45px solid #fff;
+    -webkit-box-shadow: 3px 3px 3px #111;
+    -moz-box-shadow: 3px 3px 3px #111;
+    box-shadow: 3px 3px 3px #111;
+}
+.shadow {
+    -moz-border-radius: 5px;
+    -moz-box-shadow: 5px 5px 5px #aaa;
+    -webkit-box-shadow: 5px 5px 5px #aaa;
+    box-shadow: 5px 5px 5px #aaa;
+    border-radius: 2px;
+}
+
+
+/* disable background colour when printing */
+
+@page { margin: 0; }
+@media print {
+  .inverse, .segue, .segue-yellow, .segue-red, .sydney-blue,
+  .sydney-yellow, .sydney-red {
+    background-color: transparent;
+    color: black;
+    text-shadow: none;
+  }
+  .inverse h1, .inverse h2, .inverse h3, .inverse h4, .inverse h5, .segue {
+    background-color: transparent;
+    color: black;
+    text-shadow: none;
+  }
+  .eg {
+    background-color: transparent;
+  }
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+
+
+/*~~~~~~~~~~~~~~~~*/
+/* USYD additions */
+/*~~~~~~~~~~~~~~~~*/
+
+/* Title slide */
+/* Add image and change bg color
+.title-slide {
+  background-image: url(USydLogo-black.svg), url("title-image.jpg");
+  /* background-image: url(https://sydney.edu.au/etc/designs/corporate-commons/bower_components/corporate-frontend/dist/assets/img/USydLogo.svg); */
+  /*
+  background-position: 10% 90%, 100% 50%;
+  background-size: 160px, 50% 100%;
+  background-color: #e64626;
+  /*padding-left: 100px;   delete this for 4:3 aspect ratio */
+/*
+}
+*/
+
+.title-slide {
+  background-image: url(fig/img.jpg);
+  /* background-image: url(https://sydney.edu.au/etc/designs/corporate-commons/bower_components/corporate-frontend/dist/assets/img/USydLogo.svg); */
+  background-position: 10% 90%;
+  background-size: cover;
+  background-color: #e64626;
+  text-align:right;
+  vertical-align: top;
+  /*text-shadow: none;*/
+  border-image: 0px none;
+  border-top: 0px solid #FAFAFA;
+  text-shadow: 0 0 5px #333;
+  /*padding-left: 100px;   delete this for 4:3 aspect ratio */
+}
+
+/*Modifica o slide de titulo*/
 h1 {
   font-weight: normal;
   margin-top: -95px;
   margin-left: -00px;
-  color: #FAFAFA;
+  color: #ffffff;
+  padding-top: -15px;
 }
 
 h2, h3, h4 {
   padding-top: -15px;
   padding-bottom: 00px;
-  color: #FAFAFA;
+  color: #000000;
   text-shadow: none;
   font-weight: 400;
   text-align: left;
   margin-left: 00px;
-  margin-bottom: -10px;
+  margin-bottom: 0px;
 }
 
-.remark-slide-content h1 {
+
+/* H1 fonts  */
+/*
+.title-slide h1 {
+  color: #ffffff;
+  font-weight: normal;
   font-size: 45px;
+  padding: 20px;
+  text-align: left;
+  vertical-align: middle;
+  margin-bottom: 18px;
 }
-
-.remark-slide-content h2 {
-  font-size: 35px;
-}
-
-.remark-slide-content h3 {
-  font-size: 30px;
-}
-
-.left-column h2, .left-column h3, .left-column h4 {
-  color: #777;
-}
-
-.left-column h2:last-of-type, .left-column h3:last-child {
-  color: #1A292C;
-}
-
-.logo {
-  background-image: url(floresta.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  width: 110px;
-  height: 128px;
-  z-index: 0;
-}
-
-.title-slide {
-  background-image: url(fig/imgD.jpg);
-  border-image: 0px none;
-  background-size: cover;
-  border-top: 0px solid #FAFAFA;
-}
-
+*/
 
 .title-slide h1  {
   color: #ffffff;
-  font-size: 60px;
+  font-size: 50px;
   text-shadow: none;
-  font-weight: 400;
-  text-align: left;
+  font-weight: 350;
+  text-align: right;
   margin-left: 15px;
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: -15px;
+  padding-top: -15px;
 }
+
+
+/* H2 fonts */
+
+/*
+.title-slide h2 {
+  color: black !important; /* first of type is master brand red
+  font-size: 35px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin-top: 0px;
+  text-align: left;
+  vertical-align: middle;
+}
+*/
+
 .title-slide h2  {
-  margin-top: -25px;
+  margin-top: -40px;
   padding-bottom: -20px;
   color: #ffffff;
   text-shadow: none;
-  font-weight: 300;
-  font-size: 40px;
-  text-align: left;
+  font-weight: 250;
+  font-size: 30px;
+  text-align: right;
   margin-left: 15px;
 }
+
+
+/* H3 fonts */
+
+/*
+.title-slide h3 {
+  font-size: 28px;
+  font-weight: normal;
+  color: black;
+  padding-left: 20px;
+  margin: 0px;
+  line-height: 1;
+  text-align: left;
+  vertical-align: middle;
+}
+*/
+
 .title-slide h3  {
   color: #ffffff;
   text-shadow: none;
   font-weight: 300;
   font-size: 25px;
+  text-align: right;
+  margin-left: 15px;
+  margin-bottom: -30px;
+}
+
+.title-slide h4  {
+  color: #ffffff;
+  text-shadow: none;
+  font-weight: 200;
+  font-size: 15px;
   text-align: left;
   margin-left: 15px;
   margin-bottom: -30px;
 }
 
-hr, .title-slide h2::after, .mline h1::after {
-  content: '';
-  display: block;
-  border: none;
-  background-color: transparent;
-  color: none;
-  height: 1px;
-  margin-right: 10px;
-}
-
-hr, .mline h1::after {
-  margin: 1em 5px 0 5px;
-}
-
-.title-slide h2::after {
-  margin: 10px 15px 35px 0;
-}
-
-.mline h1::after {
-  margin: 10px 15px 0 15px;
-}
-
-.isDisabled > a {
-  color: currentColor;
-  display: inline-block;  /* For IE11/ MS Edge bug */
-  pointer-events: none;
-  text-decoration: none;
-}
-
-.remark-slide-number {
-  font-size: 13pt;
-  color: #272822;
-  opacity: 1;
-}
-.inverse .remark-slide-number {
-  font-size: 13pt;
-  color: #FAFAFA;
-  opacity: 1;
-}
-
-/* turns off slide numbers for title page: https://github.com/gnab/remark/issues/298 */
+/* Remove slide count */
 .title-slide .remark-slide-number {
   display: none;
 }
 
-.remark-inline-code {
-  /* background: #F5F5F5; /* lighter */
-  background: #e7e8e2; /* darker */
-  border-radius: 3px;
-  padding: 4px;
+/* USYD blockquote */
+blockquote, .blockquote {
+  display: block;
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-left: solid 10px #0148A4;
+  border-top: solid 2px #0148A4;
+  border-bottom: solid 2px #0148A4;
+  border-right: solid 2px #0148A4;
+  box-shadow: 0 0 6px rgba(0,0,0,0.5);
+  /* background-color: #e64626; */
+  color: #000000;
+  padding: 0.5em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
-.footnote {
-    position: absolute;
-    bottom: .5em;
-    padding-left: 10px;
-    font-size: 70%;
-    text-align: left;
+.blockquote p {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.blockquote > h1:first-of-type {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.blockquote > h2:first-of-type {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.blockquote > h3:first-of-type {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.blockquote > h4:first-of-type {
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
 
-.red { color: red; }
-.remark-code-line-highlighted { background-color: #d9f2d9; }
-.remark-code, .remark-inline-code {
-    color: #7c347f;
-    font-weight: 300;
+.text-shadow {
+  text-shadow: 0 0 4px #424242;
 }
 
-.thick {
-  font-weight: bold;
+/* if wanted to change mathjax formatting
+.remark-inline-code .mjx-chtml {
+  color: blue;
 }
+*/
 
-.code10 .remark-code {
-  font-size: 10%;
-}
+/* References: many customisations adapted from the examples here:
+https://github.com/yihui/xaringan/tree/master/inst/rmarkdown/templates/xaringan/resources
+*/
 
-.code20 .remark-code {
-  font-size: 20%;
-}
 
-.code30 .remark-code {
-  font-size: 30%;
-}
 
-.code40 .remark-code {
-  font-size: 40%;
-}
+/*
+Masterbrand charcoal #424242;
+C=0 M=0 Y=0 K=90
+R=66 G=66 B=66
 
-.code50 .remark-code {
-  font-size: 50%;
-}
+Masterbrand red #e64626;
+C=0 M=0 Y=0 K=90
+R=66 G=66 B=66
 
-.code60 .remark-code {
-  font-size: 60%;
-}
+Masterbrand white #ffffff;
+C=0 M=0 Y=0 K=0
+R=255 G=255 B=255
 
-.code70 .remark-code {
-  font-size: 70%;
-}
+Masterbrand black #000000;
+C=0 M=0 Y=0 K=100
+R=10 G=10 B=10
 
-.code80 .remark-code {
-  font-size: 80%;
-}
+Accent yellow #FFB800
+C=0 M=25 Y=98 K=0
+R=255 G=184 B=0
 
-.code90 .remark-code {
-  font-size: 90%;
-}
+Accent blue #0148A4
+C=100 M=61 Y=0 K=0
+R=1 G=72 B=164
 
-.code100 .remark-code {
-  font-size: 100%;
-}
-
-.font10 {
-  font-size: 10%;
-}
-
-.font20 {
-  font-size: 20%;
-}
-
-.font30 {
-  font-size: 30%;
-}
-
-.font40 {
-  font-size: 40%;
-}
-
-.font50 {
-  font-size: 50%;
-}
-
-.font60 {
-  font-size: 60%;
-}
-
-.font70 {
-  font-size: 70%;
-}
-
-.font80 {
-  font-size: 80%;
-}
-
-.font90 {
-  font-size: 90%;
-}
-
-.font100 {
-  font-size: 100%;
-}
-
-.font110 {
-  font-size: 110%;
-}
-
-.font120 {
-  font-size: 120%;
-}
-
-.font130 {
-  font-size: 130%;
-}
-
-.font140 {
-  font-size: 140%;
-}
-
-.font150 {
-  font-size: 150%;
-}
-
-.font160 {
-  font-size: 160%;
-}
-.font170 {
-  font-size: 170%;
-}
-.font180 {
-  font-size: 180%;
-}
-.font190 {
-  font-size: 190%;
-}
-.font200 {
-  font-size: 200%;
-}
-
-.font250 {
-  font-size: 250%;
-}
-
-.font300 {
-  font-size: 300%;
-}
-
+Accent grey - supportive #F1F1F1
+C=0 M=0 Y=0 K=10
+R=241 G=241 B=241
+*/
 
 </style>
 

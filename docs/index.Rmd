@@ -1,10 +1,10 @@
 ---
-title: ".font120[Aprendizado de Máquina <BR> na Mensuração Florestal:]"
-subtitle: "Técnicas, Modelagem e Aplicação Web  <BR> <BR>"
+title: "Aprendizado de Máquina <BR> na Mensuração Florestal:"
+subtitle: "Técnicas, Modelagem e Aplicação Web  <BR> <BR> <BR> <BR>"
 #subtitle: "Potencial para modelagem de variáveis florestais"
 author: "<BR> Prof. Dr. Deivison Venicio Souza"
 institute: |
-  | Universidade Federal do Pará (UFPA) <BR> <span class="isDisabled"><a href="E-mail: deivisonvs@ufpa.br">E-mail: deivisonvs@ufpa.br</a></span> <BR> <BR>
+  | Universidade Federal do Pará (UFPA) <BR> <BR> 
 date: | 
   .center[`r format(Sys.Date(),"%d/%B/%Y")` <BR> 
    Altamira, Pará <BR> ]
@@ -17,8 +17,8 @@ header-includes:
 output:
   xaringan::moon_reader:
     includes:
-      after_body: css/my-custom.css
-    css: [default, metropolis, tamu-fonts] #xaringan-themer.css 
+      after_body: css/sydney.css
+    css: [default, metropolis] #xaringan-themer.css 
     lib_dir: libs
     nature:
       #autoplay: 30000
@@ -84,11 +84,13 @@ library(RefManageR)
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
            cite.style = "authoryear",
+           first.inits = TRUE,
            style = "html",
            hyperlink = FALSE,
            dashed = FALSE)
 (myBib <- ReadBib("./bib/ref.bib", check = FALSE))
 ```
+
 
 # 👋 Olá!
 
@@ -116,28 +118,33 @@ BibOptions(check.entries = FALSE,
     + Área: Big Data e Data Science
 ]
 
+<!-- Slide2 -->
 ---
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
 
-.pull-left[
+.pull-top[
+<p style="font-weight:bold;"> Parte 1 - Fundamentação teórica </p>
 [1 - O que é aprendizado de Máquina (AM)](#AM)
 
 [2 - Tipos de Aprendizagem](#tipos)
 
-[3 - Aplicações nas ciências florestais](#aplicacoes)
-
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
 [5 - Pacote CARET](#caret)
-
-[6 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
-
-[7 - Aplicação Web com MAM: um exemplo prático.](#shiny)
-
 ]
 
+.pull-bottom[
+<p style="font-weight:bold;"> Parte 2 - Aplicações nas Ciências Florestais </p>
+[1 - Aplicações nas ciências florestais](#aplicacoes)
+
+[2 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+
+[3 - Aplicação Web com MAM: um exemplo prático.](#shiny)
+]
+
+<!--Slide3 -->
 ---
 # Aprendizado de Máquina: um subconjunto da IA!
 
@@ -146,27 +153,38 @@ knitr::include_graphics('fig/diag.png')
 ```
 .left[.footnote[Fonte: [Bial-R](https://www.bial-r.com/2019/05/22/comprendre-le-machine-learning-et-le-deep-learning/)]]
 
+<!--Slide4 -->
 ---
 name: AM
 # Aprendizado de Máquina (*Machine Learning*)
 
-.bg-washed-near-white.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
-.center[<bdi style="font-weight:bold"> 🤔 *Machine Learning*</bdi>]
+**História:**
+- Surgiu em 1959;
+- Arthur Lee Samuel: Cunhou pela primeira vez o termo *Machine Learning*; e
+- Manuscrito: .blue[*Some Studies in Machine Learning Using the Game of Checkers*] `r Citep(myBib, "samuel1959some", .opts = list(hyperlink = "to.doc", super = TRUE))`.
 
-<bdi style="font-weight:bold">1959</bdi>: `Arthur Lee Samuel` cunhou pela primeira vez o termo *Machine Learning*.
+--
 
-<bdi style="font-weight:bold">Definição</bdi>: É um `subconjunto de inteligência artificial` que frequentemente usa técnicas estatísticas para dar aos computadores a capacidade de `"aprender"` com dados, sem serem explicitamente programados.
+.pull-left[
+.blockquote[
+**Definição:** <br>
+É um .content-box-red[subconjunto de inteligência artificial] que frequentemente usa técnicas estatísticas para dar aos computadores a capacidade de .content-box-red["aprender"] com dados, sem serem explicitamente programados. <br>
 
 .tr[
 — (Parafraseado de Arthur Lee Samuel, 1959)
 ]
+]
+]
 
-<br>
+.pull-right[
+Arthur Samuel demonstrates how machine <br> learning can be used to play checkers in 1962.
+```{r, echo=FALSE, out.width='80%', fig.align='left', fig.cap='', dpi=600}
+knitr::include_graphics('fig/ArtSam.jpg')
+```
+.left[.footnote[Fonte: [artsandculture.google.com](https://artsandculture.google.com/asset/arthur-samuel-demonstrates-how-machine-learning-can-be-used-to-play-checkers-in-1962-ibm-watson-media/vgH46mpas8dL4g)]]
+]
 
-<bdi style="color:blue;"> *Some Studies in Machine Learning Using the Game of Checkers* </bdi> `r Citep(myBib, "samuel1959some")`.
-
-] 
-
+<!--Slide5 -->
 ---
 name: tipos
 # Tipos de Aprendizagem
@@ -175,6 +193,93 @@ name: tipos
 knitr::include_graphics('fig/ML.png')
 ```
 .left[.footnote[Fonte: O Autor.]]
+
+<!--Slide6 -->
+---
+class: middle, left
+# A idéia de "Supervisionar"...
+<br>
+
+.blockquote[
+**Em um conjunto de dados...** <br>
+
+(..) para cada observação de preditora(s), $x_{i}$ (i = 1, ..., n), existe uma resposta associada $y_{i}$ `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`.
+] <br>
+
+
+\[
+\normalsize
+\underbrace{
+\overbrace{\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1n} \\
+x_{21} & x_{22} & \cdots & x_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{nn}
+  \end{bmatrix}
+    }^{\mathbf{X}}
+    }_{\mathbf{Preditoras}}
+\underbrace{
+\overbrace{
+  \begin{bmatrix}
+    y_1     \\
+    y_2     \\
+    \vdots  \\
+    y_n     \\
+  \end{bmatrix}
+    }^{\mathbf{y}}
+    }_{\mathbf{Resposta}}
+\]
+
+.blockquote[
+**O papel de Supervisor...** <br>
+A idéia é que cada $y_{i}$ exerça um papel de .content-box-red[“Professor”], responsável por .content-box-red[“Supervisionar”] o processo de aprendizagem de uma
+função $f(x)$ `r Citep(myBib, "hastie2016elements")`.
+]
+
+<!--Slide7 -->
+---
+# Um conjunto de dados...
+
+```{r data1, eval=TRUE, collapse=TRUE, message = FALSE}
+data <- data.table::fread("../docs/R-scripts/data.csv")
+
+data %>% 
+  DT::datatable(class = "compact", rownames = FALSE, extensions = "Buttons",
+                options = list(dom = 'tBp', buttons = c("csv","excel"), 
+                               pageLength = 8))
+
+```
+
+---
+# Uma análise de regressão...
+<br>
+
+.blockquote[
+**Motivos para fazer uma análise de regressão...** `r Citep(myBib, "izbicki_mendonca2020")` <br>
+
+- **Inferencial**: Tirar conclusões sobre a população:
+  - Interpretar parâmetros;
+  - Estimar intervalos de confiança (IC) dos parâmetros; e
+  - Testes de hipóteses (normalidade, homocedasticidade dos resíduos, etc.) $\Rightarrow$ .content-box-red[Suposições da RL]
+
+
+- **Preditivista**: Foco na capacidade preditiva. Deseja-se boas predições!
+]
+
+---
+# As duas culturas...
+<br>
+
+.blockquote[
+**Culturas de modelagem...** 
+
+Data modeling culture
+- Objetivo principal: interpretação dos parâmetros 
+
+Algorithmic modeling culture. 
+
+(Breiman, 1984)
+]
 
 ---
 name: AS
@@ -186,6 +291,7 @@ knitr::include_graphics('fig/intuicao-ML.png')
 
 .left[.footnote[Fonte: O Autor.]] 
 
+<!--Slide6 -->
 ---
 name: MAM
 # Um modelo de aprendizado de máquina: CART
@@ -216,7 +322,8 @@ knitr::include_graphics('fig/ML-TEC.png')
 .left[.footnote[Fonte: O Autor.]]
 
 ```{r}
-Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019"))
+Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019",
+               "james2013introduction"))
 ```
 
 ---
