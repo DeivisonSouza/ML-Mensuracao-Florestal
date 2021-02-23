@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 :alarm_clock: **18h00min - 22h00min**
 
-# Descrição
+# Descrição (em construção)
 
 Este repositório guarda os arquivos .Rmd e .R usados na palestra intitulada **"Aprendizado de Máquina na Mensuração Florestal: Técnicas, Modelagem e Aplicação Web"** ministrada pelo **Prof. Dr. Deivison Venicio Souza** no evento **"Mensuração Florestal: sucessos do passado, desafios correntes e perspectivas futuras"** organizado pelo **Prof. Dr. Rodrigo Geroni** no âmbito da disciplina de **Mensuração Forestal** do Programa de Pós-Graduação em Ciências Florestais da Universidade Federal Rural da Amazônia (UFRA).
 

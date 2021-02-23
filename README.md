@@ -5,7 +5,7 @@
 
 :alarm\_clock: **18h00min - 22h00min**
 
-# Descrição
+# Descrição (em construção)
 
 Este repositório guarda os arquivos .Rmd e .R usados na palestra
 intitulada **“Aprendizado de Máquina na Mensuração Florestal: Técnicas,
