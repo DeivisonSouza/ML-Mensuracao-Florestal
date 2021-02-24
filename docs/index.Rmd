@@ -123,10 +123,10 @@ BibOptions(check.entries = FALSE,
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
-
+<b>
 .pull-top[
-<p style="font-weight:bold;"> Parte 1 - Fundamentação teórica </p>
-[1 - O que é aprendizado de Máquina (AM)](#AM)
+<p style="font-weight:bold;"> Parte 1 - Conceitos e fundamentação teórica </p>
+[1 - Uma análise de regressão...](#AM)
 
 [2 - Tipos de Aprendizagem](#tipos)
 
@@ -146,12 +146,81 @@ background-size: cover
 
 <!--Slide3 -->
 ---
-# Aprendizado de Máquina: um subconjunto da IA!
+# Uma análise de regressão...
 
+.pull-left-2[
+.blockquote[
+.content-box-blue[**Motivos práticos para fazer uma análise de regressão...**] <br>
+
+- **Determinação**: Variáveis difíceis de determinar em campo;
+  - ex.: volume, biomassa, altura, etc.
+- **Alto custo**: Almeja-se diminuir custos!
+- **Larga escala**: Imagine fazer isso em larga escala! É impraticável!
+- **Alternativa**: Usar métodos indiretos.
+]
+]
+
+.pull-right-1[
 ```{r, echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
-knitr::include_graphics('fig/diag.png')
+knitr::include_graphics('fig/imgCub.jpg')
 ```
-.left[.footnote[Fonte: [Bial-R](https://www.bial-r.com/2019/05/22/comprendre-le-machine-learning-et-le-deep-learning/)]]
+<br>
+.center[**Nas florestas inequiâneas as dificuldades octuplicam!**]
+]
+
+**Regressão Linear**: Método mais tradicional!
+
+$v = \beta_0 + \beta_{1}(d^2h) + \epsilon_i$ $\Rightarrow$ **Spurr (1952)**
+
+$ln (v) = ln\beta_0 + \beta_{1}ln(d) + \beta_{2}ln(h) + \epsilon_i$ $\Rightarrow$ **Schumacher-Hall (1933)**
+
+<!--Slide4 -->
+---
+# Uma análise de regressão...
+
+.blockquote[
+.content-box-blue[**Motivos estatísticos para fazer uma análise de regressão...**] `r Citep(myBib, "izbicki_mendonca2020")` <br>
+
+- **Inferencial**: Tirar conclusões sobre a população:
+  - Interpretar parâmetros;
+  - Estimar os intervalos de confiança (IC) dos parâmetros; e
+  - Testes de hipóteses (normalidade, homocedasticidade dos resíduos, etc.) $\Rightarrow$ .content-box-red[Suposições da RL]
+
+*Por exemplo:* Admitindo o modelo $v = \beta_0 + \beta_1d + \epsilon_i$ (**Berkhout**)
+
+Qual a relação entre $v$ e o $d$?
+
+Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
+
+- **Preditivista**: Estimar uma função de regressão $f(x)$ com bom poder preditivo! .content-box-red[O foco é na predição!]
+]
+
+--
+
+.content-box-blue[
+.center[**Portanto, para um determinado problema o foco pode ser claramente inferencial ou preditivo, e para outros pode ser a mistura de ambos** `r Citep(myBib, "izbicki_mendonca2020")`.]
+]
+
+<!--Slide5 -->
+---
+# As duas culturas...`r Citep(myBib, "breiman2001statistical")`
+
+.blockquote[
+.content-box-blue[**Culturas no uso de modelos estatísticos...**]
+<br>
+
+- **Data modeling culture** (Cultura da modelagem de dados)
+  - *Objetivo principal*: inferência
+  - *Predomina*: comunidade estatística
+
+
+- **Algorithmic modeling culture** (Cultura da modelagem Algorítmica)
+  - *Objetivo principal*: predição (construir algoritmos com bom poder preditivo!)
+  - *Predomina*: comunidade de aprendizado de máquina
+]
+
+.content-box-blue[.center[Statistical modeling: The two cultures `r Citep(myBib, "breiman2001statistical")`.]
+]
 
 <!--Slide4 -->
 ---
@@ -196,9 +265,7 @@ knitr::include_graphics('fig/ML.png')
 
 <!--Slide6 -->
 ---
-class: middle, left
 # A idéia de "Supervisionar"...
-<br>
 
 .blockquote[
 **Em um conjunto de dados...** <br>
@@ -251,35 +318,7 @@ data %>%
 ```
 
 ---
-# Uma análise de regressão...
-<br>
-
-.blockquote[
-**Motivos para fazer uma análise de regressão...** `r Citep(myBib, "izbicki_mendonca2020")` <br>
-
-- **Inferencial**: Tirar conclusões sobre a população:
-  - Interpretar parâmetros;
-  - Estimar intervalos de confiança (IC) dos parâmetros; e
-  - Testes de hipóteses (normalidade, homocedasticidade dos resíduos, etc.) $\Rightarrow$ .content-box-red[Suposições da RL]
-
-
-- **Preditivista**: Foco na capacidade preditiva. Deseja-se boas predições!
-]
-
----
-# As duas culturas...
-<br>
-
-.blockquote[
-**Culturas de modelagem...** 
-
-Data modeling culture
-- Objetivo principal: interpretação dos parâmetros 
-
-Algorithmic modeling culture. 
-
-(Breiman, 1984)
-]
+# Seleção de modelos
 
 ---
 name: AS
