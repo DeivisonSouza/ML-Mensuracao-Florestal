@@ -69,11 +69,11 @@ hr, .title-slide h2::after, .mline h1::after {
 
 .pull-left-2 {
   float: left;
-  width: 60%;
+  width: 63%;
 }
 .pull-right-1 {
   float: right;
-  width: 36%;
+  width: 33%;
 }
 
 .pull-left-1 {
@@ -534,8 +534,8 @@ h2, h3, h4 {
 /* USYD blockquote */
 blockquote, .blockquote {
   display: block;
-  margin-top: 0.1em;
-  margin-bottom: 0.2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
   margin-left: 5px;
   margin-right: 5px;
   border-left: solid 10px #0148A4;
