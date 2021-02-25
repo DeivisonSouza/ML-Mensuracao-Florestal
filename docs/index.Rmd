@@ -289,11 +289,14 @@ Pode-se afirmar que um programa de computador aprende uma
 
 .blockquote[
 .content-box-blue[**Aprendizado Supervisionado:**]
+
+- **Objetivo principal**:
+
+Dado as medidas $\left(x_1, y_1\right)$, . . . , $\left(x_n, y_n\right)$, o objetivo é estimar uma função $f(x)$ para predizer um novo valor de $y$ baseado em $x$.
+
 - **Tipos de problemas**: classificação e regressão.
-  - **Classificação**: variável resposta é uma categoria/classe. (Ex.: species recognition)
-  - **Regressão**: variável resposta é um valor real (numérica). (Ex.: biomassa, volume, altura, etc.)
-  - **Objetivo principal**: Estimar uma função $f(x)$ para predizer a variável resposta em novos conjuntos de dados.
-  - **Variável resposta**: Existe (dados rotulados)
+
+- **Variável resposta**: Existe (dados rotulados).
 ]
 
 --
@@ -325,7 +328,6 @@ knitr::include_graphics('fig/ML.png')
 
 (..) para cada observação de preditora(s), $x_{i}$ (i = 1, ..., n), existe uma resposta associada $y_{i}$ `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`.
 ] <br>
-
 
 \[
 \normalsize
@@ -379,8 +381,7 @@ data <- data.table::data.table(
 library(kableExtra)
 data %>%
   kbl(caption = 'Dados fictícios para 10 árvores de duas espécies florestais.') %>%
-  kable_classic(full_width = F, html_font = "Cambria",)
-
+  kable_classic(full_width = F, html_font = "Cambria")
 ```
 ]
 
@@ -402,8 +403,18 @@ data %>%
 
 <!--Slide 12 -->
 ---
-# Seleção de modelos
+# Iniciar apresentação de algumas técnicas
+- Antes, fazer uma introdução informando a ideia de predizaer
+a f(x), e portanto existente inúmeras técnicas de AM para isso...Obviamente, falar que a primeira ideia é fazer RL...
+- Usar base de dados de nativa (falar com Bruno), selecionar algumas árvores...
+- Inserir uma figura com as principais técnicas de IA
+- No CART:
+ . Iniciar: mostrando uma árvore e explicando seus elementos;
+ . mostrar o passo a passo das divisões binárias (figura);
+ . Detalhar o calculo matemático, baseando-se nos dados usados
+ para criar a árvore mostrada...
 
+<!--Slide 13 -->
 ---
 name: AS
 # Aprendizado Supervisionado
@@ -413,6 +424,50 @@ knitr::include_graphics('fig/intuicao-ML.png')
 ```
 
 .left[.footnote[Fonte: O Autor.]] 
+
+---
+# Avaliação de modelos
+
+---
+# Underfitting e Overfitting
+
+---
+# Divisão de dados
+
+.blockquote[
+Em geral, na literatura de AM reporta-se a três tipos de conjuntos de dados `r Citep(myBib, "witten2017data", .opts = list(max.names = 1, longnamesfirst = F))`:
+
+- **Conjunto de aprendizado** (treino) 
+    - Usado para construir os modelos preditivos (classificação ou regressão).
+    
+    
+- **Conjunto de validação**
+    - Usado para otimizar os hiperparâmetros dos modelos e escolher a configuração de melhor desempenho preditivo.
+    
+
+- **Conjunto de teste**
+  - Usado para estimar o desempenho preditivo final do modelo otimizado (tuning model). 
+    
+]
+---
+# Métodos de Reamostragem
+
+.blockquote[
+
+- **Hold-out validation**
+    - Separa 2/3 para treinamento e 1/3 para teste.
+    
+- **k-fold Cross-Validation**
+    - Particiona o conjunto de treino em *k* subconjuntos
+disjuntos (*k*-1), e testa no conjunto de validação (hold-out).
+    
+- **Leave-one-out Cross-Validation**
+  - k=n
+
+- **Bootstrap**
+  - Amostragem com reposição.
+]
+
 
 <!--Slide6 -->
 ---
