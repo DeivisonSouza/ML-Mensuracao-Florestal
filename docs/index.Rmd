@@ -50,7 +50,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r xaringanExtra, echo=FALSE}
-# library(xaringanExtra)
+library(xaringanExtra)
 # use_logo(
 #   image_url = "fig/ufpa.png",
 #   position = css_position(top = ".8em", right = "1em"),
@@ -58,15 +58,15 @@ knitr::opts_chunk$set(
 #   height = "140px"
 # )
 # 
-# use_extra_styles(
-#   hover_code_line = TRUE,         #<<
-#   mute_unhighlighted_code = TRUE  #<<
-# )
-# 
+use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+
 # use_tachyons()
 # use_panelset()
 # use_clipboard()
-# style_panelset(panel_tab_color_active = "red")
+#style_panelset(panel_tab_color_active = "red")
 ```
 
 ```{r xaringanthemer, warning=FALSE, include=FALSE}
@@ -118,7 +118,7 @@ BibOptions(check.entries = FALSE,
     + Área: Big Data e Data Science
 ]
 
-<!-- Slide2 -->
+<!-- Slide 2 -->
 ---
 background-image: url(fig/white.jpg)
 background-size: cover
@@ -144,7 +144,7 @@ background-size: cover
 [3 - Aplicação Web com MAM: um exemplo prático.](#shiny)
 ]
 
-<!--Slide3 -->
+<!--Slide 3 -->
 ---
 # Uma análise de regressão...
 
@@ -174,7 +174,7 @@ $v = \beta_0 + \beta_{1}(d^2h) + \epsilon_i$ $\Rightarrow$ **Spurr (1952)**
 
 $ln (v) = ln\beta_0 + \beta_{1}ln(d) + \beta_{2}ln(h) + \epsilon_i$ $\Rightarrow$ **Schumacher-Hall (1933)**
 
-<!--Slide4 -->
+<!--Slide 4 -->
 ---
 # Uma análise de regressão...
 
@@ -201,7 +201,7 @@ Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 .center[**Portanto, para um determinado problema o foco pode ser claramente inferencial ou preditivo, e para outros pode ser a mistura de ambos** `r Citep(myBib, "izbicki_mendonca2020")`.]
 ]
 
-<!--Slide5 -->
+<!--Slide 5 -->
 ---
 # As duas culturas...`r Citep(myBib, "breiman2001statistical")`
 
@@ -229,12 +229,11 @@ knitr::include_graphics('fig/Breiman.jpg')
 .center[**Leo Breiman**]
 .center[Fonte: [en.wikipedia.org](https://en.wikipedia.org/wiki/Leo_Breiman)]
 ]
-]
 
 .content-box-blue[.center[Statistical modeling: The two cultures `r Citep(myBib, "breiman2001statistical")`.]
 ]
 
-<!--Slide4 -->
+<!--Slide 6 -->
 ---
 name: AM
 # Aprendizado de Máquina (*Machine Learning*)
@@ -265,7 +264,49 @@ knitr::include_graphics('fig/ArtSam.jpg')
 .left[.footnote[Fonte: [artsandculture.google.com](https://artsandculture.google.com/asset/arthur-samuel-demonstrates-how-machine-learning-can-be-used-to-play-checkers-in-1962-ibm-watson-media/vgH46mpas8dL4g)]]
 ]
 
-<!--Slide5 -->
+<!--Slide 7 -->
+---
+# Aprendizado de Máquina (*Machine Learning*)
+
+.pull-left[
+.blockquote[
+**Tom Mitchel**<br>
+Pode-se afirmar que um programa de computador aprende uma
+**Experiência E** a respeito de uma **Tarefa T** e alguma medida de **Desempenho P**, se seu desempenho em *T*, medido por *P*, melhora com a experiência *E*.
+]
+]
+
+.pull-right[
+.blockquote[
+**Aurélien Géron**<br>
+É a ciência (e arte) de programar computadores de tal forma que eles aprendam a partir de dados `r Citep(myBib, "geron2017")`.
+]
+]
+
+<!--Slide 8 -->
+---
+# Tipos de Aprendizagem
+
+.blockquote[
+.content-box-blue[**Aprendizado Supervisionado:**]
+- **Tipos de problemas**: classificação e regressão.
+  - **Classificação**: variável resposta é uma categoria/classe. (Ex.: species recognition)
+  - **Regressão**: variável resposta é um valor real (numérica). (Ex.: biomassa, volume, altura, etc.)
+  - **Objetivo principal**: Estimar uma função $f(x)$ para predizer a variável resposta em novos conjuntos de dados.
+  - **Variável resposta**: Existe (dados rotulados)
+]
+
+--
+
+.blockquote[
+.content-box-blue[**Aprendizado não-Supervisionado:**]
+- **Tipos de problemas**: agrupamento, redução de dimensionalidade e associação.
+    - **Objetivo principal**: Descobrir estruturas subjacentes;
+    - **Variável resposta**: Não existe (dados não rotulados)
+]
+
+
+<!--Slide 9 -->
 ---
 name: tipos
 # Tipos de Aprendizagem
@@ -275,7 +316,7 @@ knitr::include_graphics('fig/ML.png')
 ```
 .left[.footnote[Fonte: O Autor.]]
 
-<!--Slide6 -->
+<!--Slide 10 -->
 ---
 # A idéia de "Supervisionar"...
 
@@ -315,20 +356,51 @@ A idéia é que cada $y_{i}$ exerça um papel de .content-box-red[“Professor�
 função $f(x)$ `r Citep(myBib, "hastie2016elements")`.
 ]
 
-<!--Slide7 -->
+<!--Slide 11 -->
 ---
 # Um conjunto de dados...
+<br>
+.pull-left-3[
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
 
-```{r data1, eval=TRUE, collapse=TRUE, message = FALSE}
-data <- data.table::fread("../docs/R-scripts/data.csv")
+data <- data.table::data.table(
+  Especie = c("Swietenia macrophylla", "Swietenia macrophylla", "Swietenia macrophylla", "Hymenolobium petraeum","Hymenolobium petraeum", "Hymenolobium petraeum", "Hymenolobium petraeum","Hymenolobium petraeum", "Swietenia macrophylla", "Swietenia macrophylla"),
+              DAP = c(33.6, 42.6, 52.1, 80.3, 90.8,
+                      49.4, 70.5, 100.5, 60.7, 27.1),
+              H = c(9.1, 13.2, 15.4, 18.6, 19.5,
+                    16.8, 17.9, 22.4, 15.3, 8.7),
+              Cipo = c("Sim", "Não", "Sim", "Não", "Sim",
+                         "Não", "Sim", "Não", "Sim", "Sim"),
+              QF = c(2, 1, 3, 1, 2, 1, 2, 3, 1, 3),
+              Selecao = c("Protegida", "Protegida", "Protegida", "Explorar", "Explorar",
+                          "Remanescente", "Explorar", "Remanescente","Protegida", "Protegida"),
+  stringsAsFactors = T)
 
-data %>% 
-  DT::datatable(class = "compact", rownames = FALSE, extensions = "Buttons",
-                options = list(dom = 'tBp', buttons = c("csv","excel"), 
-                               pageLength = 8))
+library(kableExtra)
+data %>%
+  kbl(caption = 'Dados fictícios para 10 árvores de duas espécies florestais.') %>%
+  kable_classic(full_width = F, html_font = "Cambria",)
 
 ```
+]
 
+--
+
+.pull-right-3[
+.center[**Terminologias**]
+
+1. Comunidade de aprendizado de máquina:
+- **Instâncias/exemplos**: dados individuais.
+- **Atributos/características/features:**
+    - Características mensuráveis de uma instância.
+- **Variável resposta/labels/classe**: 
+    - Variável de interesse para predição.
+
+*Tipos de atributos*: binários, categóricos, numéricos.
+
+]
+
+<!--Slide 12 -->
 ---
 # Seleção de modelos
 
@@ -447,7 +519,6 @@ knitr::include_graphics('fig/FM.png')
 
 ---
 name: exemploR
-class: inverse, middle, center
 background-image: url(fig/imgC.jpg)
 background-size: cover
 
@@ -466,7 +537,6 @@ background-size: cover
 .left[.footnote[Créditos: Imagem de .green[Willas Lima].]]
 ---
 name: shiny
-class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 
@@ -530,24 +600,21 @@ PrintBibliography(myBib, start = 16, end = 19)
 ```
 
 ---
-class: inverse, middle
 background-image: url(fig/white.jpg)
 background-size: cover
 
 .pull-left[
-.font300[.thick[.black[Obrigado!]]] <br> <br> <br> <br>
+.font300[Obrigado!]
+ <br> <br> <br>
 
+**Email**: <a href="mailto:deivisonvs@ufpa.br">deivisonvs@ufpa.br</a>
 
-.left[
-.thick[.black[**Contato**:]]
+**Github**: <a href="https://github.com/DeivisonSouza">@DeivisonSouza</a>
 
-.black[Email:] <a href="mailto:deivisonvs@ufpa.br">deivisonvs@ufpa.br</a>
+<br>
 
-.black[Github:] <a href="https://github.com/DeivisonSouza">@DeivisonSouza</a>
-
-<br> <br>
-.font80[.black[Os códigos e demais arquivos desta apresentação estão disponíveis no repositório GitHub:] [IA-Potencial-IF](https://github.com/DeivisonSouza/IA-Potencial-IF).]
-
+.shadow[
+Os slides, códigos e demais arquivos desta apresentação estão disponíveis no repositório GitHub: [ML-Mensuracao-Florestal](https://github.com/DeivisonSouza/ML-Mensuracao-Florestal).
 ]
 ]
 

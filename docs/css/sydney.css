@@ -85,6 +85,15 @@ hr, .title-slide h2::after, .mline h1::after {
   width: 60%;
 }
 
+.pull-left-3 {
+  float: left;
+  width: 55%;
+}
+.pull-right-3 {
+  float: right;
+  width: 41%;
+}
+
 
 /* use to position text at the bottom */
 .pull-down {
@@ -591,27 +600,21 @@ https://github.com/yihui/xaringan/tree/master/inst/rmarkdown/templates/xaringan/
 Masterbrand charcoal #424242;
 C=0 M=0 Y=0 K=90
 R=66 G=66 B=66
-
 Masterbrand red #e64626;
 C=0 M=0 Y=0 K=90
 R=66 G=66 B=66
-
 Masterbrand white #ffffff;
 C=0 M=0 Y=0 K=0
 R=255 G=255 B=255
-
 Masterbrand black #000000;
 C=0 M=0 Y=0 K=100
 R=10 G=10 B=10
-
 Accent yellow #FFB800
 C=0 M=25 Y=98 K=0
 R=255 G=184 B=0
-
 Accent blue #0148A4
 C=100 M=61 Y=0 K=0
 R=1 G=72 B=164
-
 Accent grey - supportive #F1F1F1
 C=0 M=0 Y=0 K=10
 R=241 G=241 B=241
