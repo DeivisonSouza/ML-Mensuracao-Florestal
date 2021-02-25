@@ -205,18 +205,30 @@ Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 ---
 # As duas culturas...`r Citep(myBib, "breiman2001statistical")`
 
+.pull-left-2[
 .blockquote[
 .content-box-blue[**Culturas no uso de modelos estatísticos...**]
 <br>
 
-- **Data modeling culture** (Cultura da modelagem de dados)
-  - *Objetivo principal*: inferência
+- **Data modeling culture**
+  - *Objetivo principal*: .content-box-red[inferência]
   - *Predomina*: comunidade estatística
 
 
-- **Algorithmic modeling culture** (Cultura da modelagem Algorítmica)
-  - *Objetivo principal*: predição (construir algoritmos com bom poder preditivo!)
+- **Algorithmic modeling culture**
+  - *Objetivo principal*: .content-box-red[predição] (construir algoritmos com bom poder preditivo!)
   - *Predomina*: comunidade de aprendizado de máquina
+]
+]
+
+.pull-right-1[
+```{r, echo=FALSE, out.width='70%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Breiman.jpg')
+```
+<br>
+.center[**Leo Breiman**]
+.center[Fonte: [en.wikipedia.org](https://en.wikipedia.org/wiki/Leo_Breiman)]
+]
 ]
 
 .content-box-blue[.center[Statistical modeling: The two cultures `r Citep(myBib, "breiman2001statistical")`.]
