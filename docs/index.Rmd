@@ -444,7 +444,8 @@ knitr::include_graphics('fig/Tec.png')
 .center[**Pacote CARET** <br>
 
 Mais de 200 algoritmos para aprendizado supervisionado.
-`r Citep(myBib, c("kuhn2013applied", "R-caret"))`. <br>
+
+`r Citep(myBib, c("kuhn2013applied", "R-caret"))` <br>
 
 Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
