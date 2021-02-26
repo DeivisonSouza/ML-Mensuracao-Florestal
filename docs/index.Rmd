@@ -14,6 +14,7 @@ encoding: "UTF-8"
 header-includes: 
    - \usepackage{tikz}
    - \usepackage[hidelinks,pdfencoding=auto]{hyperref}
+   - \usepackage{smartdiagram}
 output:
   xaringan::moon_reader:
     includes:
@@ -403,8 +404,57 @@ data %>%
 
 <!--Slide 12 -->
 ---
+# Até aqui...
+<br>
+
+.shadow[
+- **Motivos para fazer regressão**: práticos e estatísticos;
+
+- **Duas Culturas no uso de ME**: DMC e .content-box-red[AMC];
+
+- **Algorithmic modeling culture**: relaciona-se ao campo de .content-box-red[Aprendizado de Máquina];
+
+- **Tipos de Aprendizado**: .content-box-red[Supervisionado] e Não-Supervisionado;
+
+- **Aprendizado Supervisionado**: estimar uma função $f(x)$ para predizer um novo valor de $y$ baseado em $x$. Se $y$ for um número real (númerico) tem-se um .content-box-red[problema de regressão].
+]<br>
+
+.center[
+.font150[
+Quais algoritmos existentes para estimar $\Large{f\left(x\right)}$?
+]
+]
+
+<!--Slide 13 -->
+---
+# Algoritmos de AS
+
+**- Alguns dos principais algoritmos para problemas de regressão:**
+
+.pull-left[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Tec.png')
+```
+.left[.footnote[Fonte: O Autor.]]
+]
+
+--
+
+.pull-rigth[
+.center[**Pacote CARET** <br>
+
+Mais de 200 algoritmos para aprendizado supervisionado.
+`r Citep(myBib, c("kuhn2013applied", "R-caret"))`. <br>
+
+Web page: [CARET Package](https://topepo.github.io/caret/index.html)
+
+]
+]
+
+<!--Slide 14 -->
+---
 # Iniciar apresentação de algumas técnicas
-- Antes, fazer uma introdução informando a ideia de predizaer
+- Antes, fazer uma introdução informando a ideia de predizer
 a f(x), e portanto existente inúmeras técnicas de AM para isso...Obviamente, falar que a primeira ideia é fazer RL...
 - Usar base de dados de nativa (falar com Bruno), selecionar algumas árvores...
 - Inserir uma figura com as principais técnicas de IA

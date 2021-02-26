@@ -62,6 +62,13 @@ hr, .title-slide h2::after, .mline h1::after {
   margin-right: 10px;
 }
 
+/*************************
+Font Size
+**************************/
+.font150 {
+  font-size: 150%;
+}
+
 
 /*************************
   Custom classes

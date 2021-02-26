@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[25/fevereiro/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[26/fevereiro/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -412,8 +412,55 @@ função `\(f(x)\)` (Hastie, Tibshirani, and Friedman, 2016).
 
 &lt;!--Slide 12 --&gt;
 ---
+# Até aqui...
+&lt;br&gt;
+
+.shadow[
+- **Motivos para fazer regressão**: práticos e estatísticos;
+
+- **Duas Culturas no uso de ME**: DMC e .content-box-red[AMC];
+
+- **Algorithmic modeling culture**: relaciona-se ao campo de .content-box-red[Aprendizado de Máquina];
+
+- **Tipos de Aprendizado**: .content-box-red[Supervisionado] e Não-Supervisionado;
+
+- **Aprendizado Supervisionado**: estimar uma função `\(f(x)\)` para predizer um novo valor de `\(y\)` baseado em `\(x\)`. Se `\(y\)` for um número real (númerico) tem-se um .content-box-red[problema de regressão].
+]&lt;br&gt;
+
+.center[
+.font150[
+Quais algoritmos existentes para estimar `\(\Large{f\left(x\right)}\)`?
+]
+]
+
+&lt;!--Slide 13 --&gt;
+---
+# Algoritmos de AS
+
+**- Alguns dos principais algoritmos para problemas de regressão:**
+
+.pull-left[
+&lt;img src="fig/Tec.png" width="100%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[Fonte: O Autor.]]
+]
+
+--
+
+.pull-rigth[
+.center[**Pacote CARET** &lt;br&gt;
+
+Mais de 200 algoritmos para aprendizado supervisionado.
+(Kuhn and Johnson, 2013; Kuhn, 2018). &lt;br&gt;
+
+Web page: [CARET Package](https://topepo.github.io/caret/index.html)
+
+]
+]
+
+&lt;!--Slide 14 --&gt;
+---
 # Iniciar apresentação de algumas técnicas
-- Antes, fazer uma introdução informando a ideia de predizaer
+- Antes, fazer uma introdução informando a ideia de predizer
 a f(x), e portanto existente inúmeras técnicas de AM para isso...Obviamente, falar que a primeira ideia é fazer RL...
 - Usar base de dados de nativa (falar com Bruno), selecionar algumas árvores...
 - Inserir uma figura com as principais técnicas de IA
@@ -973,6 +1020,13 @@ hr, .title-slide h2::after, .mline h1::after {
   color: none;
   height: 1px;
   margin-right: 10px;
+}
+
+/*************************
+Font Size
+**************************/
+.font150 {
+  font-size: 150%;
 }
 
 
