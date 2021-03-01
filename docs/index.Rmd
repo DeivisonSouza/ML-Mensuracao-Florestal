@@ -12,6 +12,7 @@ encoding: "UTF-8"
 #output: revealjs::revealjs_presentation
 #output: rmdshower::shower_presentation
 header-includes: 
+   - \usepackage[brazil]{babel}
    - \usepackage{tikz}
    - \usepackage[hidelinks,pdfencoding=auto]{hyperref}
    - \usepackage{smartdiagram}
@@ -36,8 +37,9 @@ output:
 name: toc
 
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE, knitr.graphics.auto_pdf = TRUE)
 library(tidyverse)
+options(htmltools.dir.version = FALSE, 
+        knitr.graphics.auto_pdf = TRUE)
 
 knitr::opts_chunk$set(
   fig.showtext = TRUE,
@@ -362,35 +364,24 @@ função $f(x)$ `r Citep(myBib, "hastie2016elements")`.
 <!--Slide 11 -->
 ---
 # Um conjunto de dados...
-<br>
-.pull-left-3[
+
+.pull-left[
+.center[**Cubagem por Smalian**] 
+
+.scroll-box-20[
 ```{r, echo=FALSE, eval=TRUE, message=FALSE}
-
-data <- data.table::data.table(
-  Especie = c("Swietenia macrophylla", "Swietenia macrophylla", "Swietenia macrophylla", "Hymenolobium petraeum","Hymenolobium petraeum", "Hymenolobium petraeum", "Hymenolobium petraeum","Hymenolobium petraeum", "Swietenia macrophylla", "Swietenia macrophylla"),
-              DAP = c(33.6, 42.6, 52.1, 80.3, 90.8,
-                      49.4, 70.5, 100.5, 60.7, 27.1),
-              H = c(9.1, 13.2, 15.4, 18.6, 19.5,
-                    16.8, 17.9, 22.4, 15.3, 8.7),
-              Cipo = c("Sim", "Não", "Sim", "Não", "Sim",
-                         "Não", "Sim", "Não", "Sim", "Sim"),
-              QF = c(2, 1, 3, 1, 2, 1, 2, 3, 1, 3),
-              Selecao = c("Protegida", "Protegida", "Protegida", "Explorar", "Explorar",
-                          "Remanescente", "Explorar", "Remanescente","Protegida", "Protegida"),
-  stringsAsFactors = T)
-
 library(kableExtra)
-data %>%
-  kbl(caption = 'Dados fictícios para 10 árvores de duas espécies florestais.') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+data %>% kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
 ```
-]
+]]
+.pull-right[
+.center[**Terminologias**] 
 
---
-
-.pull-right-3[
-.center[**Terminologias**]
-
+.scroll-box-20[
+.content-box-blue[
 1. Comunidade de aprendizado de máquina:
 - **Instâncias/exemplos**: dados individuais.
 - **Atributos/características/features:**
@@ -398,9 +389,8 @@ data %>%
 - **Variável resposta/labels/classe**: 
     - Variável de interesse para predição.
 
-*Tipos de atributos*: binários, categóricos, numéricos.
-
-]
+*Tipos de atributos*: binários, categóricos, numéricos
+]]]
 
 <!--Slide 12 -->
 ---

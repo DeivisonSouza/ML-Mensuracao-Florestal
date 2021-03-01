@@ -69,6 +69,10 @@ Font Size
   font-size: 150%;
 }
 
+.font50 {
+  font-size: 50%;
+}
+
 
 /*************************
   Custom classes
@@ -136,6 +140,10 @@ Font Size
 /* background colour classes */
 .sydney-blue {
   background-color: #0148A4;
+  color: white;
+}
+.sydney-bluecl {
+  background-color: #e6e6ff;
   color: white;
 }
 .sydney-yellow {
@@ -252,14 +260,15 @@ slides > slide {
 }
 .scroll-box-20 {
   height:20em;
-  overflow-y: scroll;
+  overflow: auto;
 }
 .scroll-output {
-  height: 90%;
+  height: 80%;
   overflow-y: scroll;
+  width: 300px;
+  text-align: center;
+  border: 1px solid #b3b3b3;
 }
-
-
 
 
  /* inline code background */
