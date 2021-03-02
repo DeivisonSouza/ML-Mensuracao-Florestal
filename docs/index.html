@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[01/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[02/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -546,12 +546,11 @@ Quais algoritmos existentes para estimar `\(\Large{f\left(x\right)}\)`?
 &lt;!--Slide 13 --&gt;
 ---
 # Algoritmos de AS
-
 **- Alguns dos principais algoritmos para problemas de regressão:**
-
 .pull-left[
-&lt;img src="fig/Tec.png" width="100%" style="display: block; margin: auto;" /&gt;
-.left[.footnote[Fonte: O Autor.]]
+&lt;img src="fig/Tec.png" width="110%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;.left[.footnote[Fonte: O Autor.]]
 ]
 
 --
@@ -569,6 +568,37 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 ]
 
 &lt;!--Slide 14 --&gt;
+---
+# Regression Tree - RT
+
+.pull-left[
+**História:**
+- **CART**: algoritmo mais famoso;
+- **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
+- **Proposto**: (Breiman, et al., 1984); e
+- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+
+--
+
+.blockquote[
+**Estrutura:** &lt;br&gt;
+
+1) Nó raiz (*root node*): `\(R_{1}\)`
+
+2) Nó intermediário (*intermediate node*): `\(I_{2}\)`, `\(I_{3}\)` e `\(I_{7}\)`
+
+3) Nó terminal ou folha (leaf or terminal node): `\(T_{4}\)`, `\(T_{5}\)`, `\(T_{6}\)`, `\(T_{8}\)` e `\(T_{9}\)`
+]
+]
+
+.pull-right[
+.center[**Uma árvore de regressão...**]
+
+&lt;img src="fig/CART1.png" width="90%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[Fonte: Adaptado de Breiman et al. (1984).]]
+]
+
+&lt;!--Slide 15 --&gt;
 ---
 # Iniciar apresentação de algumas técnicas
 - Antes, fazer uma introdução informando a ideia de predizer
@@ -655,7 +685,7 @@ name: aplicacoes
 name: AMIF
 # AM no Inventário Florestal: estudos indicam potencial!
 
-&lt;img src="fig/ML-TEC.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="fig/ML-TEC.png" width="85%" style="display: block; margin: auto;" /&gt;
 .left[.footnote[Fonte: O Autor.]]
 
 
@@ -791,6 +821,11 @@ background-size: cover
 In: &lt;em&gt;Statistical science&lt;/em&gt; 16.3, pp. 199&amp;ndash;231.
 DOI: &lt;a href="https://doi.org/10.1214/ss/1009213726"&gt;10.1214/ss/1009213726&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;cite&gt;Breiman, L., J. Friedman, R. Olshen, et al.
+(1984).
+&amp;ldquo;Classification and Regression Trees&amp;rdquo;.
+&lt;/p&gt;&lt;/cite&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;cite&gt;Corte, A. P. D., D. V. Souza, F. E. Rex, et al.
 (2020).
 &amp;ldquo;Forest inventory with high-density UAV-Lidar: Machine learning approaches for predicting individual tree attributes&amp;rdquo;.
@@ -808,15 +843,15 @@ DOI: &lt;a href="https://doi.org/10.1016/j.compag.2005.04.002"&gt;10.1016/j.comp
 &amp;ldquo;Modelling total volume of dominant pine trees in reforestations via multivariate analysis and artificial neural network models&amp;rdquo;.
 In: &lt;em&gt;Biosystems engineering&lt;/em&gt; 105.3, pp. 306&amp;ndash;315.
 DOI: &lt;a href="https://doi.org/10.1016/j.biosystemseng.2009.11.010"&gt;10.1016/j.biosystemseng.2009.11.010&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Fehrmann, L., A. Lehtonen, C. Kleinn, et al.
 (2008).
 &amp;ldquo;Comparison of linear and mixed-effect regression models and ak-nearest neighbour approach for estimation of single-tree biomass&amp;rdquo;.
 In: &lt;em&gt;Canadian Journal of Forest Research&lt;/em&gt; 38.1, pp. 1&amp;ndash;9.
 DOI: &lt;a href="https://doi.org/10.1139/X07-119"&gt;10.1139/X07-119&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Géron, A.
 (2017).
@@ -842,15 +877,15 @@ ISBN: 978-65-00-02410-4.&lt;/cite&gt;&lt;/p&gt;
 &lt;em&gt;An introduction to statistical learning&lt;/em&gt;.
 Vol. 112.
 Springer.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Korhonen, K. T. and A. Kangas
 (1997).
 &amp;ldquo;Application of nearest-neighbour regression for generalizing sample tree information&amp;rdquo;.
 In: &lt;em&gt;Scandinavian Journal of Forest Research&lt;/em&gt; 12.1, pp. 97&amp;ndash;101.
 DOI: &lt;a href="https://doi.org/10.1080/02827589709355389"&gt;10.1080/02827589709355389&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Kuhn, M.
 (2018).
@@ -875,15 +910,15 @@ DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&
 &amp;ldquo;Artificial Intelligence Models to Estimate Biomass of Tropical Forest Trees&amp;rdquo;.
 In: &lt;em&gt;Polibits&lt;/em&gt; 56, pp. 29&amp;ndash;37.
 DOI: &lt;a href="https://doi.org/10.17562/PB-56-4"&gt;10.17562/PB-56-4&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Nieto, P. G., J. M. Torres, M. A. Fernández, et al.
 (2012).
 &amp;ldquo;Support vector machines and neural networks used to evaluate paper manufactured using Eucalyptus globulus&amp;rdquo;.
 In: &lt;em&gt;Applied Mathematical Modelling&lt;/em&gt; 36.12, pp. 6137&amp;ndash;6145.
 DOI: &lt;a href="https://doi.org/10.1016/j.apm.2012.02.016"&gt;10.1016/j.apm.2012.02.016&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Nunes, M. H. and E. B. Görgens
 (2016).
@@ -902,12 +937,6 @@ DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jen
 &amp;ldquo;Some studies in machine learning using the game of checkers&amp;rdquo;.
 In: &lt;em&gt;IBM Journal of research and development&lt;/em&gt;, pp. 211&amp;ndash;229.
 DOI: &lt;a href="https://doi.org/10.1147/rd.33.0210"&gt;10.1147/rd.33.0210&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;cite&gt;Sanquetta, C. R., L. R. Piva, J. Wojciechowski, et al.
-(2018).
-&amp;ldquo;Volume estimation of Cryptomeria japonica logs in southern Brazil using artificial intelligence models&amp;rdquo;.
-In: &lt;em&gt;Southern Forests: a Journal of Forest Science&lt;/em&gt; 80.1, pp. 29&amp;ndash;36.
-DOI: &lt;a href="https://doi.org/10.2989/20702620.2016.1263013"&gt;10.2989/20702620.2016.1263013&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
 ---
 background-image: url(fig/white.jpg)
@@ -1352,6 +1381,10 @@ slides > slide {
   padding: 2px;
 }
 
+/******************
+ * Color letters
+ ****************/
+.red { color: red; }
 
 
 /******************

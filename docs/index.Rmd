@@ -418,11 +418,9 @@ Quais algoritmos existentes para estimar $\Large{f\left(x\right)}$?
 <!--Slide 13 -->
 ---
 # Algoritmos de AS
-
 **- Alguns dos principais algoritmos para problemas de regressão:**
-
 .pull-left[
-```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+```{r, echo=FALSE, out.width='110%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics('fig/Tec.png')
 ```
 .left[.footnote[Fonte: O Autor.]]
@@ -443,6 +441,39 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 ]
 
 <!--Slide 14 -->
+---
+# Regression Tree - RT
+
+.pull-left[
+**História:**
+- **CART**: algoritmo mais famoso;
+- **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
+- **Proposto**: `r Citep(myBib, "breiman1984classification", .opts = list(max.names = 1, longnamesfirst = F))`; e
+- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+
+--
+
+.blockquote[
+**Estrutura:** <br>
+
+1) Nó raiz (*root node*): $R_{1}$
+
+2) Nó intermediário (*intermediate node*): $I_{2}$, $I_{3}$ e $I_{7}$
+
+3) Nó terminal ou folha (leaf or terminal node): $T_{4}$, $T_{5}$, $T_{6}$, $T_{8}$ e $T_{9}$
+]
+]
+
+.pull-right[
+.center[**Uma árvore de regressão...**]
+
+```{r, echo=FALSE, out.width='90%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/CART1.png')
+```
+.left[.footnote[Fonte: Adaptado de Breiman et al. (1984).]]
+]
+
+<!--Slide 15 -->
 ---
 # Iniciar apresentação de algumas técnicas
 - Antes, fazer uma introdução informando a ideia de predizer
@@ -535,7 +566,7 @@ knitr::include_graphics('fig/MindMap.png')
 name: AMIF
 # AM no Inventário Florestal: estudos indicam potencial!
 
-```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
+```{r, echo=FALSE, out.width='85%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics('fig/ML-TEC.png')
 ```
 .left[.footnote[Fonte: O Autor.]]
