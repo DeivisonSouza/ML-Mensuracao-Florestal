@@ -38,13 +38,15 @@ name: toc
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(rpart)                            
+library(rpart.plot)
 options(htmltools.dir.version = FALSE, 
         knitr.graphics.auto_pdf = TRUE)
 
 knitr::opts_chunk$set(
   fig.showtext = TRUE,
-  fig.width = 16, 
-  fig.height = 8, 
+  #fig.width = 16, 
+  #fig.height = 8, 
   dpi = 600,
   fig.align='center', 
   dev.args=list(bg='transparent')
@@ -67,7 +69,7 @@ use_extra_styles(
 )
 
 # use_tachyons()
-# use_panelset()
+use_panelset()
 # use_clipboard()
 #style_panelset(panel_tab_color_active = "red")
 ```
@@ -442,7 +444,7 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
 <!--Slide 14 -->
 ---
-# Regression Tree - RT
+# Regression Tree (CART)
 
 .pull-left[
 **História:**
@@ -474,6 +476,56 @@ knitr::include_graphics('fig/CART1.png')
 ]
 
 <!--Slide 15 -->
+---
+# Regression Tree: Um modelo CART...
+
+.panelset[
+.panel[.panel-name[Dados]
+.scroll-box-20[
+```{r panel-chunk, fig.show='hide', echo=FALSE, eval=TRUE, message=FALSE}
+library(kableExtra)
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+data %>% kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
+```
+]
+]
+
+.panel[.panel-name[CART]
+
+```{r, echo=FALSE, fig.width=5, fig.height=2, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0)', dpi=600, eval=TRUE, message=FALSE}
+set.seed(1)
+tree <- rpart(V ~ ., data = data, method="anova", 
+              control = rpart.control(cp = 0))
+rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
+```
+
+.panel[.panel-name[Regras]
+
+```{r, echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
+print(tree)
+```
+
+]
+
+]
+]
+
+
+---
+# Regression Tree (CART) - Características gerais
+
+- Qual a ideia principal?
+A ideia é dividir o espaço de covariável em várias partições e ajustar um modelo constante da variável resposta em cada partição.
+
+- Covariáveis: categóricas, dicotômicas, discretas ou contínuas...
+
+- Base para outros algoritmos:
+  - Random forests, bagging, boosting, XGBoost...
+
+
+<!--Slide 16 -->
 ---
 # Iniciar apresentação de algumas técnicas
 - Antes, fazer uma introdução informando a ideia de predizer

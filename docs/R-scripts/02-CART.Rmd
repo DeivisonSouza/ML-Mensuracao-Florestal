@@ -1,0 +1,181 @@
+---
+title: "Árvores de Classificação e Regressão"
+subtitle: "Classification And Regression Tree (CART) - Breiman et al. (1984)"
+author:
+- name: Deivison Venicio Souza
+fontsize: 14pt
+lang: pt-BR
+date: '`r format(Sys.Date(),"%d/%B/%Y")`'
+
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: vignette
+    toc: yes
+    df_print: paged
+    number_sections: yes
+  pdf_document:
+    toc: yes
+#csl: Global_Change_Biology.csl
+#bibliography: INF.bib
+#output: 
+#    html_document:
+#        code_folding: show
+#        fig_caption: yes
+#        number_sections: yes
+#        theme: flatly
+#        toc: yes
+#        df_print: paged
+#    highlight: tango
+---
+
+
+```{r setup, include=TRUE}
+library(rmarkdown)
+knitr::opts_chunk$set(fig.align="center", cache=F, prompt=FALSE, comment = NA, eval = TRUE)
+```
+
+
+# Objetivo
+
+Compreender o processo de crescimento de uma árvore regressão (e a matemática subjacente) usando a abordagem do algoritmo CART (Classification And Regression Tree) proposto por Breiman et al. (1984), quando utilizado para estimar uma função de regressão $f(x)$. A ideia principal do CART é dividir o espaço de covariável em várias partições e ajustar um modelo constante da variável resposta em cada partição.
+
+# Carrega pacote
+
+```{r library, eval=TRUE, message = FALSE, collapse=TRUE, warning=FALSE}
+library(tidyverse)
+library(data.table)
+library(rpart)                            
+library(rpart.plot)
+library(ggplot2)
+library(gridExtra)                          
+library(ggthemes)
+```
+
+# Carregando dados
+
+Os dos constituem uma amostra de árvores de *Cedrela fissilis* cubadas em operação de romaneio em AMF na Amazônia brasileira.
+
+```{r, eval=TRUE, message = FALSE, collapse=TRUE}
+(data <- fread("Cedrela.csv") %>% select(-Arvore))
+```
+
+# Relação entre variáveis
+
+```{r, eval=TRUE, message = FALSE, collapse=TRUE}
+g1 <- ggplot(data, aes(x=D, y=V)) + geom_point()
+g2 <- ggplot(data, aes(x=H, y=V)) + geom_point()
+
+plotly::ggplotly(g1)
+plotly::ggplotly(g2)
+```
+
+# Ajuste do modelo - Árvore de Regressão (Package Rpart) - Implementa o CART
+
+A variável resposta alvo da modelagem será **Volume** da árvore, e as covariáveis de entrada serão D (diâmetro) e H (altura) da árvore. A função `rpart` tem o seguinte escopo:
+
+**rpart(formula, data, weights, subset, na.action = na.rpart, method,
+      model = FALSE, x = FALSE, y = TRUE, parms, control, cost, ...)**
+      
+      
+O parâmetro `control` recebe uma lista de opções que controlam detalhes do algoritmo rpart. O escopo geral e os parâmetros passíveis de serem controlados estão detalhados abaixo:
+
+
+**rpart.control(minsplit = 20, minbucket = round(minsplit/3), cp = 0.01, 
+              maxcompete = 4, maxsurrogate = 5, usesurrogate = 2, xval = 10,
+              surrogatestyle = 0, maxdepth = 30, ...)**
+
+
+**minsplit** = o número mínimo de observações que devem existir em um nó para que uma divisão seja tentada.
+
+**minbucket** = o número mínimo de observações em qualquer nó terminal <leaf>. Se apenas um dos minbucket ou minsplit for especificado, o código define minsplit para minbucket*3 ou minbucket para minsplit/3, conforme apropriado.
+
+**cp** (parâmetro de complexidade) =  Qualquer divisão que não diminua a **falta total** (SSEpai?) de ajuste por um fator de cp não é tentada. Por exemplo, com anova splitting, isso significa que o **R-quadrado total deve aumentar em cp em cada etapa**. O principal papel desse parâmetro é economizar tempo de computação removendo as divisões que obviamente não valem a pena. Essencialmente, o usuário informa ao programa que qualquer divisão que não melhore o ajuste por cp provavelmente será eliminada por validação cruzada, e que, portanto, o programa não precisa buscá-la.
+
+**maxcompete** = o número de divisões do concorrente retidas na saída. É útil saber não apenas qual divisão foi escolhida, mas qual variável veio em segundo, terceiro, etc.
+
+**maxsurrogate** = o número de divisões substitutas retidas na saída. Se isso for definido como zero, o tempo de cálculo será reduzido, uma vez que aproximadamente metade do tempo computacional (diferente de setup) é usado na busca por splits substitutos.
+
+**usesurrogate** = como usar substitutos no processo de divisão. 0 significa apenas exibição; uma observação com um valor ausente para a regra de divisão primária não é enviada mais abaixo na árvore. 1 significa usar substitutos, em ordem, para dividir os sujeitos que não têm a variável primária; se todos os substitutos estiverem ausentes, a observação não será dividida. Para o **valor 2, se todos os substitutos estiverem ausentes, envie a observação na direção majoritária**. Um valor de 0 corresponde à ação da árvore e 2 às recomendações de Breiman et.al (1984).
+
+**xval** = número de validações cruzadas.
+
+**surrogatestyle** =  controla a seleção de um melhor substituto. Se definido como 0 (padrão), o programa usa o número total de classificações corretas para uma variável substituta em potencial, se definida como 1, usa a porcentagem correta, calculada sobre os valores não ausentes do substituto. A primeira opção penaliza mais severamente as covariáveis com um grande número de valores omissos.
+
+**maxdepth** = Define a profundidade máxima de qualquer nó da árvore final, com o nó raiz contado como profundidade 0. Valores maiores que 30 rpart fornecerão resultados sem sentido em máquinas de 32 bits.
+
+## Árvore sem divisões (Usando cp = 1)
+
+```{r, eval=TRUE,message = FALSE, collapse=TRUE}
+# Um valor de cp = 1
+set.seed(1)
+tree1 <- rpart(V ~ ., data = data, control = rpart.control(cp = 1))
+print(tree1)
+```
+
+## Árvore adulta - (sem nenhuma penalidade uma árvore adulta será obtida)
+
+```{r, eval=TRUE,message = FALSE, collapse=TRUE}
+# cp = 0 (gera uma árvore sem penalidades)
+set.seed(1)
+tree2 <- rpart(V ~ ., data = data, method="anova", control = rpart.control(cp = 0))
+print(tree2)
+```
+
+Nesse caso, o uso de cp=1 permitiu o crescimento de uma árvore sem restrições, comumente chamada "árvore adulta". Foram geradas 4 regras (nós) e 3 nós terminais (leaf). O simbolo * denota um nó terminal. Somente a variável D (diâmetro) foi escolhida pelo algoritmo para realizar as divisões binárias. A função `print` imprime a árvore construída.
+
+O pacote `rpart.plot` permite gerar árvores customizadas a partir de um objeto `rpart`:
+
+```{r, eval=TRUE,message = FALSE, collapse=TRUE, dpi=600}
+rpart.plot(tree2)
+```
+
+
+```{r, eval=T, dpi=600}
+heat.tree <- function(tree2, low.is.green = FALSE, ...) { # dots args passed to prp
+y <- tree2$frame$yval
+if(low.is.green)
+y <- -y
+max <- max(y)
+min <- min(y)
+cols <- rainbow(99, end = .36)[
+ifelse(y > y[1], (y-y[1]) * (99-50) / (max-y[1]) + 50,
+(y-min) * (50-1) / (y[1]-min) + 1)]
+prp(tree2, branch.col = cols, box.col = cols, ...)
+}
+heat.tree(tree2, type = 4, varlen = 0, faclen = 0, fallen.leaves = TRUE)
+```
+
+
+```{r,eval=T, dpi=600}
+par(mfrow = c(4,3))
+for(iframe in 1:nrow(tree2$frame)) {
+cols <- ifelse(1:nrow(tree2$frame) <= iframe, "black", "gray")
+prp(tree2, col = cols, branch.col = cols, split.col = cols)
+}
+```
+
+# Desvendando a árvore de regressão
+
+## A árvore sem divisões (cp = 0)
+
+Inicialmente, pode-se considerar que `Volume` (variável resposta y) pode ser explicado pela sua média (melhor "chute"). Então, utilizando-se dos valores reais de `y` do conjunto `data` (n = `r length(data$V)`) pode-se obter a média empírica e soma de erro quadrático (Sum of Squared Errors - SSE). O cálculo do SSE é dado pela soma da diferença entre os valores empíricos de `Volume (V)` e a média aritmética de `Volume`. Assim, têm-se:
+
+
+- Média aritmética da variável resposta `y` no conjunto `data` = `r mean(data$V)`;
+- Score SSE no conjunto `data` = `r format(x=sum((data$V - mean(data$V))^2), digits = 10, scientific = F)`.
+
+Quando o modelo treinado `tree2` é impresso verifica-se que os valores `r mean(data$V)` e `r format(x=sum((data$V - mean(data$V))^2), digits = 10, scientific = F)` irão compor a raíz da árvore de regressão: `(1) root n=32 SSE=326.19280  Mean=5.7237`. No nó raiz estão 100% dos dados do conjunto `data`.
+
+```{r, eval=TRUE,message = FALSE, collapse=TRUE}
+data[, `:=` (Vmean = mean(V))] # média e empilha
+data[, `:=` (SSE = sum((V - Vmean)^2))]  # SSE
+data[, `:=` (N=.N)]   # número de observações
+data[, `:=` (MSE = sum((V - Vmean)^2)/length(V))] # MSE
+data[, `:=` (R2 = 1-(sum((V-Vmean)^2)/sum((V-mean(V))^2)))] # R-squared
+data[, `:=` (RelError = 1-R2)][] # Relative Error
+```
+
+```{r, eval=FALSE,message = FALSE, collapse=TRUE, echo=FALSE}
+write.xlsx(hatTrain, "/home/deivison/ME/CesarTaconelli_GLM/Tree/hatTrain.xlsx")
+```
