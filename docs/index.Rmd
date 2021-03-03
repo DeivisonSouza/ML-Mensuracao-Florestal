@@ -96,7 +96,6 @@ BibOptions(check.entries = FALSE,
 (myBib <- ReadBib("./bib/ref.bib", check = FALSE))
 ```
 
-
 # 👋 Olá!
 
 ## <bdi style="color:magenta;">1. Deivison Souza </bdi>
@@ -481,25 +480,53 @@ knitr::include_graphics('fig/CART1.png')
 
 .panelset[
 .panel[.panel-name[Dados]
+.pull-left[
+
 .scroll-box-20[
-```{r panel-chunk, fig.show='hide', echo=FALSE, eval=TRUE, message=FALSE}
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
 library(kableExtra)
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 data %>% kable(format= "html") %>%
   kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
 ```
+]]
+.pull-right[
+**Meta**: Estimar uma função de regressão $f(x)$ usando o algoritmo CART para predizer o volume $\left(\normalsize V = f(D,H)\right)$
+
+**Foco**: Como é o processo de crescimento de uma árvore CART?
+
 ]
 ]
 
 .panel[.panel-name[CART]
-
-```{r, echo=FALSE, fig.width=5, fig.height=2, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0)', dpi=600, eval=TRUE, message=FALSE}
+.pull-left[
+```{r, echo=FALSE, fig.width=5, fig.height=3, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0)', dpi=600, eval=TRUE, message=FALSE}
 set.seed(1)
 tree <- rpart(V ~ ., data = data, method="anova", 
               control = rpart.control(cp = 0))
 rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
 ```
+]
+
+.pull-right[
+.scroll-box-20[
+**1) Início**: 
+- Nó raiz (todas instâncias)/n = 32
+- Cálculos: 
+  - Média aritmética da resposta (melhor "chute");
+  - Soma de Quadrados de Resíduos (SQR).
+
+\begin{equation}
+SQR = \sum_{i=1}^{n}(y_{i} - \hat{f_{m}}(x_{i}))^{2}
+\end{equation}
+
+$\hat{f_{m}}(x_{i})$: predição na região $m$ em que a i-ésima observação é alocada.
+
+**2) Primeira divisão**: 
+
+
+]]]
 
 .panel[.panel-name[Regras]
 
@@ -509,7 +536,6 @@ print(tree)
 
 ]
 
-]
 ]
 
 
