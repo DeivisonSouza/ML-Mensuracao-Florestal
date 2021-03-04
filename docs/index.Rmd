@@ -476,7 +476,7 @@ knitr::include_graphics('fig/CART1.png')
 
 <!--Slide 15 -->
 ---
-# Regression Tree: Um modelo CART...
+# Regression Tree: Como uma árvore cresce?
 
 .panelset[
 .panel[.panel-name[Dados]
@@ -489,6 +489,7 @@ data <- data.table::fread("R-scripts/Cedrela.csv")
 
 data %>% kable(format= "html") %>%
   kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
+
 ```
 ]]
 .pull-right[
@@ -501,38 +502,110 @@ data %>% kable(format= "html") %>%
 
 .panel[.panel-name[CART]
 .pull-left[
-```{r, echo=FALSE, fig.width=5, fig.height=3, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0)', dpi=600, eval=TRUE, message=FALSE}
+```{r, echo=FALSE, fig.width=5, fig.height=3, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0/minsplit = 20)', dpi=600, eval=TRUE, message=FALSE}
 set.seed(1)
-tree <- rpart(V ~ ., data = data, method="anova", 
-              control = rpart.control(cp = 0))
-rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
+data2 <- data %>% select(-Arvore)
+
+tree <- rpart(V ~ ., data = data2, method="anova", 
+              control = rpart.control(cp = 0, minsplit = 20))
+rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE, digits = 4)
 ```
+*minsplit* = Mínimo de 20 observações p/ tentar uma divisão
 ]
 
 .pull-right[
 .scroll-box-20[
-**1) Início**: 
-- Nó raiz (todas instâncias)/n = 32
+.shadow[
+**1) Início**
+- Nó raiz (todas instâncias)/(**n = 32**)
 - Cálculos: 
-  - Média aritmética da resposta (melhor "chute");
-  - Soma de Quadrados de Resíduos (SQR).
+  - Média aritmética da resposta (melhor ``chute''); 
+  **5.724 m`r knitr::asis_output("\U00B3")`**
+  
+  - Soma de Quadrados de Resíduos (SQR). **326.19 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
 
 \begin{equation}
 SQR = \sum_{i=1}^{n}(y_{i} - \hat{f_{m}}(x_{i}))^{2}
 \end{equation}
 
 $\hat{f_{m}}(x_{i})$: predição na região $m$ em que a i-ésima observação é alocada.
+]
 
-**2) Primeira divisão**: 
+.shadow[
+**2) Primeira divisão** 
+- Qual divisão selecionar?
+  - Maior redução da SQR: Qual variável e ponto de corte?
+  
+  1) Variável escolhida: **D (diâmetro)**
+  
+  2) Ponto de corte: **95.97cm**
+  
+- Qual SQR p/ nós filhos?
+    - Nó ''filho'' esquerdo: 
+    **64.39 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
+    - Nó ''filho'' direito: 
+    **93.88 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
+    
+\begin{equation}
+{\Delta R(s,t)} = R(t) - (R(t_L) + R(t_R)) \\
+\end{equation}
 
+ = **326.19280 - (64.39354 + 93.87834)**
+ 
+ = **`r tree$frame$dev[1] - (tree$frame$dev[2] + tree$frame$dev[5])` (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
 
+]
+
+.shadow[
+**3) Segunda divisão**
+   
+   1) Variável escolhida: **D (diâmetro)**
+  
+  2) Ponto de corte: **79.74cm**
+  
+- Qual SQR p/ nós filhos?
+    - Nó ''filho'' esquerdo: 
+    **17.41 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
+    - Nó ''filho'' direito: 
+    **13.90 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
+    
+\begin{equation}
+{\Delta R(s,t)} = R(t) - (R(t_L) + R(t_R)) \\
+\end{equation}
+
+ = **64.39354 - (17.40637 + 13.89782)**
+ 
+ = **`r tree$frame$dev[2] - (tree$frame$dev[3] + tree$frame$dev[4])` (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
+
+]   
+
+.shadow[
+.center[**Resumindo**]
+
+O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente chamada "árvore adulta". Também, minsplit = 20 impôs a condição de existir no mínimo 20 observações em um nó para que uma divisão fosse tentada.
+
+- *Estrutura*: 
+    - Duas divisões binárias;
+    - Três nós terminais (*);
+    - Quatro regras do tipo if-then (Se então); e
+    - Somente a variável D (diâmetro) foi escolhida.
+]
+  
 ]]]
+
+
+
+
 
 .panel[.panel-name[Regras]
 
 ```{r, echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
 print(tree)
 ```
+
+]
+
+.panel[.panel-name[SQR]
 
 ]
 

@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[03/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[04/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -600,7 +600,7 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
 &lt;!--Slide 15 --&gt;
 ---
-# Regression Tree: Um modelo CART...
+# Regression Tree: Como uma árvore cresce?
 
 .panelset[
 .panel[.panel-name[Dados]
@@ -823,29 +823,95 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 .panel[.panel-name[CART]
 .pull-left[
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" alt="Árvore CART (rpart/cp = 0)"  /&gt;
-&lt;p class="caption"&gt;Árvore CART (rpart/cp = 0)&lt;/p&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" alt="Árvore CART (rpart/cp = 0/minsplit = 20)"  /&gt;
+&lt;p class="caption"&gt;Árvore CART (rpart/cp = 0/minsplit = 20)&lt;/p&gt;
 &lt;/div&gt;
+*minsplit* = Mínimo de 20 observações p/ tentar uma divisão
 ]
 
 .pull-right[
 .scroll-box-20[
-**1) Início**: 
-- Nó raiz (todas instâncias)/n = 32
+.shadow[
+**1) Início**
+- Nó raiz (todas instâncias)/(**n = 32**)
 - Cálculos: 
-  - Média aritmética da resposta (melhor "chute");
-  - Soma de Quadrados de Resíduos (SQR).
+  - Média aritmética da resposta (melhor ``chute''); 
+  **5.724 m³**
+  
+  - Soma de Quadrados de Resíduos (SQR). **326.19 (m³)²**
 
 `\begin{equation}
 SQR = \sum_{i=1}^{n}(y_{i} - \hat{f_{m}}(x_{i}))^{2}
 \end{equation}`
 
 `\(\hat{f_{m}}(x_{i})\)`: predição na região `\(m\)` em que a i-ésima observação é alocada.
+]
 
-**2) Primeira divisão**: 
+.shadow[
+**2) Primeira divisão** 
+- Qual divisão selecionar?
+  - Maior redução da SQR: Qual variável e ponto de corte?
+  
+  1) Variável escolhida: **D (diâmetro)**
+  
+  2) Ponto de corte: **95.97cm**
+  
+- Qual SQR p/ nós filhos?
+    - Nó ''filho'' esquerdo: 
+    **64.39 (m³)²**
+    - Nó ''filho'' direito: 
+    **93.88 (m³)²**
+    
+`\begin{equation}
+{\Delta R(s,t)} = R(t) - (R(t_L) + R(t_R)) \\
+\end{equation}`
 
+ = **326.19280 - (64.39354 + 93.87834)**
+ 
+ = **167.9208711 (m³)²**
 
+]
+
+.shadow[
+**3) Segunda divisão**
+   
+   1) Variável escolhida: **D (diâmetro)**
+  
+  2) Ponto de corte: **79.74cm**
+  
+- Qual SQR p/ nós filhos?
+    - Nó ''filho'' esquerdo: 
+    **17.41 (m³)²**
+    - Nó ''filho'' direito: 
+    **13.90 (m³)²**
+    
+`\begin{equation}
+{\Delta R(s,t)} = R(t) - (R(t_L) + R(t_R)) \\
+\end{equation}`
+
+ = **64.39354 - (17.40637 + 13.89782)**
+ 
+ = **33.0893388 (m³)²**
+
+]   
+
+.shadow[
+.center[**Resumindo**]
+
+O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente chamada "árvore adulta". Também, minsplit = 20 impôs a condição de existir no mínimo 20 observações em um nó para que uma divisão fosse tentada.
+
+- *Estrutura*: 
+    - Duas divisões binárias;
+    - Três nós terminais (*);
+    - Quatro regras do tipo if-then (Se então); e
+    - Somente a variável D (diâmetro) foi escolhida.
+]
+  
 ]]]
+
+
+
+
 
 .panel[.panel-name[Regras]
 
@@ -862,6 +928,10 @@ SQR = \sum_{i=1}^{n}(y_{i} - \hat{f_{m}}(x_{i}))^{2}
 ##     5) D&gt;=79.735 9  13.89782  6.045556 *
 ##   3) D&gt;=95.97 7  93.87834 10.052860 *
 ```
+
+]
+
+.panel[.panel-name[SQR]
 
 ]
 
