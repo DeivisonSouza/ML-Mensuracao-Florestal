@@ -122,7 +122,7 @@ tree2 <- rpart(V ~ ., data = data, method="anova", control = rpart.control(cp = 
 print(tree2)
 ```
 
-Nesse caso, o uso de cp=1 permitiu o crescimento de uma árvore sem restrições, comumente chamada "árvore adulta". Foram geradas 4 regras (nós) e 3 nós terminais (leaf). O simbolo * denota um nó terminal. Somente a variável D (diâmetro) foi escolhida pelo algoritmo para realizar as divisões binárias. A função `print` imprime a árvore construída.
+Nesse caso, o uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente chamada "árvore adulta". Foram geradas 4 regras (nós) e 3 nós terminais (leaf). O simbolo * denota um nó terminal. Somente a variável D (diâmetro) foi escolhida pelo algoritmo para realizar as divisões binárias. A função `print` imprime a árvore construída.
 
 O pacote `rpart.plot` permite gerar árvores customizadas a partir de um objeto `rpart`:
 

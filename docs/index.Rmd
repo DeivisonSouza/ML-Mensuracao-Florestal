@@ -40,6 +40,8 @@ name: toc
 library(tidyverse)
 library(rpart)                            
 library(rpart.plot)
+library(kableExtra)
+
 options(htmltools.dir.version = FALSE, 
         knitr.graphics.auto_pdf = TRUE)
 
@@ -484,7 +486,6 @@ knitr::include_graphics('fig/CART1.png')
 
 .scroll-box-20[
 ```{r, echo=FALSE, eval=TRUE, message=FALSE}
-library(kableExtra)
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 data %>% kable(format= "html") %>%
@@ -541,9 +542,9 @@ $\hat{f_{m}}(x_{i})$: predição na região $m$ em que a i-ésima observação �
   2) Ponto de corte: **95.97cm**
   
 - Qual SQR p/ nós filhos?
-    - Nó ''filho'' esquerdo: 
+    - $SQR_{N_{2}}$: 
     **64.39 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
-    - Nó ''filho'' direito: 
+    - $SQR_{N_{3}}$: 
     **93.88 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
     
 \begin{equation}
@@ -559,14 +560,14 @@ $\hat{f_{m}}(x_{i})$: predição na região $m$ em que a i-ésima observação �
 .shadow[
 **3) Segunda divisão**
    
-   1) Variável escolhida: **D (diâmetro)**
+  1) Variável escolhida: **D (diâmetro)**
   
   2) Ponto de corte: **79.74cm**
   
 - Qual SQR p/ nós filhos?
-    - Nó ''filho'' esquerdo: 
+    - $SQR_{N_{4}}$: 
     **17.41 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
-    - Nó ''filho'' direito: 
+    - $SQR_{N_{5}}$: 
     **13.90 (m`r knitr::asis_output("\U00B3")`)`r knitr::asis_output("\U00B2")`**
     
 \begin{equation}
@@ -593,10 +594,6 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
   
 ]]]
 
-
-
-
-
 .panel[.panel-name[Regras]
 
 ```{r, echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
@@ -605,8 +602,67 @@ print(tree)
 
 ]
 
-.panel[.panel-name[SQR]
+.panel[.panel-name[SQR-N1]
 
+.pull-left[
+
+.scroll-box-20[
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+library(kableExtra)
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+data %>% 
+  mutate("yi-fm" = V-mean(data$V)) %>%
+  mutate("(yi-fm)²" = (V-mean(data$V))^2) %>%
+  rmarkdown::paged_table()
+  
+# kable(format= "html") %>%
+# kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
+```
+
+]]
+
+.pull-right[
+- **1) Início**:
+
+$\bar{V}$ = `r mean(data$V)`
+
+$SQR_{N_{1}}$ = `r sum((data$V-mean(data$V))^2)`
+
+]
+]
+
+.panel[.panel-name[SQR-N2-N3]
+
+.pull-left[
+
+.scroll-box-20[
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+data %>% arrange(D) %>%
+  filter(D <= 95.97) %>%
+  mutate("yi-fm" = V-mean(V)) %>%
+  mutate("(yi-fm)²" = (V-mean(V))^2) %>%
+  rmarkdown::paged_table()
+```
+
+]]
+
+.pull-right[
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+data %>% arrange(D) %>%
+  filter(D > 95.97) %>%
+  mutate("yi-fm" = V-mean(V)) %>%
+  mutate("(yi-fm)²" = (V-mean(V))^2) %>%
+  rmarkdown::paged_table()
+```
+
+Ponto de corte: **95.97cm**
+
+$SQR_{N_{2}}$
+
+$SQR_{N_{3}}$
+
+]
 ]
 
 ]
