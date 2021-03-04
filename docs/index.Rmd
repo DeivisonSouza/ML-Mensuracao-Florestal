@@ -505,7 +505,7 @@ data %>% kable(format= "html") %>%
 .pull-left[
 ```{r, echo=FALSE, fig.width=5, fig.height=3, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0/minsplit = 20)', dpi=600, eval=TRUE, message=FALSE}
 set.seed(1)
-data2 <- data %>% select(-Arvore)
+data2 <- data %>% select(-Arv)
 
 tree <- rpart(V ~ ., data = data2, method="anova", 
               control = rpart.control(cp = 0, minsplit = 20))
@@ -625,7 +625,7 @@ data %>%
 .pull-right[
 - **1) Início**:
 
-$\bar{V}$ = `r mean(data$V)`
+$\bar{V}$ = `r mean(data$V)`;
 
 $SQR_{N_{1}}$ = `r sum((data$V-mean(data$V))^2)`
 
@@ -638,35 +638,93 @@ $SQR_{N_{1}}$ = `r sum((data$V-mean(data$V))^2)`
 
 .scroll-box-20[
 ```{r, echo=FALSE, eval=TRUE, message=FALSE}
-data %>% arrange(D) %>%
-  filter(D <= 95.97) %>%
+df <- data %>% arrange(D) %>%
+  filter(D < 95.97) %>%
   mutate("yi-fm" = V-mean(V)) %>%
-  mutate("(yi-fm)²" = (V-mean(V))^2) %>%
-  rmarkdown::paged_table()
+  mutate("(yi-fm)²" = (V-mean(V))^2) 
+
+df %>% rmarkdown::paged_table()
 ```
 
 ]]
 
 .pull-right[
 ```{r, echo=FALSE, eval=TRUE, message=FALSE}
-data %>% arrange(D) %>%
-  filter(D > 95.97) %>%
+df2 <- data %>% arrange(D) %>%
+  filter(D >= 95.97) %>%
   mutate("yi-fm" = V-mean(V)) %>%
   mutate("(yi-fm)²" = (V-mean(V))^2) %>%
   rmarkdown::paged_table()
+
+df2 %>% rmarkdown::paged_table()
 ```
 
+.pull-bottom[
 Ponto de corte: **95.97cm**
 
-$SQR_{N_{2}}$
+$SQR_{N_{2}}$ = `r sum((df$V-mean(df$V))^2)`;
+$\bar{V}$ = `r mean(df$V)`
 
-$SQR_{N_{3}}$
+$SQR_{N_{3}}$ = `r sum((df2$V-mean(df2$V))^2)`;
+$\bar{V}$ = `r mean(df2$V)`
 
 ]
 ]
+]
+
+.panel[.panel-name[SQR-N4-N5]
+
+.pull-left[
+
+.scroll-box-20[
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+df4 <- data %>% arrange(D) %>%
+  filter(D < 79.74) %>%
+  mutate("yi-fm" = V-mean(V)) %>%
+  mutate("(yi-fm)²" = (V-mean(V))^2) 
+
+df4 %>% rmarkdown::paged_table()
+```
 
 ]
 
+.pull-bottom[
+Ponto de corte: **79.74cm**
+
+$SQR_{N_{4}}$ = `r sum((df4$V-mean(df4$V))^2)`;
+$\bar{V}$ = `r mean(df4$V)`
+]
+]
+
+.pull-right[
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+df5 <- data %>% arrange(D) %>%
+  filter(D >= 79.74 & D < 95.97) %>%
+  mutate("yi-fm" = V-mean(V)) %>%
+  mutate("(yi-fm)²" = (V-mean(V))^2) %>%
+  rmarkdown::paged_table()
+
+df5 %>% rmarkdown::paged_table()
+```
+
+.pull-bottom[
+
+$SQR_{N_{5}}$ = `r sum((df5$V-mean(df5$V))^2)`;
+$\bar{V}$ = `r mean(df5$V)`
+
+]
+]
+]
+
+.panel[.panel-name[Plot-2D]
+
+]
+
+.panel[.panel-name[f(x)]
+
+]
+
+]
 
 ---
 # Regression Tree (CART) - Características gerais
