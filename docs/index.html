@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[04/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[05/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -1022,27 +1022,56 @@ Ponto de corte: **79.74cm**
 ]
 ]
 
-.panel[.panel-name[Plot-2D]
+.panel[.panel-name[Regiões]
+
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .panel[.panel-name[f(x)]
-
+.pull-left-2[
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ]
 
+]
+---
+# Regression Tree: pontos fortes e fracos...
+.shadow[
+- **Pontos fortes**:
+  - White model;
+  - Extremamente intuitivo e fácil de interpretar; (regras "se-então");
+  - Predições são simples (média, média ponderada);
+  - Não exige cálculos complexos;
+  - Fácil identificar as variáveis que contribuem p/ a resposta;
+  - Lidam facilmente com valores ausentes, e estes não afetam consideralvelmente a construção da árvore (não há necessidade de imputar os valores ausentes);
+  - Seleção automática de variáveis importantes;
+  - Admite variáveis qualitativas (sem necessidade de transformações); e
+  - Variáveis numéricas: não requer normalização.
+]
+--
+
+&lt;br&gt;
+.shadow[
+- **Pontos fracos**:
+    - Muito instável (alta variância): 
+    Uma pequena mudança nos dados pode implicar em uma grande mudança na estrutura (diferentes regras "se-então") da árvore de decisão.
+    
+]
 ---
 # Regression Tree (CART) - Características gerais
 
 - Qual a ideia principal?
 A ideia é dividir o espaço de covariável em várias partições e ajustar um modelo constante da variável resposta em cada partição.
 
+Realizar particionamentos recursivos no espaço das covariáveis
+
 - Covariáveis: categóricas, dicotômicas, discretas ou contínuas...
 
 - Base para outros algoritmos:
   - Random forests, bagging, boosting, XGBoost...
-
+- Depois de falar sobre todos os algoritmos entrar em: "Seleção de Modelos"....
 
 &lt;!--Slide 16 --&gt;
 ---

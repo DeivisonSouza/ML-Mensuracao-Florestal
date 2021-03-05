@@ -503,13 +503,18 @@ data %>% kable(format= "html") %>%
 
 .panel[.panel-name[CART]
 .pull-left[
-```{r, echo=FALSE, fig.width=5, fig.height=3, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0/minsplit = 20)', dpi=600, eval=TRUE, message=FALSE}
+```{r, echo=FALSE, fig.width=5, fig.height=3, warning=FALSE, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0/minsplit = 20)', dpi=600, eval=TRUE, message=FALSE}
 set.seed(1)
 data2 <- data %>% select(-Arv)
 
 tree <- rpart(V ~ ., data = data2, method="anova", 
               control = rpart.control(cp = 0, minsplit = 20))
-rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE, digits = 4)
+
+rattle::fancyRpartPlot(tree,yesno=2,split.col="black",nn.col="black", 
+               caption="",palette="Set2",branch.col="black",
+               digits = 4)
+
+# rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE, digits = 4)
 ```
 *minsplit* = Mínimo de 20 observações p/ tentar uma divisão
 ]
@@ -716,27 +721,94 @@ $\bar{V}$ = `r mean(df5$V)`
 ]
 ]
 
-.panel[.panel-name[Plot-2D]
+.panel[.panel-name[Regiões]
+
+```{r, echo=FALSE, fig.align='center', fig.width=9, fig.height=3, fig.cap='', dpi=600, eval=TRUE, warning=FALSE, message=FALSE}
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+r1 <- data %>% 
+  ggplot() + 
+    geom_point(data=data, aes(x=D, y=V, color=ifelse(data$D >= tree$splits[1,4], "red", "black")), size=1) +
+  geom_vline(xintercept=tree$splits[1,4], colour="red", linetype="dotted") +
+  scale_colour_manual(values = c("black", "red")) +
+  geom_text(aes(x=tree$splits[1,4], y=15, 
+                label="D >= 95.97"), colour="red", 
+            angle=90, vjust = 1.2, size = 4) +
+  theme(legend.position="none")
+
+r2 <- r1 + 
+  geom_point(data=data, aes(x=D, y=V, colour=ifelse(D < tree$splits[3,4], "blue", ifelse(D >= tree$splits[1,4], "red", "black"))), size=1) +
+  scale_colour_manual(values = c("blue", "black", "red"))+
+  geom_vline(xintercept=tree$splits[3,4], colour="blue", linetype="dotted") +
+    geom_text(aes(x=tree$splits[3,4], y=15, 
+                label="D >= 79.74"), colour="blue", 
+            angle=90, vjust = 1.2, size = 4) +
+  theme(legend.position="none")
+
+r3 <- r2 + 
+  geom_text(aes(x=65, y=10, label="R4 \n Vest. = 3.65"), colour="black", 
+            vjust = 1.2, size = 2) +
+  geom_text(aes(x=87, y=10, label="R5 \n Vest. = 6.05"), colour="blue", 
+            vjust = 1.2, size = 2) +
+  geom_text(aes(x=123, y=10, label="R3 \n Vest. = 10.05"), colour="red", 
+            vjust = 1.2, size = 2)
+  
+ggpubr::ggarrange(r1, r2, r3, ncol=3, 
+                  labels=c("", ""),
+                  font.label=list(size=30))
+
+```
 
 ]
 
 .panel[.panel-name[f(x)]
+.pull-left-2[
+```{r, echo=FALSE, fig.align='center', fig.width=5, fig.height=3, fig.cap='', dpi=600, eval=TRUE, warning=FALSE, message=FALSE}
 
+r2 + geom_line(aes(x = D, y = predict(tree)))
+  
+```
 ]
 
 ]
 
+]
+---
+# Regression Tree: pontos fortes e fracos...
+.shadow[
+- **Pontos fortes**:
+  - White model;
+  - Extremamente intuitivo e fácil de interpretar; (regras "se-então");
+  - Predições são simples (média, média ponderada);
+  - Não exige cálculos complexos;
+  - Fácil identificar as variáveis que contribuem p/ a resposta;
+  - Lidam facilmente com valores ausentes, e estes não afetam consideralvelmente a construção da árvore (não há necessidade de imputar os valores ausentes);
+  - Seleção automática de variáveis importantes;
+  - Admite variáveis qualitativas (sem necessidade de transformações); e
+  - Variáveis numéricas: não requer normalização.
+]
+--
+
+<br>
+.shadow[
+- **Pontos fracos**:
+    - Muito instável (alta variância): 
+    Uma pequena mudança nos dados pode implicar em uma grande mudança na estrutura (diferentes regras "se-então") da árvore de decisão.
+    
+]
 ---
 # Regression Tree (CART) - Características gerais
 
 - Qual a ideia principal?
 A ideia é dividir o espaço de covariável em várias partições e ajustar um modelo constante da variável resposta em cada partição.
 
+Realizar particionamentos recursivos no espaço das covariáveis
+
 - Covariáveis: categóricas, dicotômicas, discretas ou contínuas...
 
 - Base para outros algoritmos:
   - Random forests, bagging, boosting, XGBoost...
-
+- Depois de falar sobre todos os algoritmos entrar em: "Seleção de Modelos"....
 
 <!--Slide 16 -->
 ---
