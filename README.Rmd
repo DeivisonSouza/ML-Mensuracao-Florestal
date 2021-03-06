@@ -17,7 +17,7 @@ Este repositório guarda os arquivos .Rmd e .R usados na palestra intitulada **"
 
 # Slide da palestra
 
-O slide da palestra assíncrona intitulada **"Aprendizado de Máquina na Mensuração Florestal: Técnicas, Modelagem e Aplicação Web"** está disponível a seguir.
+O slide da palestra síncrona intitulada **"Aprendizado de Máquina na Mensuração Florestal: Técnicas, Modelagem e Aplicação Web"** está disponível a seguir.
 
 #:ledger: [Slide da apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
 
