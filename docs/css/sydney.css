@@ -77,6 +77,10 @@ Font Size
   font-size: 80%;
 }
 
+.font200 {
+  font-size: 200%;
+}
+
 /*************************
   Custom classes
 **************************/
@@ -117,12 +121,13 @@ Font Size
 
 /* Change default inverse background colour */
 
-/*
+
 .inverse {
   background-color: #0148A4;
-  text-shadow: 0 0 20px #333;
+  color: black;
+  /*text-shadow: 0 0 20px #333;*/
 }
-*/
+
 
 .inverse {
  /* background-image: url(fig/img.jpg);*/

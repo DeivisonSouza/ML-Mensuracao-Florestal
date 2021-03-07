@@ -445,32 +445,84 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
 <!--Slide 14 -->
 ---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Regression Tree**]
+
+.font150[(.red[C]lassification .red[A]nd .red[R]egression .red[T]rees - CART)]
+
+`r Citep(myBib, "breiman1984classification", .opts = list(max.names = 1, longnamesfirst = F))`
+
+<!--Slide 15-->
+---
 # Regression Tree (CART)
 
-.pull-left[
-**História:**
+.pull-left-1[
+```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/CART-Book.jpg')
+```
+.center[Fonte: [www.amazon.com.br](https://www.amazon.com.br/Classification-Regression-Trees-Leo-Breiman/dp/0534980546)]
+]
+
+.pull-right-2[
+**Informações gerais:**
 - **CART**: algoritmo mais famoso;
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
-- **Proposto**: `r Citep(myBib, "breiman1984classification", .opts = list(max.names = 1, longnamesfirst = F))`; e
-- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+- **Proposto**: `r Citet(myBib, "breiman1984classification", .opts = list(max.names = 1, longnamesfirst = F))`;
+- **Hiperparâmetro tuning**: cp (parâmetro de complexidade); e
+- **Problemas**: Classificação e Regressão.
+]
 
---
+<!--Slide 16 -->
+---
+# Regression Tree (CART)
 
+.pull-top[
+.blockquote[
+- **Qual a ideia principal?**
+
+  - Realizar **particionamentos recursivos** no espaço das covariáveis, e ajustar um **modelo constante** da variável resposta em cada partição.
+  
+**Desejável**: que os indivíduos em cada partição sejam o mais homogêneos o possível para a variável resposta.
+
+- **Covariáveis**: categóricas, dicotômicas, discretas ou contínuas.
+]
+]
+
+.pull-bottom[
+.blockquote[
+- **Etapas do aprendizado**:
+
+  1) Crescimento de uma árvore completa (adulta); e
+  
+  2) Poda da árvore (overfitting).
+]
+]
+
+<!--Slide 17 -->
+---
+# Regression Tree (CART)
+
+.pull-left-3[
 .blockquote[
 **Estrutura:** <br>
 
-1) Nó raiz (*root node*): $R_{1}$
+1) **Nó raiz** (*root node*): $R_{1}$
 
-2) Nó intermediário (*intermediate node*): $I_{2}$, $I_{3}$ e $I_{7}$
+2) **Nó intermediário** (*intermediate node*): $I_{2}$, $I_{3}$ e $I_{7}$
 
-3) Nó terminal ou folha (leaf or terminal node): $T_{4}$, $T_{5}$, $T_{6}$, $T_{8}$ e $T_{9}$
+3) **Nó terminal** ou **folha** (*leaf* or *terminal node*): $T_{4}$, $T_{5}$, $T_{6}$, $T_{8}$ e $T_{9}$
+
+4) **Divisões** (*splits*): $d_{1}$, $d_{2}$, $d_{3}$ e $d_{4}$ (condições "se-então")
 ]
 ]
 
-.pull-right[
+.pull-right-3[
 .center[**Uma árvore de regressão...**]
 
-```{r, echo=FALSE, out.width='90%', fig.align='center', fig.cap='', dpi=600}
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics('fig/CART1.png')
 ```
 .left[.footnote[Fonte: Adaptado de Breiman et al. (1984).]]
@@ -797,19 +849,6 @@ r2 + geom_line(aes(x = D, y = predict(tree)))
     Uma pequena mudança nos dados pode implicar em uma grande mudança na estrutura (diferentes regras "se-então") da árvore de decisão.
     
 ]
----
-# Regression Tree (CART) - Características gerais
-
-- Qual a ideia principal?
-A ideia é dividir o espaço de covariável em várias partições e ajustar um modelo constante da variável resposta em cada partição.
-
-Realizar particionamentos recursivos no espaço das covariáveis
-
-- Covariáveis: categóricas, dicotômicas, discretas ou contínuas...
-
-- Base para outros algoritmos:
-  - Random forests, bagging, boosting, XGBoost...
-- Depois de falar sobre todos os algoritmos entrar em: "Seleção de Modelos"....
 
 <!--Slide 16 -->
 ---
@@ -998,6 +1037,7 @@ knitr::include_graphics('fig/FM.png')
 
 ---
 name: exemploR
+class: inverse, top
 background-image: url(fig/imgC.jpg)
 background-size: cover
 
@@ -1016,6 +1056,7 @@ background-size: cover
 .left[.footnote[Créditos: Imagem de .green[Willas Lima].]]
 ---
 name: shiny
+class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 

@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[06/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[07/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -571,32 +571,83 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
 &lt;!--Slide 14 --&gt;
 ---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Regression Tree**]
+
+.font150[(.red[C]lassification .red[A]nd .red[R]egression .red[T]rees - CART)]
+
+(Breiman, et al., 1984)
+
+&lt;!--Slide 15--&gt;
+---
 # Regression Tree (CART)
 
-.pull-left[
-**História:**
+.pull-left-1[
+&lt;img src="fig/CART-Book.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+.center[Fonte: [www.amazon.com.br](https://www.amazon.com.br/Classification-Regression-Trees-Leo-Breiman/dp/0534980546)]
+]
+
+.pull-right-2[
+**Informações gerais:**
 - **CART**: algoritmo mais famoso;
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
-- **Proposto**: (Breiman, et al., 1984); e
-- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+- **Proposto**: Breiman, et al. (1984);
+- **Hiperparâmetro tuning**: cp (parâmetro de complexidade); e
+- **Problemas**: Classificação e Regressão.
+]
 
---
+&lt;!--Slide 16 --&gt;
+---
+# Regression Tree (CART)
 
+.pull-top[
+.blockquote[
+- **Qual a ideia principal?**
+
+  - Realizar **particionamentos recursivos** no espaço das covariáveis, e ajustar um **modelo constante** da variável resposta em cada partição.
+  
+  
+**Desejável**: que os indivíduos em cada partição sejam o mais homogêneos o possível para a variável resposta.
+
+- **Covariáveis**: categóricas, dicotômicas, discretas ou contínuas.
+]
+]
+
+.pull-bottom[
+.blockquote[
+- **Etapas do aprendizado**:
+
+  1) Crescimento de uma árvore completa (adulta); e
+  
+  2) Poda da árvore (overfitting).
+]
+]
+
+&lt;!--Slide 17 --&gt;
+---
+# Regression Tree (CART)
+
+.pull-left-3[
 .blockquote[
 **Estrutura:** &lt;br&gt;
 
-1) Nó raiz (*root node*): `\(R_{1}\)`
+1) **Nó raiz** (*root node*): `\(R_{1}\)`
 
-2) Nó intermediário (*intermediate node*): `\(I_{2}\)`, `\(I_{3}\)` e `\(I_{7}\)`
+2) **Nó intermediário** (*intermediate node*): `\(I_{2}\)`, `\(I_{3}\)` e `\(I_{7}\)`
 
-3) Nó terminal ou folha (leaf or terminal node): `\(T_{4}\)`, `\(T_{5}\)`, `\(T_{6}\)`, `\(T_{8}\)` e `\(T_{9}\)`
+3) **Nó terminal** ou **folha** (*leaf* or *terminal node*): `\(T_{4}\)`, `\(T_{5}\)`, `\(T_{6}\)`, `\(T_{8}\)` e `\(T_{9}\)`
+
+4) **Divisões** (*splits*): `\(d_{1}\)`, `\(d_{2}\)`, `\(d_{3}\)` e `\(d_{4}\)` (condições "se-então")
 ]
 ]
 
-.pull-right[
+.pull-right-3[
 .center[**Uma árvore de regressão...**]
 
-&lt;img src="fig/CART1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="fig/CART1.png" width="100%" style="display: block; margin: auto;" /&gt;
 .left[.footnote[Fonte: Adaptado de Breiman et al. (1984).]]
 ]
 
@@ -825,7 +876,7 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 .panel[.panel-name[CART]
 .pull-left[
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" alt="Árvore CART (rpart/cp = 0/minsplit = 20)"  /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" alt="Árvore CART (rpart/cp = 0/minsplit = 20)"  /&gt;
 &lt;p class="caption"&gt;Árvore CART (rpart/cp = 0/minsplit = 20)&lt;/p&gt;
 &lt;/div&gt;
 *minsplit* = Mínimo de 20 observações p/ tentar uma divisão
@@ -1024,13 +1075,13 @@ Ponto de corte: **79.74cm**
 
 .panel[.panel-name[Regiões]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .panel[.panel-name[f(x)]
 .pull-left-2[
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ]
@@ -1060,19 +1111,6 @@ Ponto de corte: **79.74cm**
     Uma pequena mudança nos dados pode implicar em uma grande mudança na estrutura (diferentes regras "se-então") da árvore de decisão.
     
 ]
----
-# Regression Tree (CART) - Características gerais
-
-- Qual a ideia principal?
-A ideia é dividir o espaço de covariável em várias partições e ajustar um modelo constante da variável resposta em cada partição.
-
-Realizar particionamentos recursivos no espaço das covariáveis
-
-- Covariáveis: categóricas, dicotômicas, discretas ou contínuas...
-
-- Base para outros algoritmos:
-  - Random forests, bagging, boosting, XGBoost...
-- Depois de falar sobre todos os algoritmos entrar em: "Seleção de Modelos"....
 
 &lt;!--Slide 16 --&gt;
 ---
@@ -1252,6 +1290,7 @@ background-size: cover
 
 ---
 name: exemploR
+class: inverse, top
 background-image: url(fig/imgC.jpg)
 background-size: cover
 
@@ -1270,6 +1309,7 @@ background-size: cover
 .left[.footnote[Créditos: Imagem de .green[Willas Lima].]]
 ---
 name: shiny
+class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 
@@ -1667,6 +1707,10 @@ Font Size
   font-size: 80%;
 }
 
+.font200 {
+  font-size: 200%;
+}
+
 /*************************
   Custom classes
 **************************/
@@ -1707,12 +1751,13 @@ Font Size
 
 /* Change default inverse background colour */
 
-/*
+
 .inverse {
   background-color: #0148A4;
-  text-shadow: 0 0 20px #333;
+  color: black;
+  /*text-shadow: 0 0 20px #333;*/
 }
-*/
+
 
 .inverse {
  /* background-image: url(fig/img.jpg);*/
