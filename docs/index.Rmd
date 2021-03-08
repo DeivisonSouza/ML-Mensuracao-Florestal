@@ -293,6 +293,7 @@ Pode-se afirmar que um programa de computador aprende uma
 ---
 # Tipos de Aprendizagem
 
+.pull-left-4[
 .blockquote[
 .content-box-blue[**Aprendizado Supervisionado:**]
 
@@ -303,16 +304,17 @@ Dado as medidas $\left(x_1, y_1\right)$, . . . , $\left(x_n, y_n\right)$, o obje
 - **Tipos de problemas**: classificação e regressão.
 
 - **Variável resposta**: Existe (dados rotulados).
-]
+]]
 
 --
 
+.pull-right-4[
 .blockquote[
 .content-box-blue[**Aprendizado não-Supervisionado:**]
 - **Tipos de problemas**: agrupamento, redução de dimensionalidade e associação.
     - **Objetivo principal**: Descobrir estruturas subjacentes;
     - **Variável resposta**: Não existe (dados não rotulados)
-]
+]]
 
 
 <!--Slide 9 -->
@@ -383,8 +385,7 @@ data %>% kable(format= "html") %>%
 .pull-right[
 .center[**Terminologias**] 
 
-.scroll-box-20[
-.content-box-blue[
+.blockquote[
 1. Comunidade de aprendizado de máquina:
 - **Instâncias/exemplos**: dados individuais.
 - **Atributos/características/features:**
@@ -393,14 +394,15 @@ data %>% kable(format= "html") %>%
     - Variável de interesse para predição.
 
 *Tipos de atributos*: binários, categóricos, numéricos
-]]]
+]]
 
 <!--Slide 12 -->
 ---
 # Até aqui...
 <br>
 
-.shadow[
+.pull-left-2[
+.blockquote[
 - **Motivos para fazer regressão**: práticos e estatísticos;
 
 - **Duas Culturas no uso de ME**: DMC e .content-box-red[AMC];
@@ -410,6 +412,7 @@ data %>% kable(format= "html") %>%
 - **Tipos de Aprendizado**: .content-box-red[Supervisionado] e Não-Supervisionado;
 
 - **Aprendizado Supervisionado**: estimar uma função $f(x)$ para predizer um novo valor de $y$ baseado em $x$. Se $y$ for um número real (númerico) tem-se um .content-box-red[problema de regressão].
+]
 ]<br>
 
 .center[
@@ -471,33 +474,27 @@ knitr::include_graphics('fig/CART-Book.jpg')
 - **CART**: algoritmo mais famoso;
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
 - **Proposto**: `r Citet(myBib, "breiman1984classification", .opts = list(max.names = 1, longnamesfirst = F))`;
-- **Hiperparâmetro tuning**: cp (parâmetro de complexidade); e
-- **Problemas**: Classificação e Regressão.
+- **Problemas**: Classificação e Regressão; e
+- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+
 ]
 
 <!--Slide 16 -->
 ---
 # Regression Tree (CART)
 
-.pull-top[
+.pull-left-2[
 .blockquote[
-- **Qual a ideia principal?**
+- **Qual a ideia principal:**
 
-  - Realizar **particionamentos recursivos** no espaço das covariáveis, e ajustar um **modelo constante** da variável resposta em cada partição.
-  
-**Desejável**: que os indivíduos em cada partição sejam o mais homogêneos o possível para a variável resposta.
+  - Realizar **particionamentos recursivos** no espaço das covariáveis, e ajustar um **modelo constante** da variável resposta em cada partição. <br>
+
+
+- **Motivo**:
+  - Encontrar partição em que as observações sejam mais **homogêneas** o possível para a **variável resposta**. <br>
+
 
 - **Covariáveis**: categóricas, dicotômicas, discretas ou contínuas.
-]
-]
-
-.pull-bottom[
-.blockquote[
-- **Etapas do aprendizado**:
-
-  1) Crescimento de uma árvore completa (adulta); e
-  
-  2) Poda da árvore (overfitting).
 ]
 ]
 
@@ -517,6 +514,20 @@ knitr::include_graphics('fig/CART-Book.jpg')
 
 4) **Divisões** (*splits*): $d_{1}$, $d_{2}$, $d_{3}$ e $d_{4}$ (condições "se-então")
 ]
+
+--
+
+.pull-bottom[
+.blockquote[
+- **Etapas do aprendizado**:
+
+  1) Crescimento de uma árvore completa (adulta) até algum critério de parada; e
+  
+  2) Poda da árvore (overfitting).
+]
+]
+
+
 ]
 
 .pull-right-3[
@@ -559,12 +570,19 @@ data %>% kable(format= "html") %>%
 set.seed(1)
 data2 <- data %>% select(-Arv)
 
-tree <- rpart(V ~ ., data = data2, method="anova", 
+tree <- rpart(V ~ ., 
+              data = data2, 
+              method="anova", 
               control = rpart.control(cp = 0, minsplit = 20))
 
-rattle::fancyRpartPlot(tree,yesno=2,split.col="black",nn.col="black", 
-               caption="",palette="Set2",branch.col="black",
-               digits = 4)
+rattle::fancyRpartPlot(tree,
+                       yesno=2,
+                       split.col="black",
+                       nn.col="black",
+                       caption="",
+                       palette="Set2",
+                       branch.col="black",
+                       digits = 4)
 
 # rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE, digits = 4)
 ```
@@ -655,6 +673,7 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
 
 ```{r, echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
 print(tree)
+rpart.rules(tree, cover = TRUE)
 ```
 
 ]
@@ -669,12 +688,21 @@ library(kableExtra)
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 data %>% 
+  arrange(D) %>%
   mutate("yi-fm" = V-mean(data$V)) %>%
   mutate("(yi-fm)²" = (V-mean(data$V))^2) %>%
-  rmarkdown::paged_table()
-  
-# kable(format= "html") %>%
-# kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
+  janitor::adorn_totals("row") %>%
+  #rmarkdown::paged_table()
+  kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options =
+                  c("striped", "hover", "condensed"), 
+                font_size = 18) %>%
+  row_spec(33, bold = T, 
+           color = "white", background = "black") %>%
+  row_spec(25, bold = T,
+           color = "white", background = "orange") %>%
+  row_spec(26, bold = T,
+           color = "white", background = "orange")
 ```
 
 ]]
@@ -686,6 +714,7 @@ $\bar{V}$ = `r mean(data$V)`;
 
 $SQR_{N_{1}}$ = `r sum((data$V-mean(data$V))^2)`
 
+Ponto de corte: (95.49 + 96.45)/2 = **95.97cm**
 ]
 ]
 
@@ -698,9 +727,20 @@ $SQR_{N_{1}}$ = `r sum((data$V-mean(data$V))^2)`
 df <- data %>% arrange(D) %>%
   filter(D < 95.97) %>%
   mutate("yi-fm" = V-mean(V)) %>%
-  mutate("(yi-fm)²" = (V-mean(V))^2) 
+  mutate("(yi-fm)²" = (V-mean(V))^2)
 
-df %>% rmarkdown::paged_table()
+df %>%
+  janitor::adorn_totals("row") %>%
+  kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options =
+                  c("striped", "hover", "condensed"),
+                font_size = 18) %>%
+  row_spec(26, bold = T,
+           color = "white", background = "black") %>%
+  row_spec(16, bold = T,
+           color = "white", background = "orange") %>%
+  row_spec(17, bold = T,
+           color = "white", background = "orange")
 ```
 
 ]]
@@ -710,14 +750,20 @@ df %>% rmarkdown::paged_table()
 df2 <- data %>% arrange(D) %>%
   filter(D >= 95.97) %>%
   mutate("yi-fm" = V-mean(V)) %>%
-  mutate("(yi-fm)²" = (V-mean(V))^2) %>%
-  rmarkdown::paged_table()
+  mutate("(yi-fm)²" = (V-mean(V))^2)
 
-df2 %>% rmarkdown::paged_table()
+df2 %>% 
+  janitor::adorn_totals("row") %>%
+  kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options =
+                  c("striped", "hover", "condensed"),
+                font_size = 18) %>%
+  row_spec(8, bold = T,
+           color = "white", background = "black")
 ```
 
 .pull-bottom[
-Ponto de corte: **95.97cm**
+Ponto de corte: **79.74cm**
 
 $SQR_{N_{2}}$ = `r sum((df$V-mean(df$V))^2)`;
 $\bar{V}$ = `r mean(df$V)`
@@ -740,7 +786,14 @@ df4 <- data %>% arrange(D) %>%
   mutate("yi-fm" = V-mean(V)) %>%
   mutate("(yi-fm)²" = (V-mean(V))^2) 
 
-df4 %>% rmarkdown::paged_table()
+df4 %>%
+  janitor::adorn_totals("row") %>%
+  kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options =
+                  c("striped", "hover", "condensed"),
+                font_size = 18) %>%
+  row_spec(17, bold = T,
+           color = "white", background = "black")
 ```
 
 ]
@@ -758,10 +811,16 @@ $\bar{V}$ = `r mean(df4$V)`
 df5 <- data %>% arrange(D) %>%
   filter(D >= 79.74 & D < 95.97) %>%
   mutate("yi-fm" = V-mean(V)) %>%
-  mutate("(yi-fm)²" = (V-mean(V))^2) %>%
-  rmarkdown::paged_table()
+  mutate("(yi-fm)²" = (V-mean(V))^2)
 
-df5 %>% rmarkdown::paged_table()
+df5 %>%
+  janitor::adorn_totals("row") %>%
+  kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options =
+                  c("striped", "hover", "condensed"),
+                font_size = 18) %>%
+  row_spec(10, bold = T,
+           color = "white", background = "black")
 ```
 
 .pull-bottom[
@@ -821,11 +880,120 @@ r2 + geom_line(aes(x = D, y = predict(tree)))
   
 ```
 ]
+]
+]
+
+<!-- Slide 16 -->
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Bagging**]
+
+.font150[(.red[B]ootstrap .red[Agg]regat.red[ing])]
+
+`r Citep(myBib, "breiman1996bagging", .opts = list(max.names = 1, longnamesfirst = F))`
+
+<!-- Slide 17 -->
+---
+# Bagging
+
+.pull-left-1[
+```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Breiman1996.png')
+```
+.center[Fonte: [link.springer.com](https://link.springer.com/article/10.1007/BF00058655)]
 
 ]
 
+.pull-right-2[
+**Informações gerais:**
+- **Bagging**: um dos primeiros algoritmo de conjunto (ensemble);
+- **Significado:** .red[B]ootstrap .red[Agg]regat.red[ing];
+- **Proposto**: `r Citet(myBib, "breiman1996bagging")`;
+- **Problemas**: Classificação e Regressão; e
+- **Hiperparâmetro tuning**: nbagg (número de replicações de bootstrap);
 ]
 
+<!--Slide 18 -->
+---
+# Bagging
+
+.pull-left-2[
+.blockquote[
+- **Ideia principal:**
+
+  - Ajustar múltiplas versões de um modelo preditivo, e depois agregá-las, para obter uma única predição combinada `r Citep(myBib, "breiman1996bagging")`.<br>
+
+
+- **Motivos**:
+  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`<br>
+  
+  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo.<br>
+
+- **Aprediz de base**:
+  - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão); <br>
+]
+]
+
+<!--Slide 19 -->
+---
+# Bagging (Bagged Trees)
+
+.panelset[
+.panel[.panel-name[Dados]
+.pull-left-2[
+```{r, echo=FALSE, fig.align='center', fig.width=4, fig.height=2, fig.cap='', dpi=600, eval=F, warning=FALSE, message=FALSE}
+library(ipred)
+data <- data.table::fread("R-scripts/Cedrela.csv")
+data2 <- data %>% select(-Arv)
+
+set.seed(1)
+bagTr <- bagging(V ~ .,
+                 data = data2, 
+                 nbagg = 4, 
+                 coob = F,
+                 control = rpart.control(
+                   cp = 0, 
+                   minsplit = 20))
+
+bg1 <- rpart.plot(bagTr$mtrees[[1]]$btree, 
+                  box.palette="RdBu", 
+                  shadow.col="gray", 
+                  nn=TRUE, 
+                  digits = 4)
+
+bg2 <- rpart.plot(bagTr$mtrees[[2]]$btree, 
+                  box.palette="RdBu", 
+                  shadow.col="gray", 
+                  nn=TRUE, 
+                  digits = 4)
+
+bg3 <- rpart.plot(bagTr$mtrees[[3]]$btree, 
+                  box.palette="RdBu", 
+                  shadow.col="gray", 
+                  nn=TRUE, 
+                  digits = 4)
+
+bg4 <- rpart.plot(bagTr$mtrees[[4]]$btree, 
+                  box.palette="RdBu", 
+                  shadow.col="gray", 
+                  nn=TRUE, 
+                  digits = 4)
+
+# ggpubr::ggarrange(bg1, bg2, bg3, bg4, ncol=4, 
+#                   labels=c("", ""),
+#                   font.label=list(size=20))
+
+```
+
+]
+]
+]
+
+
+<!--Slide 20 -->
 ---
 # Regression Tree: pontos fortes e fracos...
 .shadow[

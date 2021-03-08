@@ -112,6 +112,15 @@ Font Size
   width: 41%;
 }
 
+.pull-left-4 {
+  float: left;
+  width: 45%;
+}
+.pull-right-4 {
+  float: right;
+  width: 45%;
+}
+
 
 /* use to position text at the bottom */
 .pull-down {

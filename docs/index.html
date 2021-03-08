@@ -11,8 +11,6 @@
     <script src="libs/panelset/panelset.js"></script>
     <script src="libs/kePrint/kePrint.js"></script>
     <link href="libs/lightable/lightable.css" rel="stylesheet" />
-    <link href="libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
-    <script src="libs/pagedtable/js/pagedtable.js"></script>
   </head>
   <body>
     <textarea id="source">
@@ -22,7 +20,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[07/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[08/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -226,6 +224,7 @@ Pode-se afirmar que um programa de computador aprende uma
 ---
 # Tipos de Aprendizagem
 
+.pull-left-4[
 .blockquote[
 .content-box-blue[**Aprendizado Supervisionado:**]
 
@@ -236,16 +235,17 @@ Dado as medidas `\(\left(x_1, y_1\right)\)`, . . . , `\(\left(x_n, y_n\right)\)`
 - **Tipos de problemas**: classificação e regressão.
 
 - **Variável resposta**: Existe (dados rotulados).
-]
+]]
 
 --
 
+.pull-right-4[
 .blockquote[
 .content-box-blue[**Aprendizado não-Supervisionado:**]
 - **Tipos de problemas**: agrupamento, redução de dimensionalidade e associação.
     - **Objetivo principal**: Descobrir estruturas subjacentes;
     - **Variável resposta**: Não existe (dados não rotulados)
-]
+]]
 
 
 &lt;!--Slide 9 --&gt;
@@ -511,8 +511,7 @@ função `\(f(x)\)` (Hastie, Tibshirani, and Friedman, 2016).
 .pull-right[
 .center[**Terminologias**] 
 
-.scroll-box-20[
-.content-box-blue[
+.blockquote[
 1. Comunidade de aprendizado de máquina:
 - **Instâncias/exemplos**: dados individuais.
 - **Atributos/características/features:**
@@ -521,14 +520,15 @@ função `\(f(x)\)` (Hastie, Tibshirani, and Friedman, 2016).
     - Variável de interesse para predição.
 
 *Tipos de atributos*: binários, categóricos, numéricos
-]]]
+]]
 
 &lt;!--Slide 12 --&gt;
 ---
 # Até aqui...
 &lt;br&gt;
 
-.shadow[
+.pull-left-2[
+.blockquote[
 - **Motivos para fazer regressão**: práticos e estatísticos;
 
 - **Duas Culturas no uso de ME**: DMC e .content-box-red[AMC];
@@ -538,6 +538,7 @@ função `\(f(x)\)` (Hastie, Tibshirani, and Friedman, 2016).
 - **Tipos de Aprendizado**: .content-box-red[Supervisionado] e Não-Supervisionado;
 
 - **Aprendizado Supervisionado**: estimar uma função `\(f(x)\)` para predizer um novo valor de `\(y\)` baseado em `\(x\)`. Se `\(y\)` for um número real (númerico) tem-se um .content-box-red[problema de regressão].
+]
 ]&lt;br&gt;
 
 .center[
@@ -595,34 +596,27 @@ background-size: cover
 - **CART**: algoritmo mais famoso;
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
 - **Proposto**: Breiman, et al. (1984);
-- **Hiperparâmetro tuning**: cp (parâmetro de complexidade); e
-- **Problemas**: Classificação e Regressão.
+- **Problemas**: Classificação e Regressão; e
+- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+
 ]
 
 &lt;!--Slide 16 --&gt;
 ---
 # Regression Tree (CART)
 
-.pull-top[
+.pull-left-2[
 .blockquote[
-- **Qual a ideia principal?**
+- **Qual a ideia principal:**
 
-  - Realizar **particionamentos recursivos** no espaço das covariáveis, e ajustar um **modelo constante** da variável resposta em cada partição.
-  
-  
-**Desejável**: que os indivíduos em cada partição sejam o mais homogêneos o possível para a variável resposta.
+  - Realizar **particionamentos recursivos** no espaço das covariáveis, e ajustar um **modelo constante** da variável resposta em cada partição. &lt;br&gt;
+
+
+- **Motivo**:
+  - Encontrar partição em que as observações sejam mais **homogêneas** o possível para a **variável resposta**. &lt;br&gt;
+
 
 - **Covariáveis**: categóricas, dicotômicas, discretas ou contínuas.
-]
-]
-
-.pull-bottom[
-.blockquote[
-- **Etapas do aprendizado**:
-
-  1) Crescimento de uma árvore completa (adulta); e
-  
-  2) Poda da árvore (overfitting).
 ]
 ]
 
@@ -642,6 +636,20 @@ background-size: cover
 
 4) **Divisões** (*splits*): `\(d_{1}\)`, `\(d_{2}\)`, `\(d_{3}\)` e `\(d_{4}\)` (condições "se-então")
 ]
+
+--
+
+.pull-bottom[
+.blockquote[
+- **Etapas do aprendizado**:
+
+  1) Crescimento de uma árvore completa (adulta) até algum critério de parada; e
+  
+  2) Poda da árvore (overfitting).
+]
+]
+
+
 ]
 
 .pull-right-3[
@@ -978,6 +986,13 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
 ##   3) D&gt;=95.97 7  93.87834 10.052860 *
 ```
 
+```
+##     V                      cover
+##   3.6 when D &lt;  80           50%
+##   6.0 when D is 80 to 96     28%
+##  10.1 when D &gt;=       96     22%
+```
+
 ]
 
 .panel[.panel-name[SQR-N1]
@@ -985,11 +1000,284 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
 .pull-left[
 
 .scroll-box-20[
-&lt;div data-pagedtable="false"&gt;
-  &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["Arv"],"name":[1],"type":["int"],"align":["right"]},{"label":["D"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["H"],"name":[3],"type":["int"],"align":["right"]},{"label":["V"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["yi-fm"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["(yi-fm)²"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"83.00","3":"9","4":"4.56","5":"-1.16375","6":"1.354314e+00"},{"1":"2","2":"90.40","3":"18","4":"7.68","5":"1.95625","6":"3.826914e+00"},{"1":"3","2":"95.17","3":"14","4":"6.71","5":"0.98625","6":"9.726891e-01"},{"1":"4","2":"86.58","3":"16","4":"5.16","5":"-0.56375","6":"3.178141e-01"},{"1":"5","2":"96.45","3":"14","4":"5.81","5":"0.08625","6":"7.439062e-03"},{"1":"6","2":"57.93","3":"17","4":"2.91","5":"-2.81375","6":"7.917189e+00"},{"1":"7","2":"76.39","3":"14","4":"5.12","5":"-0.60375","6":"3.645141e-01"},{"1":"8","2":"76.08","3":"16","4":"4.80","5":"-0.92375","6":"8.533141e-01"},{"1":"9","2":"76.39","3":"15","4":"4.10","5":"-1.62375","6":"2.636564e+00"},{"1":"10","2":"66.85","3":"18","4":"3.44","5":"-2.28375","6":"5.215514e+00"},{"1":"11","2":"124.14","3":"12","4":"11.06","5":"5.33625","6":"2.847556e+01"},{"1":"12","2":"101.22","3":"14","4":"7.22","5":"1.49625","6":"2.238764e+00"},{"1":"13","2":"73.53","3":"17","4":"5.43","5":"-0.29375","6":"8.628906e-02"},{"1":"14","2":"75.12","3":"12","4":"3.13","5":"-2.59375","6":"6.727539e+00"},{"1":"15","2":"77.35","3":"13","4":"4.00","5":"-1.72375","6":"2.971314e+00"},{"1":"16","2":"82.12","3":"16","4":"6.18","5":"0.45625","6":"2.081641e-01"},{"1":"17","2":"75.76","3":"13","4":"3.15","5":"-2.57375","6":"6.624189e+00"},{"1":"18","2":"76.39","3":"12","4":"4.13","5":"-1.59375","6":"2.540039e+00"},{"1":"19","2":"98.36","3":"19","4":"9.38","5":"3.65625","6":"1.336816e+01"},{"1":"20","2":"86.00","3":"16","4":"6.56","5":"0.83625","6":"6.993141e-01"},{"1":"21","2":"63.00","3":"15","4":"1.89","5":"-3.83375","6":"1.469764e+01"},{"1":"22","2":"59.00","3":"10","4":"2.22","5":"-3.50375","6":"1.227626e+01"},{"1":"23","2":"140.06","3":"15","4":"11.83","5":"6.10625","6":"3.728629e+01"},{"1":"24","2":"95.49","3":"12","4":"6.20","5":"0.47625","6":"2.268141e-01"},{"1":"25","2":"74.48","3":"12","4":"4.10","5":"-1.62375","6":"2.636564e+00"},{"1":"26","2":"57.93","3":"18","4":"2.29","5":"-3.43375","6":"1.179064e+01"},{"1":"27","2":"82.76","3":"13","4":"3.78","5":"-1.94375","6":"3.778164e+00"},{"1":"28","2":"128.92","3":"18","4":"17.58","5":"11.85625","6":"1.405707e+02"},{"1":"29","2":"70.03","3":"14","4":"4.79","5":"-0.93375","6":"8.718891e-01"},{"1":"30","2":"102.81","3":"17","4":"7.49","5":"1.76625","6":"3.119639e+00"},{"1":"31","2":"85.94","3":"16","4":"7.58","5":"1.85625","6":"3.445664e+00"},{"1":"32","2":"70.66","3":"9","4":"2.88","5":"-2.84375","6":"8.086914e+00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
+&lt;table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Arv &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; D &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; H &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; yi-fm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; (yi-fm)² &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.91 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.81375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.9171891 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.43375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.7906391 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 59.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.50375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.2762641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -3.83375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.6976391 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.28375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.2155141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.79 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.93375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8718891 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.84375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.0869141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 73.53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.29375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0862891 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 74.48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.62375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6365641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.59375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.7275391 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.57375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.6241891 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.08 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.92375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8533141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.60375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3645141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.62375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6365641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.59375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.5400391 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 77.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.72375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.9713141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.45625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2081641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.78 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.94375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.7781641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 83.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.16375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3543141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.85625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4456641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.83625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.6993141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.56375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3178141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 90.40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.95625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.8269141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.71 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.98625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.9726891 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 95.49 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 6.20 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 0.47625 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 0.2268141 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 96.45 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 5.81 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 0.08625 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 0.0074391 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 98.36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.65625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.3681641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 101.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.49625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.2387641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 102.81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.76625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.1196391 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 124.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.33625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.4755641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 128.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.85625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 140.5706641 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 140.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.83 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.10625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37.2862891 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: black !important;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 2706.31 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 464 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 183.16 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 0.00000 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 326.1927500 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ]]
 
@@ -1000,6 +1288,7 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
 
 `\(SQR_{N_{1}}\)` = 326.19275
 
+Ponto de corte: (95.49 + 96.45)/2 = **95.97cm**
 ]
 ]
 
@@ -1008,23 +1297,313 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
 .pull-left[
 
 .scroll-box-20[
-&lt;div data-pagedtable="false"&gt;
-  &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["Arv"],"name":[1],"type":["int"],"align":["right"]},{"label":["D"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["H"],"name":[3],"type":["int"],"align":["right"]},{"label":["V"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["yi-fm"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["(yi-fm)²"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"6","2":"57.93","3":"17","4":"2.91","5":"-1.6016","6":"2.56512256"},{"1":"26","2":"57.93","3":"18","4":"2.29","5":"-2.2216","6":"4.93550656"},{"1":"22","2":"59.00","3":"10","4":"2.22","5":"-2.2916","6":"5.25143056"},{"1":"21","2":"63.00","3":"15","4":"1.89","5":"-2.6216","6":"6.87278656"},{"1":"10","2":"66.85","3":"18","4":"3.44","5":"-1.0716","6":"1.14832656"},{"1":"29","2":"70.03","3":"14","4":"4.79","5":"0.2784","6":"0.07750656"},{"1":"32","2":"70.66","3":"9","4":"2.88","5":"-1.6316","6":"2.66211856"},{"1":"13","2":"73.53","3":"17","4":"5.43","5":"0.9184","6":"0.84345856"},{"1":"25","2":"74.48","3":"12","4":"4.10","5":"-0.4116","6":"0.16941456"},{"1":"14","2":"75.12","3":"12","4":"3.13","5":"-1.3816","6":"1.90881856"},{"1":"17","2":"75.76","3":"13","4":"3.15","5":"-1.3616","6":"1.85395456"},{"1":"8","2":"76.08","3":"16","4":"4.80","5":"0.2884","6":"0.08317456"},{"1":"7","2":"76.39","3":"14","4":"5.12","5":"0.6084","6":"0.37015056"},{"1":"9","2":"76.39","3":"15","4":"4.10","5":"-0.4116","6":"0.16941456"},{"1":"18","2":"76.39","3":"12","4":"4.13","5":"-0.3816","6":"0.14561856"},{"1":"15","2":"77.35","3":"13","4":"4.00","5":"-0.5116","6":"0.26173456"},{"1":"16","2":"82.12","3":"16","4":"6.18","5":"1.6684","6":"2.78355856"},{"1":"27","2":"82.76","3":"13","4":"3.78","5":"-0.7316","6":"0.53523856"},{"1":"1","2":"83.00","3":"9","4":"4.56","5":"0.0484","6":"0.00234256"},{"1":"31","2":"85.94","3":"16","4":"7.58","5":"3.0684","6":"9.41507856"},{"1":"20","2":"86.00","3":"16","4":"6.56","5":"2.0484","6":"4.19594256"},{"1":"4","2":"86.58","3":"16","4":"5.16","5":"0.6484","6":"0.42042256"},{"1":"2","2":"90.40","3":"18","4":"7.68","5":"3.1684","6":"10.03875856"},{"1":"3","2":"95.17","3":"14","4":"6.71","5":"2.1984","6":"4.83296256"},{"1":"24","2":"95.49","3":"12","4":"6.20","5":"1.6884","6":"2.85069456"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
+&lt;table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Arv &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; D &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; H &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; yi-fm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; (yi-fm)² &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.91 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.6016 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.5651226 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.2216 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.9355066 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 59.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.2916 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.2514306 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.6216 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.8727866 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.0716 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.1483266 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.79 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2784 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0775066 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.6316 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6621186 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 73.53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.9184 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8434586 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 74.48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.4116 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1694146 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.3816 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.9088186 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.3616 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8539546 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.08 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2884 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0831746 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.6084 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3701506 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.4116 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1694146 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.3816 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1456186 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 77.35 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 4.00 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; -0.5116 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 0.2617346 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 82.12 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 6.18 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 1.6684 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: orange !important;"&gt; 2.7835586 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.78 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.7316 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5352386 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 83.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0484 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0023426 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.0684 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.4150786 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0484 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.1959426 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.6484 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4204226 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 90.40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.1684 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.0387586 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.71 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.1984 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.8329626 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6884 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.8506946 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: black !important;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 1914.35 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 355 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 112.79 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 0.0000 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 64.3935360 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ]]
 
 .pull-right[
-&lt;div data-pagedtable="false"&gt;
-  &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["Arv"],"name":[1],"type":["int"],"align":["right"]},{"label":["D"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["H"],"name":[3],"type":["int"],"align":["right"]},{"label":["V"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["yi-fm"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["(yi-fm)²"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"5","2":"96.45","3":"14","4":"5.81","5":"-4.2428571","6":"18.0018367"},{"1":"19","2":"98.36","3":"19","4":"9.38","5":"-0.6728571","6":"0.4527367"},{"1":"12","2":"101.22","3":"14","4":"7.22","5":"-2.8328571","6":"8.0250796"},{"1":"30","2":"102.81","3":"17","4":"7.49","5":"-2.5628571","6":"6.5682367"},{"1":"11","2":"124.14","3":"12","4":"11.06","5":"1.0071429","6":"1.0143367"},{"1":"28","2":"128.92","3":"18","4":"17.58","5":"7.5271429","6":"56.6578796"},{"1":"23","2":"140.06","3":"15","4":"11.83","5":"1.7771429","6":"3.1582367"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
+&lt;table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Arv &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; D &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; H &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; yi-fm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; (yi-fm)² &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 96.45 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -4.2428571 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0018367 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 98.36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.6728571 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4527367 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 101.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.8328571 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.0250796 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 102.81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.5628571 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.5682367 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 124.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0071429 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0143367 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 128.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.5271429 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 56.6578796 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 140.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.83 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.7771429 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.1582367 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: black !important;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 791.96 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 109 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 70.37 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 0.0000000 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 93.8783429 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 .pull-bottom[
-Ponto de corte: **95.97cm**
+Ponto de corte: **79.74cm**
 
 `\(SQR_{N_{2}}\)` = 64.393536;
 `\(\bar{V}\)` = 4.5116
@@ -1041,11 +1620,156 @@ Ponto de corte: **95.97cm**
 .pull-left[
 
 .scroll-box-20[
-&lt;div data-pagedtable="false"&gt;
-  &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["Arv"],"name":[1],"type":["int"],"align":["right"]},{"label":["D"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["H"],"name":[3],"type":["int"],"align":["right"]},{"label":["V"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["yi-fm"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["(yi-fm)²"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"6","2":"57.93","3":"17","4":"2.91","5":"-0.73875","6":"0.54575156"},{"1":"26","2":"57.93","3":"18","4":"2.29","5":"-1.35875","6":"1.84620156"},{"1":"22","2":"59.00","3":"10","4":"2.22","5":"-1.42875","6":"2.04132656"},{"1":"21","2":"63.00","3":"15","4":"1.89","5":"-1.75875","6":"3.09320156"},{"1":"10","2":"66.85","3":"18","4":"3.44","5":"-0.20875","6":"0.04357656"},{"1":"29","2":"70.03","3":"14","4":"4.79","5":"1.14125","6":"1.30245156"},{"1":"32","2":"70.66","3":"9","4":"2.88","5":"-0.76875","6":"0.59097656"},{"1":"13","2":"73.53","3":"17","4":"5.43","5":"1.78125","6":"3.17285156"},{"1":"25","2":"74.48","3":"12","4":"4.10","5":"0.45125","6":"0.20362656"},{"1":"14","2":"75.12","3":"12","4":"3.13","5":"-0.51875","6":"0.26910156"},{"1":"17","2":"75.76","3":"13","4":"3.15","5":"-0.49875","6":"0.24875156"},{"1":"8","2":"76.08","3":"16","4":"4.80","5":"1.15125","6":"1.32537656"},{"1":"7","2":"76.39","3":"14","4":"5.12","5":"1.47125","6":"2.16457656"},{"1":"9","2":"76.39","3":"15","4":"4.10","5":"0.45125","6":"0.20362656"},{"1":"18","2":"76.39","3":"12","4":"4.13","5":"0.48125","6":"0.23160156"},{"1":"15","2":"77.35","3":"13","4":"4.00","5":"0.35125","6":"0.12337656"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
+&lt;table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Arv &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; D &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; H &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; yi-fm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; (yi-fm)² &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.91 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.73875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5457516 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.35875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8462016 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 59.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.42875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0413266 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.75875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.0932016 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.20875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0435766 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.79 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.14125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3024516 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.76875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5909766 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 73.53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.78125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.1728516 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 74.48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.45125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2036266 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.51875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2691016 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.49875 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2487516 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.08 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.15125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3253766 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.47125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.1645766 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.45125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2036266 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.48125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2316016 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 77.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.35125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1233766 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: black !important;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 1126.89 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 225 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 58.38 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 0.00000 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 17.4063750 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ]
 
@@ -1058,11 +1782,100 @@ Ponto de corte: **79.74cm**
 ]
 
 .pull-right[
-&lt;div data-pagedtable="false"&gt;
-  &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["Arv"],"name":[1],"type":["int"],"align":["right"]},{"label":["D"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["H"],"name":[3],"type":["int"],"align":["right"]},{"label":["V"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["yi-fm"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["(yi-fm)²"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"16","2":"82.12","3":"16","4":"6.18","5":"0.1344444","6":"0.01807531"},{"1":"27","2":"82.76","3":"13","4":"3.78","5":"-2.2655556","6":"5.13274198"},{"1":"1","2":"83.00","3":"9","4":"4.56","5":"-1.4855556","6":"2.20687531"},{"1":"31","2":"85.94","3":"16","4":"7.58","5":"1.5344444","6":"2.35451975"},{"1":"20","2":"86.00","3":"16","4":"6.56","5":"0.5144444","6":"0.26465309"},{"1":"4","2":"86.58","3":"16","4":"5.16","5":"-0.8855556","6":"0.78420864"},{"1":"2","2":"90.40","3":"18","4":"7.68","5":"1.6344444","6":"2.67140864"},{"1":"3","2":"95.17","3":"14","4":"6.71","5":"0.6644444","6":"0.44148642"},{"1":"24","2":"95.49","3":"12","4":"6.20","5":"0.1544444","6":"0.02385309"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
+&lt;table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Arv &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; D &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; H &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; yi-fm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; (yi-fm)² &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1344444 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0180753 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.78 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.2655556 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.1327420 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 83.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.4855556 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.2068753 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.5344444 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.3545198 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5144444 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2646531 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.8855556 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7842086 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 90.40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6344444 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.6714086 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.71 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.6644444 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4414864 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1544444 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0238531 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: black !important;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 787.46 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 130 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 54.41 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 0.0000000 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: white !important;background-color: black !important;"&gt; 13.8978222 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 .pull-bottom[
 
@@ -1083,11 +1896,75 @@ Ponto de corte: **79.74cm**
 .pull-left-2[
 &lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 ]
+]
+]
+
+&lt;!-- Slide 16 --&gt;
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Bagging**]
+
+.font150[(.red[B]ootstrap .red[Agg]regat.red[ing])]
+
+(Breiman, 1996)
+
+&lt;!-- Slide 17 --&gt;
+---
+# Bagging
+
+.pull-left-1[
+&lt;img src="fig/Breiman1996.png" width="80%" style="display: block; margin: auto;" /&gt;
+.center[Fonte: [link.springer.com](https://link.springer.com/article/10.1007/BF00058655)]
 
 ]
 
+.pull-right-2[
+**Informações gerais:**
+- **Bagging**: um dos primeiros algoritmo de conjunto (ensemble);
+- **Significado:** .red[B]ootstrap .red[Agg]regat.red[ing];
+- **Proposto**: Breiman (1996);
+- **Problemas**: Classificação e Regressão; e
+- **Hiperparâmetro tuning**: nbagg (número de replicações de bootstrap);
 ]
 
+&lt;!--Slide 18 --&gt;
+---
+# Bagging
+
+.pull-left-2[
+.blockquote[
+- **Ideia principal:**
+
+  - Ajustar múltiplas versões de um modelo preditivo, e depois agregá-las, para obter uma única predição combinada (Breiman, 1996).&lt;br&gt;
+
+
+- **Motivos**:
+  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia (James, et al., 2013)&lt;br&gt;
+  
+  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo.&lt;br&gt;
+
+- **Aprediz de base**:
+  - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão); &lt;br&gt;
+]
+]
+
+&lt;!--Slide 19 --&gt;
+---
+# Bagging (Bagged Trees)
+
+.panelset[
+.panel[.panel-name[Dados]
+.pull-left-2[
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-2.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-3.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-4.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-5.png" style="display: block; margin: auto;" /&gt;
+]
+]
+]
+
+
+&lt;!--Slide 20 --&gt;
 ---
 # Regression Tree: pontos fortes e fracos...
 .shadow[
@@ -1346,6 +2223,12 @@ background-size: cover
 &lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Breiman, L.
+(1996).
+&amp;ldquo;Bagging predictors&amp;rdquo;.
+In: &lt;em&gt;Machine learning&lt;/em&gt; 24.2, pp. 123&amp;ndash;140.
+DOI: &lt;a href="https://doi.org/10.1007/BF00058655"&gt;10.1007/BF00058655&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Breiman, L.
 (2001).
 &amp;ldquo;Statistical modeling: The two cultures (with comments and a rejoinder by the author)&amp;rdquo;.
 In: &lt;em&gt;Statistical science&lt;/em&gt; 16.3, pp. 199&amp;ndash;231.
@@ -1367,15 +2250,15 @@ DOI: &lt;a href="https://doi.org/10.1016/j.compag.2020.105815"&gt;10.1016/j.comp
 &amp;ldquo;Artificial neural networks as an alternative tool in pine bark volume estimation&amp;rdquo;.
 In: &lt;em&gt;Computers and electronics in agriculture&lt;/em&gt; 48.3, pp. 235&amp;ndash;244.
 DOI: &lt;a href="https://doi.org/10.1016/j.compag.2005.04.002"&gt;10.1016/j.compag.2005.04.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Diamantopoulou, M. J. and E. Milios
 (2010).
 &amp;ldquo;Modelling total volume of dominant pine trees in reforestations via multivariate analysis and artificial neural network models&amp;rdquo;.
 In: &lt;em&gt;Biosystems engineering&lt;/em&gt; 105.3, pp. 306&amp;ndash;315.
 DOI: &lt;a href="https://doi.org/10.1016/j.biosystemseng.2009.11.010"&gt;10.1016/j.biosystemseng.2009.11.010&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Fehrmann, L., A. Lehtonen, C. Kleinn, et al.
 (2008).
@@ -1401,15 +2284,15 @@ New York: Springer.
 &lt;em&gt;Aprendizado de máquina: uma abordagem estat\'istica&lt;/em&gt;.
 268 pp.
 ISBN: 978-65-00-02410-4.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;James, G., D. Witten, T. Hastie, et al.
 (2013).
 &lt;em&gt;An introduction to statistical learning&lt;/em&gt;.
 Vol. 112.
 Springer.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Korhonen, K. T. and A. Kangas
 (1997).
@@ -1434,15 +2317,15 @@ Springer.&lt;/cite&gt;&lt;/p&gt;
 &amp;ldquo;The most similar neighbour reference in the yield prediction of Pinus kesiya stands in Zambia&amp;rdquo;.
 In: &lt;em&gt;Silva Fennica&lt;/em&gt; 35.4, pp. 437&amp;ndash;451.
 DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Montaño, R. A. N. R., C. R. Sanquetta, J. Wojciechowski, et al.
 (2017).
 &amp;ldquo;Artificial Intelligence Models to Estimate Biomass of Tropical Forest Trees&amp;rdquo;.
 In: &lt;em&gt;Polibits&lt;/em&gt; 56, pp. 29&amp;ndash;37.
 DOI: &lt;a href="https://doi.org/10.17562/PB-56-4"&gt;10.17562/PB-56-4&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
 
 &lt;p&gt;&lt;cite&gt;Nieto, P. G., J. M. Torres, M. A. Fernández, et al.
 (2012).
@@ -1461,12 +2344,6 @@ DOI: &lt;a href="https://doi.org/10.1371/journal.pone.0154738"&gt;10.1371/journa
 &amp;ldquo;Estimating tree bole volume using artificial neural network models for four species in Turkey&amp;rdquo;.
 In: &lt;em&gt;Journal of environmental management&lt;/em&gt; 91.3, pp. 742&amp;ndash;753.
 DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jenvman.2009.10.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;cite&gt;&lt;a id='bib-samuel1959some'&gt;&lt;/a&gt;&lt;a href="#cite-samuel1959some"&gt;Samuel, A. L.&lt;/a&gt;
-(1959).
-&amp;ldquo;Some studies in machine learning using the game of checkers&amp;rdquo;.
-In: &lt;em&gt;IBM Journal of research and development&lt;/em&gt;, pp. 211&amp;ndash;229.
-DOI: &lt;a href="https://doi.org/10.1147/rd.33.0210"&gt;10.1147/rd.33.0210&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
 ---
 background-image: url(fig/white.jpg)
@@ -1740,6 +2617,15 @@ Font Size
 .pull-right-3 {
   float: right;
   width: 41%;
+}
+
+.pull-left-4 {
+  float: left;
+  width: 45%;
+}
+.pull-right-4 {
+  float: right;
+  width: 45%;
 }
 
 
