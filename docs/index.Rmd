@@ -129,20 +129,29 @@ BibOptions(check.entries = FALSE,
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
-<b>
-.pull-top[
-<p style="font-weight:bold;"> Parte 1 - Conceitos e fundamentação teórica </p>
-[1 - Uma análise de regressão...](#AM)
+<b> <br>
 
-[2 - Tipos de Aprendizagem](#tipos)
+.pull-top[
+Parte 1 - Conceitos e fundamentação teórica
+
+[1 - Qual é o motivo de fazer análise de regressão?](#AR)
+
+[2 - Culturas no uso de modelos estatísticos](#CultME)
+
+[3 - Aprendizado de Máquina](#AM)
+
+[4 - Tipos de Aprendizagem](#TA)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
 [5 - Pacote CARET](#caret)
 ]
 
+<b> <br>
+
 .pull-bottom[
-<p style="font-weight:bold;"> Parte 2 - Aplicações nas Ciências Florestais </p>
+Parte 2 - Aplicações nas Ciências Florestais
+
 [1 - Aplicações nas ciências florestais](#aplicacoes)
 
 [2 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
@@ -150,13 +159,22 @@ background-size: cover
 [3 - Aplicação Web com MAM: um exemplo prático.](#shiny)
 ]
 
+<!-- Slide XX -->
+---
+name: AR
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Qual é o motivo de fazer <br> análise de regressão?**]
+
 <!--Slide 3 -->
 ---
 # Uma análise de regressão...
 
 .pull-left-2[
 .blockquote[
-.content-box-blue[**Motivos práticos para fazer uma análise de regressão...**] <br>
+.center[**Motivos práticos**]
 
 - **Determinação**: Variáveis difíceis de determinar em campo;
   - ex.: volume, biomassa, altura, etc.
@@ -185,9 +203,9 @@ $ln (v) = ln\beta_0 + \beta_{1}ln(d) + \beta_{2}ln(h) + \epsilon_i$ $\Rightarrow
 # Uma análise de regressão...
 
 .blockquote[
-.content-box-blue[**Motivos estatísticos para fazer uma análise de regressão...**] `r Citep(myBib, "izbicki_mendonca2020")` <br>
+.center[**Motivos estatísticos** `r Citep(myBib, "izbicki_mendonca2020")`]
 
-- **Inferencial**: Tirar conclusões sobre a população:
+- **Inferencial**: Tirar conclusões sobre a população.
   - Interpretar parâmetros;
   - Estimar os intervalos de confiança (IC) dos parâmetros; e
   - Testes de hipóteses (normalidade, homocedasticidade dos resíduos, etc.) $\Rightarrow$ .content-box-red[Suposições da RL]
@@ -198,7 +216,8 @@ Qual a relação entre $v$ e o $d$?
 
 Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 
-- **Preditivista**: Estimar uma função de regressão $f(x)$ com bom poder preditivo! .content-box-red[O foco é na predição!]
+- **Preditivista**: 
+  - Estimar uma função de regressão $f(x)$ com bom poder preditivo! .content-box-red[O foco é na predição!]
 ]
 
 --
@@ -206,6 +225,15 @@ Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 .content-box-blue[
 .center[**Portanto, para um determinado problema o foco pode ser claramente inferencial ou preditivo, e para outros pode ser a mistura de ambos** `r Citep(myBib, "izbicki_mendonca2020")`.]
 ]
+
+<!-- Slide XX -->
+---
+name: CultME
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Culturas no uso de <br> modelos estatísticos**]
 
 <!--Slide 5 -->
 ---
@@ -239,9 +267,17 @@ knitr::include_graphics('fig/Breiman.jpg')
 .content-box-blue[.center[Statistical modeling: The two cultures `r Citep(myBib, "breiman2001statistical")`.]
 ]
 
-<!--Slide 6 -->
+<!-- Slide XX -->
 ---
 name: AM
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Aprendizado de Máquina** <br> (*Machine Learning*)]
+
+<!--Slide 6 -->
+---
 # Aprendizado de Máquina (*Machine Learning*)
 
 **História:**
@@ -289,13 +325,22 @@ Pode-se afirmar que um programa de computador aprende uma
 ]
 ]
 
+<!-- Slide XX -->
+---
+name: TA
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font180[**Tipos de Aprendizagem** <br> (*Supervisionada vs não-supervisionada*)]
+
 <!--Slide 8 -->
 ---
 # Tipos de Aprendizagem
 
 .pull-left-4[
 .blockquote[
-.content-box-blue[**Aprendizado Supervisionado:**]
+.content-box-blue[**Aprendizagem Supervisionada:**]
 
 - **Objetivo principal**:
 
@@ -310,7 +355,7 @@ Dado as medidas $\left(x_1, y_1\right)$, . . . , $\left(x_n, y_n\right)$, o obje
 
 .pull-right-4[
 .blockquote[
-.content-box-blue[**Aprendizado não-Supervisionado:**]
+.content-box-blue[**Aprendizagem não-supervisionada:**]
 - **Tipos de problemas**: agrupamento, redução de dimensionalidade e associação.
     - **Objetivo principal**: Descobrir estruturas subjacentes;
     - **Variável resposta**: Não existe (dados não rotulados)
@@ -1111,6 +1156,15 @@ knitr::include_graphics('fig/CART.png')
 
 .left[.footnote[Fonte: O Autor.]] 
 
+<!-- Slide XX -->
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font250[**Aplicações nas ciências <br> florestais**]
+
+<!-- Slide XX -->
 ---
 name: aplicacoes
 # Aplicações nas ciências florestais
@@ -1121,11 +1175,12 @@ knitr::include_graphics('fig/MindMap.png')
 
 .left[.footnote[Fonte: O Autor.]]
 
+<!-- Slide XX -->
 ---
 name: AMIF
-# AM no Inventário Florestal: estudos indicam potencial!
+# .font80[AM na Mensuração Florestal: estudos indicam potencial!]
 
-```{r, echo=FALSE, out.width='85%', fig.align='center', fig.cap='', dpi=600}
+```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics('fig/ML-TEC.png')
 ```
 .left[.footnote[Fonte: O Autor.]]
@@ -1135,14 +1190,23 @@ Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013
                "james2013introduction"))
 ```
 
+<!-- Slide XX -->
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Frameworks para aprendizado <br> de máquina**]
+
+<!-- Slide XX -->
 ---
 name: AMLR
-class: middle, center
+class: middle
 # Aprendizado de máquina com linguagem R
 
 .pull-left[
 
-.thick[Alguns pacotes publicados no Cran Task View: Machine Learning & Statistical learning]
+Alguns pacotes publicados no Cran Task View: Machine Learning & Statistical learning
 
 ```{r, echo=FALSE, out.width='85%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics('fig/ML-FR.png')
@@ -1151,12 +1215,12 @@ knitr::include_graphics('fig/ML-FR.png')
 
 .pull-right[
 <BR> <BR> <BR> <BR> <BR>
-.thick[Veja outros pacotes disponíveis em Task View:]
+Veja outros pacotes disponíveis em Task View:
 
 [Machine Learning & Statistical learning](https://cran.r-project.org/)
 
 <BR> <BR>
-.thick[Web scraping feito em 21/07/2018:]
+Web scraping feito em 21/07/2018:
 
 Até julho de 2018 existiam 102 pacotes sobre AM
 publicados no CRAN Task View.
@@ -1166,10 +1230,9 @@ publicados no CRAN Task View.
 
 ---
 name: caret
+class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
-
-# Pacote CARET: um framework para aprendizado de máquina
 
 .font300[.thick[CARET]]
 	
@@ -1182,6 +1245,8 @@ background-size: cover
 <br> <br> <br>
 
 Web page: [CARET Package](https://topepo.github.io/caret/index.html)
+
+<br> <br>
 
 .left[.footnote[Imagem de <a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5358904">pen_ash</a> por <a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5358904">Pixabay</a>]]
 ---
@@ -1206,29 +1271,32 @@ knitr::include_graphics('fig/FM.png')
 ---
 name: exemploR
 class: inverse, top
-background-image: url(fig/imgC.jpg)
+background-image: url(fig/white.jpg)
 background-size: cover
 
 <br> <br> <br> <br> <br>
-## .thick[.black[MACHINE LEARNING NO R]]
+.pull-left-3[
+MACHINE LEARNING NO R
 
 <br> <br>
-.left[.thick[.black[Acesse o R-script:]]
+
+Acesse o R-script:
 
 [01-wkNN](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/01-wkNN.R)
 
-.thick[.black[Acesse os dados:]]
+Acesse os dados:
 
 [Tectona-grandis](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/Tectona.csv)]
 
-.left[.footnote[Créditos: Imagem de .green[Willas Lima].]]
+.footnote[Créditos: Imagem de .segue-yellow[Willas Lima].]
+]
 ---
 name: shiny
 class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 
-## .thick[.black[Como disponibilizar os modelos de aprendizado de máquina?]]
+Como disponibilizar os modelos de aprendizado de máquina?
 
 .pull-left[
 ```{r, echo=FALSE, out.width='20%', fig.align='center', fig.cap=''}
@@ -1288,6 +1356,7 @@ PrintBibliography(myBib, start = 16, end = 19)
 ```
 
 ---
+class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 

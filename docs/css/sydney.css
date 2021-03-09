@@ -77,8 +77,20 @@ Font Size
   font-size: 80%;
 }
 
+.font180 {
+  font-size: 180%;
+}
+
 .font200 {
   font-size: 200%;
+}
+
+.font250 {
+  font-size: 250%;
+}
+
+.font300 {
+  font-size: 300%;
 }
 
 /*************************
@@ -121,6 +133,16 @@ Font Size
   width: 45%;
 }
 
+
+.pull-top-1 {
+  float: left;
+  width: 90%;
+}
+
+.pull-bottom-1 {
+  float: left;
+  width: 90%;
+}
 
 /* use to position text at the bottom */
 .pull-down {
@@ -352,6 +374,12 @@ slides > slide {
     flex: 1 1 auto;
 }
 
+/***********
+ Indent
+ **************/
+.b {
+  text-indent: 2em;
+}
 
 
 /***********

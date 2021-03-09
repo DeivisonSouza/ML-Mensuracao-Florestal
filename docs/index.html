@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[08/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[09/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -66,20 +66,29 @@ name: toc
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
-&lt;b&gt;
-.pull-top[
-&lt;p style="font-weight:bold;"&gt; Parte 1 - Conceitos e fundamentação teórica &lt;/p&gt;
-[1 - Uma análise de regressão...](#AM)
+&lt;b&gt; &lt;br&gt;
 
-[2 - Tipos de Aprendizagem](#tipos)
+.pull-top[
+Parte 1 - Conceitos e fundamentação teórica
+
+[1 - Qual é o motivo de fazer análise de regressão?](#AR)
+
+[2 - Culturas no uso de modelos estatísticos](#CultME)
+
+[3 - Aprendizado de Máquina](#AM)
+
+[4 - Tipos de Aprendizagem](#TA)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
 [5 - Pacote CARET](#caret)
 ]
 
+&lt;b&gt; &lt;br&gt;
+
 .pull-bottom[
-&lt;p style="font-weight:bold;"&gt; Parte 2 - Aplicações nas Ciências Florestais &lt;/p&gt;
+Parte 2 - Aplicações nas Ciências Florestais
+
 [1 - Aplicações nas ciências florestais](#aplicacoes)
 
 [2 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
@@ -87,13 +96,22 @@ background-size: cover
 [3 - Aplicação Web com MAM: um exemplo prático.](#shiny)
 ]
 
+&lt;!-- Slide XX --&gt;
+---
+name: AR
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Qual é o motivo de fazer &lt;br&gt; análise de regressão?**]
+
 &lt;!--Slide 3 --&gt;
 ---
 # Uma análise de regressão...
 
 .pull-left-2[
 .blockquote[
-.content-box-blue[**Motivos práticos para fazer uma análise de regressão...**] &lt;br&gt;
+.center[**Motivos práticos**]
 
 - **Determinação**: Variáveis difíceis de determinar em campo;
   - ex.: volume, biomassa, altura, etc.
@@ -120,9 +138,9 @@ background-size: cover
 # Uma análise de regressão...
 
 .blockquote[
-.content-box-blue[**Motivos estatísticos para fazer uma análise de regressão...**] (Izbicki and Santos, 2020) &lt;br&gt;
+.center[**Motivos estatísticos** (Izbicki and Santos, 2020)]
 
-- **Inferencial**: Tirar conclusões sobre a população:
+- **Inferencial**: Tirar conclusões sobre a população.
   - Interpretar parâmetros;
   - Estimar os intervalos de confiança (IC) dos parâmetros; e
   - Testes de hipóteses (normalidade, homocedasticidade dos resíduos, etc.) `\(\Rightarrow\)` .content-box-red[Suposições da RL]
@@ -133,7 +151,8 @@ Qual a relação entre `\(v\)` e o `\(d\)`?
 
 Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 
-- **Preditivista**: Estimar uma função de regressão `\(f(x)\)` com bom poder preditivo! .content-box-red[O foco é na predição!]
+- **Preditivista**: 
+  - Estimar uma função de regressão `\(f(x)\)` com bom poder preditivo! .content-box-red[O foco é na predição!]
 ]
 
 --
@@ -141,6 +160,15 @@ Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 .content-box-blue[
 .center[**Portanto, para um determinado problema o foco pode ser claramente inferencial ou preditivo, e para outros pode ser a mistura de ambos** (Izbicki and Santos, 2020).]
 ]
+
+&lt;!-- Slide XX --&gt;
+---
+name: CultME
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Culturas no uso de &lt;br&gt; modelos estatísticos**]
 
 &lt;!--Slide 5 --&gt;
 ---
@@ -172,9 +200,17 @@ Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 .content-box-blue[.center[Statistical modeling: The two cultures (Breiman, 2001).]
 ]
 
-&lt;!--Slide 6 --&gt;
+&lt;!-- Slide XX --&gt;
 ---
 name: AM
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Aprendizado de Máquina** &lt;br&gt; (*Machine Learning*)]
+
+&lt;!--Slide 6 --&gt;
+---
 # Aprendizado de Máquina (*Machine Learning*)
 
 **História:**
@@ -220,13 +256,22 @@ Pode-se afirmar que um programa de computador aprende uma
 ]
 ]
 
+&lt;!-- Slide XX --&gt;
+---
+name: TA
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font180[**Tipos de Aprendizagem** &lt;br&gt; (*Supervisionada vs não-supervisionada*)]
+
 &lt;!--Slide 8 --&gt;
 ---
 # Tipos de Aprendizagem
 
 .pull-left-4[
 .blockquote[
-.content-box-blue[**Aprendizado Supervisionado:**]
+.content-box-blue[**Aprendizagem Supervisionada:**]
 
 - **Objetivo principal**:
 
@@ -241,7 +286,7 @@ Dado as medidas `\(\left(x_1, y_1\right)\)`, . . . , `\(\left(x_n, y_n\right)\)`
 
 .pull-right-4[
 .blockquote[
-.content-box-blue[**Aprendizado não-Supervisionado:**]
+.content-box-blue[**Aprendizagem não-supervisionada:**]
 - **Tipos de problemas**: agrupamento, redução de dimensionalidade e associação.
     - **Objetivo principal**: Descobrir estruturas subjacentes;
     - **Variável resposta**: Não existe (dados não rotulados)
@@ -1958,7 +2003,8 @@ background-size: cover
 .panelset[
 .panel[.panel-name[Dados]
 .pull-left-2[
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-2.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-3.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-4.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-20-5.png" style="display: block; margin: auto;" /&gt;
+
+
 ]
 ]
 ]
@@ -2078,6 +2124,15 @@ name: MAM
 
 .left[.footnote[Fonte: O Autor.]] 
 
+&lt;!-- Slide XX --&gt;
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font250[**Aplicações nas ciências &lt;br&gt; florestais**]
+
+&lt;!-- Slide XX --&gt;
 ---
 name: aplicacoes
 # Aplicações nas ciências florestais
@@ -2086,11 +2141,12 @@ name: aplicacoes
 
 .left[.footnote[Fonte: O Autor.]]
 
+&lt;!-- Slide XX --&gt;
 ---
 name: AMIF
-# AM no Inventário Florestal: estudos indicam potencial!
+# .font80[AM na Mensuração Florestal: estudos indicam potencial!]
 
-&lt;img src="fig/ML-TEC.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="fig/ML-TEC.png" width="80%" style="display: block; margin: auto;" /&gt;
 .left[.footnote[Fonte: O Autor.]]
 
 
@@ -2103,26 +2159,35 @@ Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013
 ## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019; James, Witten, Hastie, et al., 2013)"
 ```
 
+&lt;!-- Slide XX --&gt;
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Frameworks para aprendizado &lt;br&gt; de máquina**]
+
+&lt;!-- Slide XX --&gt;
 ---
 name: AMLR
-class: middle, center
+class: middle
 # Aprendizado de máquina com linguagem R
 
 .pull-left[
 
-.thick[Alguns pacotes publicados no Cran Task View: Machine Learning &amp; Statistical learning]
+Alguns pacotes publicados no Cran Task View: Machine Learning &amp; Statistical learning
 
 &lt;img src="fig/ML-FR.png" width="85%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
 &lt;BR&gt; &lt;BR&gt; &lt;BR&gt; &lt;BR&gt; &lt;BR&gt;
-.thick[Veja outros pacotes disponíveis em Task View:]
+Veja outros pacotes disponíveis em Task View:
 
 [Machine Learning &amp; Statistical learning](https://cran.r-project.org/)
 
 &lt;BR&gt; &lt;BR&gt;
-.thick[Web scraping feito em 21/07/2018:]
+Web scraping feito em 21/07/2018:
 
 Até julho de 2018 existiam 102 pacotes sobre AM
 publicados no CRAN Task View.
@@ -2132,10 +2197,9 @@ publicados no CRAN Task View.
 
 ---
 name: caret
+class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
-
-# Pacote CARET: um framework para aprendizado de máquina
 
 .font300[.thick[CARET]]
 	
@@ -2148,6 +2212,8 @@ background-size: cover
 &lt;br&gt; &lt;br&gt; &lt;br&gt;
 
 Web page: [CARET Package](https://topepo.github.io/caret/index.html)
+
+&lt;br&gt; &lt;br&gt;
 
 .left[.footnote[Imagem de &lt;a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;pen_ash&lt;/a&gt; por &lt;a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;Pixabay&lt;/a&gt;]]
 ---
@@ -2168,29 +2234,32 @@ background-size: cover
 ---
 name: exemploR
 class: inverse, top
-background-image: url(fig/imgC.jpg)
+background-image: url(fig/white.jpg)
 background-size: cover
 
 &lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt;
-## .thick[.black[MACHINE LEARNING NO R]]
+.pull-left-3[
+MACHINE LEARNING NO R
 
 &lt;br&gt; &lt;br&gt;
-.left[.thick[.black[Acesse o R-script:]]
+
+Acesse o R-script:
 
 [01-wkNN](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/01-wkNN.R)
 
-.thick[.black[Acesse os dados:]]
+Acesse os dados:
 
 [Tectona-grandis](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/Tectona.csv)]
 
-.left[.footnote[Créditos: Imagem de .green[Willas Lima].]]
+.footnote[Créditos: Imagem de .segue-yellow[Willas Lima].]
+]
 ---
 name: shiny
 class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 
-## .thick[.black[Como disponibilizar os modelos de aprendizado de máquina?]]
+Como disponibilizar os modelos de aprendizado de máquina?
 
 .pull-left[
 &lt;img src="fig/sh.png" width="20%" style="display: block; margin: auto;" /&gt;
@@ -2346,6 +2415,7 @@ In: &lt;em&gt;Journal of environmental management&lt;/em&gt; 91.3, pp. 742&amp;n
 DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jenvman.2009.10.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
 ---
+class: inverse, top
 background-image: url(fig/white.jpg)
 background-size: cover
 
@@ -2584,8 +2654,20 @@ Font Size
   font-size: 80%;
 }
 
+.font180 {
+  font-size: 180%;
+}
+
 .font200 {
   font-size: 200%;
+}
+
+.font250 {
+  font-size: 250%;
+}
+
+.font300 {
+  font-size: 300%;
 }
 
 /*************************
@@ -2628,6 +2710,16 @@ Font Size
   width: 45%;
 }
 
+
+.pull-top-1 {
+  float: left;
+  width: 90%;
+}
+
+.pull-bottom-1 {
+  float: left;
+  width: 90%;
+}
 
 /* use to position text at the bottom */
 .pull-down {
@@ -2859,6 +2951,12 @@ slides > slide {
     flex: 1 1 auto;
 }
 
+/***********
+ Indent
+ **************/
+.b {
+  text-indent: 2em;
+}
 
 
 /***********
