@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[09/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[10/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -66,10 +66,9 @@ name: toc
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
-&lt;b&gt; &lt;br&gt;
 
 .pull-top[
-Parte 1 - Conceitos e fundamentação teórica
+**Parte 1 - Conceitos e fundamentação teórica**
 
 [1 - Qual é o motivo de fazer análise de regressão?](#AR)
 
@@ -79,15 +78,25 @@ Parte 1 - Conceitos e fundamentação teórica
 
 [4 - Tipos de Aprendizagem](#TA)
 
+[5 - Algoritmos de Aprendizado Supersivionado](#AAS)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.1 - Regression Tree](#RT)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.2 - Bagging](#bag)
+
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
 [5 - Pacote CARET](#caret)
 ]
 
-&lt;b&gt; &lt;br&gt;
+&lt;!-- Slide 2 --&gt;
+---
+background-image: url(fig/white.jpg)
+background-size: cover
+# Conteúdo
 
-.pull-bottom[
-Parte 2 - Aplicações nas Ciências Florestais
+.pull-top[
+**Parte 2 - Aplicações nas Ciências Florestais**
 
 [1 - Aplicações nas ciências florestais](#aplicacoes)
 
@@ -592,6 +601,15 @@ Quais algoritmos existentes para estimar `\(\Large{f\left(x\right)}\)`?
 ]
 ]
 
+&lt;!-- Slide XX --&gt;
+---
+name: AAS
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font180[**Algoritmos de Aprendizado &lt;br&gt; Supersivionado**]
+
 &lt;!--Slide 13 --&gt;
 ---
 # Algoritmos de AS
@@ -617,6 +635,7 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
 &lt;!--Slide 14 --&gt;
 ---
+name: RT
 class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
@@ -1944,8 +1963,23 @@ Ponto de corte: **79.74cm**
 ]
 ]
 
+&lt;!-- Slide XX --&gt;
+---
+# Underfitting e Overfitting
+
+- São conceitos relacionados ao ajuste dos modelos.
+
+- **Subajuste** (*Underfitting*)
+  - Quando o modelo aprendido produz **predições ruins** no **conjunto de treinamento**, ou seja o modelo é simples demais para explicar os dados usados no processo de aprendizado.
+
+- **Sobreajuste** (*Overfitting*)
+  - Quando o modelo aprendido produz **boas predições** no **conjunto de treinamento** (se ajusta demais aos dados de treino), porém **não generaliza bem para novos dados**.
+
+Meta: Encontrar modelo intermediário entre subajuste e superajuste!
+
 &lt;!-- Slide 16 --&gt;
 ---
+name: bag
 class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
@@ -1989,7 +2023,7 @@ background-size: cover
 - **Motivos**:
   - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia (James, et al., 2013)&lt;br&gt;
   
-  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo.&lt;br&gt;
+  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. &lt;br&gt;
 
 - **Aprediz de base**:
   - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão); &lt;br&gt;
@@ -2954,8 +2988,8 @@ slides > slide {
 /***********
  Indent
  **************/
-.b {
-  text-indent: 2em;
+p {
+  text-indent: 50px;
 }
 
 

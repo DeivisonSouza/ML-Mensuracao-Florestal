@@ -129,10 +129,9 @@ BibOptions(check.entries = FALSE,
 background-image: url(fig/white.jpg)
 background-size: cover
 # Conteúdo
-<b> <br>
 
 .pull-top[
-Parte 1 - Conceitos e fundamentação teórica
+**Parte 1 - Conceitos e fundamentação teórica**
 
 [1 - Qual é o motivo de fazer análise de regressão?](#AR)
 
@@ -142,15 +141,25 @@ Parte 1 - Conceitos e fundamentação teórica
 
 [4 - Tipos de Aprendizagem](#TA)
 
+[5 - Algoritmos de Aprendizado Supersivionado](#AAS)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Regression Tree](#RT)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.2 - Bagging](#bag)
+
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
 [5 - Pacote CARET](#caret)
 ]
 
-<b> <br>
+<!-- Slide 2 -->
+---
+background-image: url(fig/white.jpg)
+background-size: cover
+# Conteúdo
 
-.pull-bottom[
-Parte 2 - Aplicações nas Ciências Florestais
+.pull-top[
+**Parte 2 - Aplicações nas Ciências Florestais**
 
 [1 - Aplicações nas ciências florestais](#aplicacoes)
 
@@ -466,6 +475,15 @@ Quais algoritmos existentes para estimar $\Large{f\left(x\right)}$?
 ]
 ]
 
+<!-- Slide XX -->
+---
+name: AAS
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font180[**Algoritmos de Aprendizado <br> Supersivionado**]
+
 <!--Slide 13 -->
 ---
 # Algoritmos de AS
@@ -493,6 +511,7 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
 <!--Slide 14 -->
 ---
+name: RT
 class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
@@ -928,8 +947,23 @@ r2 + geom_line(aes(x = D, y = predict(tree)))
 ]
 ]
 
+<!-- Slide XX -->
+---
+# Underfitting e Overfitting
+
+- São conceitos relacionados ao ajuste dos modelos.
+
+- **Subajuste** (*Underfitting*)
+  - Quando o modelo aprendido produz **predições ruins** no **conjunto de treinamento**, ou seja o modelo é simples demais para explicar os dados usados no processo de aprendizado.
+
+- **Sobreajuste** (*Overfitting*)
+  - Quando o modelo aprendido produz **boas predições** no **conjunto de treinamento** (se ajusta demais aos dados de treino), porém **não generaliza bem para novos dados**.
+
+Meta: Encontrar modelo intermediário entre subajuste e superajuste!
+
 <!-- Slide 16 -->
 ---
+name: bag
 class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
@@ -975,7 +1009,7 @@ knitr::include_graphics('fig/Breiman1996.png')
 - **Motivos**:
   - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`<br>
   
-  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo.<br>
+  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. <br>
 
 - **Aprediz de base**:
   - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão); <br>
