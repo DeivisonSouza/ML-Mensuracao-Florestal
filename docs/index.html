@@ -6,7 +6,6 @@
     <meta name="author" content=" Prof. Dr. Deivison Venicio Souza" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
-    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
     <script src="libs/kePrint/kePrint.js"></script>
@@ -1048,9 +1047,6 @@ O uso de cp=0 permitiu o crescimento de uma árvore sem restrições, comumente 
 ##     4) D&lt; 79.735 16  17.40637  3.648750 *
 ##     5) D&gt;=79.735 9  13.89782  6.045556 *
 ##   3) D&gt;=95.97 7  93.87834 10.052860 *
-```
-
-```
 ##     V                      cover
 ##   3.6 when D &lt;  80           50%
 ##   6.0 when D is 80 to 96     28%
@@ -1967,7 +1963,7 @@ Ponto de corte: **79.74cm**
 ---
 # Underfitting e Overfitting
 
-- São conceitos relacionados ao ajuste dos modelos.
+São conceitos estatísticos relacionados ao ajuste dos modelos.
 
 - **Subajuste** (*Underfitting*)
   - Quando o modelo aprendido produz **predições ruins** no **conjunto de treinamento**, ou seja o modelo é simples demais para explicar os dados usados no processo de aprendizado.
@@ -1975,7 +1971,32 @@ Ponto de corte: **79.74cm**
 - **Sobreajuste** (*Overfitting*)
   - Quando o modelo aprendido produz **boas predições** no **conjunto de treinamento** (se ajusta demais aos dados de treino), porém **não generaliza bem para novos dados**.
 
-Meta: Encontrar modelo intermediário entre subajuste e superajuste!
+**Ideal**: Encontrar um modelo intermediário entre subajuste e superajuste!
+
+&lt;!-- Slide XX --&gt;
+---
+# Underfitting e Overfitting
+
+Árvores de regressão têm tendência de sobreajustar.
+
+.pull-left[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" alt="Overfitting" width="80%" /&gt;
+&lt;p class="caption"&gt;Overfitting&lt;/p&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" alt="Underfitting" width="80%" /&gt;
+&lt;p class="caption"&gt;Underfitting&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+# Minimizar overfitting: Parada antecipada
+
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.gif" width="50%" style="display: block; margin: auto;" /&gt;
 
 &lt;!-- Slide 16 --&gt;
 ---
@@ -2187,9 +2208,6 @@ name: AMIF
 ```r
 Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019",
                "james2013introduction"))
-```
-
-```
 ## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019; James, Witten, Hastie, et al., 2013)"
 ```
 

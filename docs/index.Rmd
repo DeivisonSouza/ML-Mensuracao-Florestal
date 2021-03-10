@@ -36,21 +36,25 @@ output:
 
 name: toc
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, cache=FALSE}
 library(tidyverse)
 library(rpart)                            
 library(rpart.plot)
 library(kableExtra)
 
 options(htmltools.dir.version = FALSE, 
-        knitr.graphics.auto_pdf = TRUE)
+        knitr.graphics.auto_pdf = TRUE,
+        servr.daemon = TRUE)
 
 knitr::opts_chunk$set(
   fig.showtext = TRUE,
-  #fig.width = 16, 
-  #fig.height = 8, 
+  fig.align = "center", 
+  cache = TRUE,
+  error = FALSE,
+  message = FALSE, 
+  warning = FALSE, 
+  collapse = TRUE ,
   dpi = 600,
-  fig.align='center', 
   dev.args=list(bg='transparent')
 )
 
@@ -951,7 +955,7 @@ r2 + geom_line(aes(x = D, y = predict(tree)))
 ---
 # Underfitting e Overfitting
 
-- São conceitos relacionados ao ajuste dos modelos.
+São conceitos estatísticos relacionados ao ajuste dos modelos.
 
 - **Subajuste** (*Underfitting*)
   - Quando o modelo aprendido produz **predições ruins** no **conjunto de treinamento**, ou seja o modelo é simples demais para explicar os dados usados no processo de aprendizado.
@@ -959,7 +963,81 @@ r2 + geom_line(aes(x = D, y = predict(tree)))
 - **Sobreajuste** (*Overfitting*)
   - Quando o modelo aprendido produz **boas predições** no **conjunto de treinamento** (se ajusta demais aos dados de treino), porém **não generaliza bem para novos dados**.
 
-Meta: Encontrar modelo intermediário entre subajuste e superajuste!
+**Ideal**: Encontrar um modelo intermediário entre subajuste e superajuste!
+
+<!-- Slide XX -->
+---
+# Underfitting e Overfitting
+
+Árvores de regressão têm tendência de sobreajustar.
+
+.pull-left[
+```{r, echo=FALSE, out.width='80%', fig.cap="Overfitting"}
+bio <- data.table::fread("R-scripts/AGB.csv")
+
+rpart2 <- rpart(AGB ~ D, 
+                data = bio, 
+                control = list(cp = 0, maxdepth = 10, 
+                               minbucket = 1, minsplit = 5))
+
+ggplot(data=bio, aes(D, AGB)) +
+  geom_point(aes(D, AGB), alpha = .3, size = 2) +
+  geom_line(aes(x = D, y = predict(rpart2)), 
+            color = "red", size = 1) +
+  ylab("Biomassa Aérea Total (kg)") + 
+  xlab("Diâmetro (cm)")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, out.width='80%', fig.cap="Underfitting"}
+rpart3 <- rpart(AGB ~ D, 
+                data = bio, 
+                control = list(cp = 0, maxdepth = 2, 
+                               minbucket = 1, minsplit = 5))
+
+ggplot(data=bio, aes(D, AGB)) +
+  geom_point(aes(D, AGB), alpha = .3, size = 2) +
+  geom_line(aes(x = D, y = predict(rpart3)), 
+            color = "red", size = 1) +
+  ylab("Biomassa Aérea Total (kg)") + 
+  xlab("Diâmetro (cm)")
+```
+]
+
+---
+# Minimizar overfitting: Parada antecipada
+
+```{r, echo=FALSE, out.width='50%', cache=TRUE}
+library("gganimate")
+library("gifski")
+library("transformr")
+
+bio <- data.table::fread("R-scripts/AGB.csv")
+maxdepth <- 1:15
+results <- data.frame(NULL)
+
+for(i in maxdepth) {
+ ctrl <- list(cp = 0, maxdepth = i, 
+              minbucket = 1, minsplit = 5)
+ fit <- rpart(AGB ~ D, data = bio, control = ctrl) 
+ 
+ predictions <- mutate(bio, maxdepth = maxdepth[i])
+ predictions$pred <- predict(fit, bio)
+ results <- rbind(results, predictions)
+   
+}
+
+p <- results %>%
+  ggplot(aes(D, pred)) +
+  geom_point(aes(D, AGB), alpha = .3, size = 2) +
+  geom_line(color = "red", size = 1) +
+  ylab("Biomassa Aérea Total (kg)") + 
+  xlab("Diâmetro (cm)") + 
+  labs(title = 'Profundidade máxima: {frame_time}') +
+  transition_time(-maxdepth)
+  animate(p, renderer = gifski_renderer(), device = "png")
+```
 
 <!-- Slide 16 -->
 ---
