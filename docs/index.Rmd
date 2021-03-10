@@ -954,7 +954,7 @@ r2 + geom_line(aes(x = D, y = predict(tree)))
 <!-- Slide XX -->
 ---
 # Underfitting e Overfitting
-
+<br>
 São conceitos estatísticos relacionados ao ajuste dos modelos.
 
 - **Subajuste** (*Underfitting*)
@@ -968,7 +968,7 @@ São conceitos estatísticos relacionados ao ajuste dos modelos.
 <!-- Slide XX -->
 ---
 # Underfitting e Overfitting
-
+<br>
 Árvores de regressão têm tendência de sobreajustar.
 
 .pull-left[
@@ -1005,16 +1005,30 @@ ggplot(data=bio, aes(D, AGB)) +
 ```
 ]
 
+<!-- Slide XX -->
 ---
-# Minimizar overfitting: Parada antecipada
+# Overfitting: como minimizar?
+<!-- Código adaptado de Bradley boehmke. Disponível em: link: https://github.com/bradleyboehmke/random-forest-training/blob/master/docs/slides-source.Rmd -->
 
-```{r, echo=FALSE, out.width='50%', cache=TRUE}
+.pull-left-4[
+Duas estratégias principais:
+
+**1) Parada antecipada**
+
+  - Restringir a profundidade máxima da árvore (maxdepth); e
+  
+  - Restringir o número mínimo de observações em qualquer nó terminal (minbucket).
+
+]
+
+.pull-right-4[
+```{r, echo=FALSE, out.width='100%', cache=TRUE}
 library("gganimate")
 library("gifski")
 library("transformr")
 
 bio <- data.table::fread("R-scripts/AGB.csv")
-maxdepth <- 1:15
+maxdepth <- 1:12
 results <- data.frame(NULL)
 
 for(i in maxdepth) {
@@ -1022,9 +1036,9 @@ for(i in maxdepth) {
               minbucket = 1, minsplit = 5)
  fit <- rpart(AGB ~ D, data = bio, control = ctrl) 
  
- predictions <- mutate(bio, maxdepth = maxdepth[i])
- predictions$pred <- predict(fit, bio)
- results <- rbind(results, predictions)
+ pred <- mutate(bio, maxdepth = maxdepth[i])
+ pred$pred <- predict(fit, bio)
+ results <- rbind(results, pred)
    
 }
 
@@ -1035,9 +1049,89 @@ p <- results %>%
   ylab("Biomassa Aérea Total (kg)") + 
   xlab("Diâmetro (cm)") + 
   labs(title = 'Profundidade máxima: {frame_time}') +
-  transition_time(-maxdepth)
+  transition_time(maxdepth)
   animate(p, renderer = gifski_renderer(), device = "png")
-```
+```  
+
+]
+
+<!-- Slide XX -->
+---
+# Overfitting: como minimizar?
+
+.pull-left-4[
+Duas estratégias principais:
+
+**1) Parada antecipada**
+
+  - Restringir a profundidade máxima da árvore (maxdepth); e
+  
+  - Restringir o número mínimo de observações em qualquer nó terminal (minbucket).
+
+]
+
+.pull-right-4[
+```{r, echo=FALSE, out.width='100%', cache=TRUE}
+minbucket <- 1:20
+results <- data.frame(NULL)
+
+for(i in minbucket) {
+ ctrl <- list(cp = 0, maxdepth = 10, 
+              minbucket = i, minsplit = 5)
+ fit <- rpart(AGB ~ D, data = bio, control = ctrl) 
+ 
+ pred <- mutate(bio, minbucket = minbucket[i])
+ pred$pred <- predict(fit, bio)
+ results <- rbind(results, pred)
+   
+}
+
+p <- results %>%
+  ggplot(aes(D, pred)) +
+  geom_point(aes(D, AGB), alpha = .3, size = 2) +
+  geom_line(color = "red", size = 1) +
+  ylab("Biomassa Aérea Total (kg)") + 
+  xlab("Diâmetro (cm)") + 
+  labs(title = 'Número mínimo de observações no nó terminal: {frame_time}') +
+  gganimate::transition_time(minbucket)
+  animate(p, renderer = gifski_renderer(), device = "png")
+```  
+
+]
+
+<!-- Slide XX -->
+---
+# Overfitting: como minimizar?
+<br>
+
+Duas estratégias principais:
+
+.pull-left[
+**2) Poda custo complexidade**
+
+  - Cresce uma árvore adulta (complexa).
+  
+  - As partições são sucessivamente desfeitas (podada) para encontrar uma subárvore ótima; e
+  
+  - Função de custo-complexidade: $R_{α}(T) = R(T) + α|T|$
+]
+
+.pull-right[
+
+.center[**Termos**]
+
+  $T$: representa uma árvore;
+  
+  $|T|$: número de nós terminais;
+  
+  $R(T)$: soma de quadrados de resíduos; e
+  
+  $α$: Parâmetro tuning (controla complexidade).
+  
+  Se $α = 0$ $\rightarrow$ a melhor árvore será a maior árvore.
+  
+  Validação cruzada: estratégia mais comum para encontrar a melhor árvore.
+]
 
 <!-- Slide 16 -->
 ---

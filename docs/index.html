@@ -1962,7 +1962,7 @@ Ponto de corte: **79.74cm**
 &lt;!-- Slide XX --&gt;
 ---
 # Underfitting e Overfitting
-
+&lt;br&gt;
 São conceitos estatísticos relacionados ao ajuste dos modelos.
 
 - **Subajuste** (*Underfitting*)
@@ -1976,7 +1976,7 @@ São conceitos estatísticos relacionados ao ajuste dos modelos.
 &lt;!-- Slide XX --&gt;
 ---
 # Underfitting e Overfitting
-
+&lt;br&gt;
 Árvores de regressão têm tendência de sobreajustar.
 
 .pull-left[
@@ -1993,10 +1993,80 @@ São conceitos estatísticos relacionados ao ajuste dos modelos.
 &lt;/div&gt;
 ]
 
+&lt;!-- Slide XX --&gt;
 ---
-# Minimizar overfitting: Parada antecipada
+# Overfitting: como minimizar?
+&lt;!-- Código adaptado de Bradley boehmke. Disponível em: link: https://github.com/bradleyboehmke/random-forest-training/blob/master/docs/slides-source.Rmd --&gt;
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.gif" width="50%" style="display: block; margin: auto;" /&gt;
+.pull-left-4[
+Duas estratégias principais:
+
+**1) Parada antecipada**
+
+  - Restringir a profundidade máxima da árvore (maxdepth); e
+  
+  - Restringir o número mínimo de observações em qualquer nó terminal (minbucket).
+
+]
+
+.pull-right-4[
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+&lt;!-- Slide XX --&gt;
+---
+# Overfitting: como minimizar?
+
+.pull-left-4[
+Duas estratégias principais:
+
+**1) Parada antecipada**
+
+  - Restringir a profundidade máxima da árvore (maxdepth); e
+  
+  - Restringir o número mínimo de observações em qualquer nó terminal (minbucket).
+
+]
+
+.pull-right-4[
+&lt;img src="index_files/figure-html/unnamed-chunk-22-1.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+&lt;!-- Slide XX --&gt;
+---
+# Overfitting: como minimizar?
+&lt;br&gt;
+
+Duas estratégias principais:
+
+.pull-left[
+**2) Poda custo complexidade**
+
+  - Cresce uma árvore adulta (complexa).
+  
+  - As partições são sucessivamente desfeitas (podada) para encontrar uma subárvore ótima; e
+  
+  - Função de custo-complexidade: `\(R_{α}(T) = R(T) + α|T|\)`
+]
+
+.pull-right[
+
+.center[**Termos**]
+
+  `\(T\)`: representa uma árvore;
+  
+  `\(|T|\)`: número de nós terminais;
+  
+  `\(R(T)\)`: soma de quadrados de resíduos; e
+  
+  `\(α\)`: Parâmetro tuning (controla complexidade).
+  
+  Se `\(α = 0\)` `\(\rightarrow\)` a melhor árvore será a maior árvore.
+  
+  Validação cruzada: estratégia mais comum para encontrar a melhor árvore.
+]
 
 &lt;!-- Slide 16 --&gt;
 ---
@@ -3006,9 +3076,7 @@ slides > slide {
 /***********
  Indent
  **************/
-p {
-  text-indent: 50px;
-}
+
 
 
 /***********
