@@ -1212,6 +1212,34 @@ knitr::include_graphics('fig/Bootstrap.png')
 
 ]
 
+<!--Slide XX -->
+---
+# Bagging (Bagged Trees)
+
+.pull-left-2[
+.blockquote[
+O bagging pode ser usado para combinar **árvores modelos** `r Citep(myBib, "witten2017data", .opts = list(max.names = 1, longnamesfirst = F))`, e mais comumente **árvores de decisão** `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`.
+]
+]
+
+--
+
+.pull-right-2[
+**Cada árvore crescida possui alta variância, mas baixo viés.**
+.blockquote[
+**No caso de regressão (usando árvores)...**
+
+**Passo 1** - Dado um conjunto de treinamento original $L$ de tamanho $n$, gerar uma amostra *bootstrap* $bi$ de tamanho $n$;
+
+**Passo 2** - Treinar um modelo de árvore de regressão completamente crescida (profundas e não podadas) usando a amostra *bootstrap* $bi$; e
+
+**Passo 3** - Salvar o modelo preditivo.
+
+Esse procedimento pode ser realizado $B$ vezes. Em que: $B$ = número de amostras bootstrap.
+]
+]
+
+<!--Slide XX -->
 ---
 # Bagging (Bagged Trees)
 
@@ -1219,6 +1247,10 @@ knitr::include_graphics('fig/Bootstrap.png')
 knitr::include_graphics('fig/Bagg.png')
 ```
 
+\begin{equation}
+{\hat{f}_{(bag)}(x)} = \frac{1}{B}\displaystyle\sum\limits_{b=1}^B\hat{f}^{*b}(x)
+\label{eq:avBAG}
+\end{equation}
 
 <!--Slide 19 -->
 ---
@@ -1226,53 +1258,69 @@ knitr::include_graphics('fig/Bagg.png')
 
 .panelset[
 .panel[.panel-name[Dados]
-.pull-left-2[
-```{r, echo=FALSE, fig.align='center', fig.width=4, fig.height=2, fig.cap='', dpi=600, eval=F, warning=FALSE, message=FALSE}
-library(ipred)
+.pull-left-1[
+
+.scroll-box-20[
+```{r, echo=FALSE, eval=TRUE}
 data <- data.table::fread("R-scripts/Cedrela.csv")
-data2 <- data %>% select(-Arv)
 
-set.seed(1)
-bagTr <- bagging(V ~ .,
-                 data = data2, 
-                 nbagg = 4, 
-                 coob = F,
-                 control = rpart.control(
-                   cp = 0, 
-                   minsplit = 20))
-
-bg1 <- rpart.plot(bagTr$mtrees[[1]]$btree, 
-                  box.palette="RdBu", 
-                  shadow.col="gray", 
-                  nn=TRUE, 
-                  digits = 4)
-
-bg2 <- rpart.plot(bagTr$mtrees[[2]]$btree, 
-                  box.palette="RdBu", 
-                  shadow.col="gray", 
-                  nn=TRUE, 
-                  digits = 4)
-
-bg3 <- rpart.plot(bagTr$mtrees[[3]]$btree, 
-                  box.palette="RdBu", 
-                  shadow.col="gray", 
-                  nn=TRUE, 
-                  digits = 4)
-
-bg4 <- rpart.plot(bagTr$mtrees[[4]]$btree, 
-                  box.palette="RdBu", 
-                  shadow.col="gray", 
-                  nn=TRUE, 
-                  digits = 4)
-
-# ggpubr::ggarrange(bg1, bg2, bg3, bg4, ncol=4, 
-#                   labels=c("", ""),
-#                   font.label=list(size=20))
+data %>% kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
 
 ```
 
+]]
+
+.pull-right-2[
+**Implementação no R** (exemplo de brinquedo!)
+
+```{r, echo=TRUE, eval=TRUE}
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+set.seed(1)
+bagTr <- ipred::bagging(V ~ D + H,
+                 data = data, 
+                 nbagg = 6, # (Recomendação: 50-250)
+                 coob = F,  # out-of-bag estimate
+                 control = rpart.control(
+                   cp = 0, 
+                   minsplit = 20,
+                   maxdepth = 30))
+```
+
+**Out-of-Bag**: observações não sorteadas na amostra bootstrap $b_{i}$. Portanto, não usadas para aprender a $f(x)$.
+
+**Out-Of-Bag estimate**: É o erro médio de predição calculado usando as amostras Out-of-Bag.
+
 ]
 ]
+
+.panel[.panel-name[Bagging]
+
+.pull-left-5[
+```{r, echo=FALSE, eval=TRUE, fig.width=7, fig.height=2}
+par(mfrow = c(1, 6))
+
+nbag <- 1:length(bagTr$mtrees)
+
+for(i in nbag) {
+rpart.plot(bagTr$mtrees[[i]]$btree, 
+           box.palette="RdBu", 
+           shadow.col="gray", 
+           nn=TRUE, 
+           digits = 4,
+           main = paste0("Árvore: ", i)
+           )
+}
+
+```
+]
+]
+
+.panel[.panel-name[Dados]
+
+]
+
 ]
 
 

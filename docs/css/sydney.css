@@ -144,6 +144,11 @@ Font Size
   width: 45%;
 }
 
+.pull-left-5 {
+  float: left;
+  width: 100%;
+}
+
 
 .pull-top-1 {
   float: left;
