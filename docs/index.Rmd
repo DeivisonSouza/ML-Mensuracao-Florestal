@@ -139,17 +139,17 @@ background-size: cover
 
 [1 - Qual é o motivo de fazer análise de regressão?](#AR)
 
-[2 - Culturas no uso de modelos estatísticos](#CultME)
+[2 - Culturas na modelagem estatística](#CultME)
 
 [3 - Aprendizado de Máquina](#AM)
 
-[4 - Tipos de Aprendizagem](#TA)
+&nbsp;&nbsp;[3.1 - Tipos de Aprendizagem](#TA)
 
-[5 - Algoritmos de Aprendizado Supersivionado](#AAS)
+&nbsp;&nbsp;[3.2 - Algoritmos de Aprendizado Supersivionado](#AAS)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Regression Tree](#RT)
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2.1 - Regression Tree](#RT)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[5.2 - Bagging](#bag)
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2.2 - Bagging](#bag)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
@@ -246,7 +246,7 @@ class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font200[**Culturas no uso de <br> modelos estatísticos**]
+.font200[**Culturas na modelagem <br> estatística**]
 
 <!--Slide 5 -->
 ---
@@ -254,17 +254,21 @@ background-size: cover
 
 .pull-left-2[
 .blockquote[
-.content-box-blue[**Culturas no uso de modelos estatísticos...**]
-<br>
 
 - **Data modeling culture**
-  - *Objetivo principal*: .content-box-red[inferência]
+  - *Objetivo principal*: .content-box-red[inferência] (interpretabilidade)
   - *Predomina*: comunidade estatística
+  - *População estimada*: 98% de todos os estatísticos
+  - *Forma funcional*: suposição da forma funcional $f(x)$ 
+  - *Parâmetros*: são estimados a partir dos dados
+]
 
-
+.blockquote[
 - **Algorithmic modeling culture**
-  - *Objetivo principal*: .content-box-red[predição] (construir algoritmos com bom poder preditivo!)
+  - *Objetivo principal*: .content-box-red[predição] (poder preditivo!)
   - *Predomina*: comunidade de aprendizado de máquina
+  - *População estimada*: 2% de todos os estatísticos
+  - *Forma funcional*: $f(x)$ é desconhecida e complexa
 ]
 ]
 
@@ -1118,6 +1122,7 @@ Duas estratégias principais:
 
 .pull-right[
 
+.blockquote[
 .center[**Termos**]
 
   $T$: representa uma árvore;
@@ -1126,11 +1131,12 @@ Duas estratégias principais:
   
   $R(T)$: soma de quadrados de resíduos; e
   
-  $α$: Parâmetro tuning (controla complexidade).
+  $α$: Parâmetro custo complexidade (controla complexidade). Hiperparâmetro tuning.
   
   Se $α = 0$ $\rightarrow$ a melhor árvore será a maior árvore.
-  
-  Validação cruzada: estratégia mais comum para encontrar a melhor árvore.
+
+  **Validação cruzada**: Usada para encontrar o melhor $α$ (a melhor subárvore).
+]
 ]
 
 <!-- Slide 16 -->
@@ -1179,14 +1185,40 @@ knitr::include_graphics('fig/Breiman1996.png')
 
 
 - **Motivos**:
-  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`<br>
+  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`.<br>
   
-  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. <br>
-
+  
 - **Aprediz de base**:
-  - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão); <br>
+  - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão). <br>
+  
+    <!-- - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. <br> -->
 ]
 ]
+---
+# Método Bootstrap
+
+.pull-left-3[
+.blockquote[
+É um **método de reamostragem** que consiste em **produzir replicações** de tamanho $n$, com mesmo tamanho do conjunto de aprendizado, por **amostragem aleatória com reposição** `r Citep(myBib, "gama2015extraccao", .opts = list(max.names = 1, longnamesfirst = F))`.
+]
+]
+
+.pull-bottom[
+```{r, echo=FALSE, out.width='70%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Bootstrap.png')
+```
+.footnote[Fonte: Adaptado de [texample.net](https://texample.net/tikz/examples/bootstrap-resampling/)
+]
+
+]
+
+---
+# Bagging (Bagged Trees)
+
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Bagg.png')
+```
+
 
 <!--Slide 19 -->
 ---
@@ -1293,8 +1325,10 @@ a f(x), e portanto existente inúmeras técnicas de AM para isso...Obviamente, f
 
 **3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
 
-**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir melhores resultados do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos.
+**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos. <br>
 
+
+**Mais recursos podem melhorar o desempenho preditivo de modelos aprendidos usando a cultura de modelagem algorítmica.**
 
 <!--Slide 13 -->
 ---

@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[10/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[11/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -71,17 +71,17 @@ background-size: cover
 
 [1 - Qual é o motivo de fazer análise de regressão?](#AR)
 
-[2 - Culturas no uso de modelos estatísticos](#CultME)
+[2 - Culturas na modelagem estatística](#CultME)
 
 [3 - Aprendizado de Máquina](#AM)
 
-[4 - Tipos de Aprendizagem](#TA)
+&amp;nbsp;&amp;nbsp;[3.1 - Tipos de Aprendizagem](#TA)
 
-[5 - Algoritmos de Aprendizado Supersivionado](#AAS)
+&amp;nbsp;&amp;nbsp;[3.2 - Algoritmos de Aprendizado Supersivionado](#AAS)
 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.1 - Regression Tree](#RT)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.1 - Regression Tree](#RT)
 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.2 - Bagging](#bag)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.2 - Bagging](#bag)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
@@ -176,7 +176,7 @@ class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font200[**Culturas no uso de &lt;br&gt; modelos estatísticos**]
+.font200[**Culturas na modelagem &lt;br&gt; estatística**]
 
 &lt;!--Slide 5 --&gt;
 ---
@@ -184,17 +184,21 @@ background-size: cover
 
 .pull-left-2[
 .blockquote[
-.content-box-blue[**Culturas no uso de modelos estatísticos...**]
-&lt;br&gt;
 
 - **Data modeling culture**
-  - *Objetivo principal*: .content-box-red[inferência]
+  - *Objetivo principal*: .content-box-red[inferência] (interpretabilidade)
   - *Predomina*: comunidade estatística
+  - *População estimada*: 98% de todos os estatísticos
+  - *Forma funcional*: suposição da forma funcional `\(f(x)\)` 
+  - *Parâmetros*: são estimados a partir dos dados
+]
 
-
+.blockquote[
 - **Algorithmic modeling culture**
-  - *Objetivo principal*: .content-box-red[predição] (construir algoritmos com bom poder preditivo!)
+  - *Objetivo principal*: .content-box-red[predição] (poder preditivo!)
   - *Predomina*: comunidade de aprendizado de máquina
+  - *População estimada*: 2% de todos os estatísticos
+  - *Forma funcional*: `\(f(x)\)` é desconhecida e complexa
 ]
 ]
 
@@ -2053,6 +2057,7 @@ Duas estratégias principais:
 
 .pull-right[
 
+.blockquote[
 .center[**Termos**]
 
   `\(T\)`: representa uma árvore;
@@ -2061,11 +2066,12 @@ Duas estratégias principais:
   
   `\(R(T)\)`: soma de quadrados de resíduos; e
   
-  `\(α\)`: Parâmetro tuning (controla complexidade).
+  `\(α\)`: Parâmetro custo complexidade (controla complexidade). Hiperparâmetro tuning.
   
   Se `\(α = 0\)` `\(\rightarrow\)` a melhor árvore será a maior árvore.
-  
-  Validação cruzada: estratégia mais comum para encontrar a melhor árvore.
+
+  **Validação cruzada**: Usada para encontrar o melhor `\(α\)` (a melhor subárvore).
+]
 ]
 
 &lt;!-- Slide 16 --&gt;
@@ -2112,14 +2118,36 @@ background-size: cover
 
 
 - **Motivos**:
-  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia (James, et al., 2013)&lt;br&gt;
+  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia (James, et al., 2013).&lt;br&gt;
   
-  - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. &lt;br&gt;
-
+  
 - **Aprediz de base**:
-  - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão); &lt;br&gt;
+  - Métodos de alta variância (e baixo viés) (ex.: árvores de regressão). &lt;br&gt;
+  
+    &lt;!-- - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. &lt;br&gt; --&gt;
 ]
 ]
+---
+# Método Bootstrap
+
+.pull-left-3[
+.blockquote[
+É um **método de reamostragem** que consiste em **produzir replicações** de tamanho `\(n\)`, com mesmo tamanho do conjunto de aprendizado, por **amostragem aleatória com reposição** (Gama, et al., 2015).
+]
+]
+
+.pull-bottom[
+&lt;img src="fig/Bootstrap.png" width="70%" style="display: block; margin: auto;" /&gt;
+.footnote[Fonte: Adaptado de [texample.net](https://texample.net/tikz/examples/bootstrap-resampling/)
+]
+
+]
+
+---
+# Bagging (Bagged Trees)
+
+&lt;img src="fig/Bagg.png" width="100%" style="display: block; margin: auto;" /&gt;
+
 
 &lt;!--Slide 19 --&gt;
 ---
@@ -2184,8 +2212,10 @@ a f(x), e portanto existente inúmeras técnicas de AM para isso...Obviamente, f
 
 **3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
 
-**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir melhores resultados do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos.
+**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos. &lt;br&gt;
 
+
+**Mais recursos podem melhorar o desempenho preditivo de modelos aprendidos usando a cultura de modelagem algorítmica.**
 
 &lt;!--Slide 13 --&gt;
 ---
@@ -2790,6 +2820,17 @@ Font Size
 
 .font300 {
   font-size: 300%;
+}
+
+/*************************
+  footnote
+**************************/
+.footnote {
+    position: absolute;
+    bottom: .5em;
+    /*padding-left: 10px;*/
+    font-size: 70%;
+    text-align: center;
 }
 
 /*************************
