@@ -36,14 +36,14 @@ output:
 
 name: toc
 
-```{r setup, include=FALSE, cache=FALSE}
+```{r setup, include=FALSE, cache=FALSE, eval=TRUE}
 library(tidyverse)
 library(rpart)                            
 library(rpart.plot)
 library(kableExtra)
+library(plotly)
 
-options(htmltools.dir.version = FALSE, 
-        knitr.graphics.auto_pdf = TRUE,
+options(htmltools.dir.version = FALSE,
         servr.daemon = TRUE)
 
 knitr::opts_chunk$set(
@@ -60,7 +60,7 @@ knitr::opts_chunk$set(
 
 ```
 
-```{r xaringanExtra, echo=FALSE}
+```{r xaringanExtra, echo=FALSE, eval=TRUE}
 library(xaringanExtra)
 # use_logo(
 #   image_url = "fig/ufpa.png",
@@ -906,7 +906,7 @@ $\bar{V}$ = `r mean(df5$V)`
 
 .panel[.panel-name[Regiões]
 
-```{r, echo=FALSE, fig.align='center', fig.width=9, fig.height=3, fig.cap='', dpi=600, eval=TRUE, warning=FALSE, message=FALSE}
+```{r, echo=FALSE, eval=TRUE, fig.width=7, fig.height=2, dpi=600}
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 r1 <- data %>% 
@@ -935,11 +935,10 @@ r3 <- r2 +
             vjust = 1.2, size = 2) +
   geom_text(aes(x=123, y=10, label="R3 \n Vest. = 10.05"), colour="red", 
             vjust = 1.2, size = 2)
-  
-ggpubr::ggarrange(r1, r2, r3, ncol=3, 
+
+ggpubr::ggarrange(r1, r2, r3, ncol=3,
                   labels=c("", ""),
                   font.label=list(size=30))
-
 ```
 
 ]
@@ -949,7 +948,7 @@ ggpubr::ggarrange(r1, r2, r3, ncol=3,
 ```{r, echo=FALSE, fig.align='center', fig.width=5, fig.height=3, fig.cap='', dpi=600, eval=TRUE, warning=FALSE, message=FALSE}
 
 r2 + geom_line(aes(x = D, y = predict(tree)))
-  
+
 ```
 ]
 ]
@@ -976,37 +975,70 @@ São conceitos estatísticos relacionados ao ajuste dos modelos.
 Árvores de regressão têm tendência de sobreajustar.
 
 .pull-left[
-```{r, echo=FALSE, out.width='80%', fig.cap="Overfitting"}
+```{r, echo=FALSE, fig.height=.5, fig.width=.5, fig.cap=""}
 bio <- data.table::fread("R-scripts/AGB.csv")
 
-rpart2 <- rpart(AGB ~ D, 
-                data = bio, 
-                control = list(cp = 0, maxdepth = 10, 
+rpart2 <- rpart(AGB ~ D,
+                data = bio,
+                control = list(cp = 0, maxdepth = 10,
                                minbucket = 1, minsplit = 5))
 
-ggplot(data=bio, aes(D, AGB)) +
-  geom_point(aes(D, AGB), alpha = .3, size = 2) +
-  geom_line(aes(x = D, y = predict(rpart2)), 
-            color = "red", size = 1) +
-  ylab("Biomassa Aérea Total (kg)") + 
-  xlab("Diâmetro (cm)")
+gg1 <- plot_ly(bio, x = ~D, y = ~AGB, 
+               name = 'AGB', 
+               type = 'scatter', 
+               mode = 'markers') %>% 
+  layout(title="",
+         font = list(size = 14),
+         xaxis=list(title="Diâmetro (cm)"),
+         yaxis=list(title="Biomassa Aérea Total (kg)"),
+          annotations = list(
+            x = 50,
+            y = 70000, 
+            text = "Overfitting",
+            showarrow = FALSE,
+             font = list(color = '#264E86',
+                         family = 'sans serif',
+                         size = 20))) %>%
+  add_lines(y = ~predict(rpart2), 
+            name = 'AGBest', 
+            mode = 'lines')
+
+htmltools::tagList(gg1)
+
 ```
+
 ]
 
 .pull-right[
-```{r, echo=FALSE, out.width='80%', fig.cap="Underfitting"}
+```{r, echo=FALSE, out.width='80%', fig.cap=""}
 rpart3 <- rpart(AGB ~ D, 
                 data = bio, 
                 control = list(cp = 0, maxdepth = 2, 
                                minbucket = 1, minsplit = 5))
 
-ggplot(data=bio, aes(D, AGB)) +
-  geom_point(aes(D, AGB), alpha = .3, size = 2) +
-  geom_line(aes(x = D, y = predict(rpart3)), 
-            color = "red", size = 1) +
-  ylab("Biomassa Aérea Total (kg)") + 
-  xlab("Diâmetro (cm)")
+gg2 <- plot_ly(bio, x = ~D, y = ~AGB, 
+               name = 'AGB', 
+               type = 'scatter', 
+               mode = 'markers') %>% 
+  layout(title="",
+         font = list(size = 14),
+         xaxis=list(title="Diâmetro (cm)"),
+         yaxis=list(title="Biomassa Aérea Total (kg)"),
+          annotations = list(
+            x = 50,
+            y = 70000, 
+            text = "Underfitting",
+            showarrow = FALSE,
+             font = list(color = '#264E86',
+                         family = 'sans serif',
+                         size = 20))) %>%
+  add_lines(y = ~predict(rpart3), 
+            name = 'AGBest', 
+            mode = 'lines')
+
+htmltools::tagList(gg2)
 ```
+
 ]
 
 <!-- Slide XX -->
@@ -1275,17 +1307,16 @@ data %>% kable(format= "html") %>%
 **Implementação no R** (exemplo de brinquedo!)
 
 ```{r, echo=TRUE, eval=TRUE}
+library(ipred)
+
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 set.seed(1)
-bagTr <- ipred::bagging(V ~ D + H,
-                 data = data, 
-                 nbagg = 6, # (Recomendação: 50-250)
+bagTr <- bagging(V ~ D + H, data = data, 
+                 nbagg = 10, # (Recomendação: 50-250)
                  coob = F,  # out-of-bag estimate
                  control = rpart.control(
-                   cp = 0, 
-                   minsplit = 20,
-                   maxdepth = 30))
+                   cp = 0, minsplit = 20, maxdepth = 30))
 ```
 
 **Out-of-Bag**: observações não sorteadas na amostra bootstrap $b_{i}$. Portanto, não usadas para aprender a $f(x)$.
@@ -1314,10 +1345,35 @@ rpart.plot(bagTr$mtrees[[i]]$btree,
 }
 
 ```
+<br>
+**Obs.**: Este exemplo é apenas para intuição do método. Portanto, no bagging cada árvore (aprendiz de base) é crescida sem poda e profunda (alta complexidade).
+
 ]
 ]
 
-.panel[.panel-name[Dados]
+.panel[.panel-name[f(x)]
+
+.pull-left-2[
+```{r, echo=FALSE, fig.width=5, fig.height=3, fig.cap=""}
+
+prebag <- 1:length(bagTr$mtrees)
+results <- data.frame(NULL)
+
+for(i in prebag) {
+  pred <- mutate(data, predbag = paste("Tree",prebag[i]))
+  pred$pred <- predict(bagTr$mtrees[[i]]$btree, newdata=data)
+  results <- rbind(results, pred) %>%
+    mutate_if(is.character, as.factor)
+}
+
+results %>% 
+  ggplot() + 
+  geom_point(aes(x=D, y=V)) +
+  geom_line(aes(x=D, y=pred, 
+             colour=predbag))
+```
+]
+
 
 ]
 
