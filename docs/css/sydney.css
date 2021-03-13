@@ -112,6 +112,11 @@ Font Size
   float: left;
   width: 63%;
 }
+
+.pull-left-6 {
+  float: left;
+  width: 80%;
+}
 .pull-right-1 {
   float: right;
   width: 33%;
@@ -137,11 +142,11 @@ Font Size
 
 .pull-left-4 {
   float: left;
-  width: 45%;
+  width: 49%;
 }
 .pull-right-4 {
   float: right;
-  width: 45%;
+  width: 49%;
 }
 
 .pull-left-5 {

@@ -342,6 +342,14 @@ Pode-se afirmar que um programa de computador aprende uma
 ]
 ]
 
+.pull-left-2[
+**Tarefa T**: Predizer alguma variável biométrica (ex.: biomassa);
+
+**Medida de Desempenho P**: Alguma função custo (ex.: RMSE); e
+
+**Experiência de treinamento E**: Conjunto de exemplos da variável resposta (ex.: biomassa) e suas potenciais preditoras (ex.: D, H, $\rho$).
+]
+
 <!-- Slide XX -->
 ---
 name: TA
@@ -1171,7 +1179,26 @@ Duas estratégias principais:
 ]
 ]
 
-<!-- Slide 16 -->
+<!-- Slide XX -->
+---
+# Regression Tree: pontos fortes e fracos...
+
+.pull-left-4[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/RT-PF.png')
+```
+.left[**Fonte**: O Autor.]
+]
+
+--
+
+.pull-right-4[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/RT-PFr.png')
+```
+]
+
+<!-- Slide XX -->
 ---
 name: bag
 class: inverse, middle, left
@@ -1328,9 +1355,9 @@ bagTr <- bagging(V ~ D + H, data = data,
 
 .panel[.panel-name[Bagging]
 
-.pull-left-5[
-```{r, echo=FALSE, eval=TRUE, fig.width=7, fig.height=2}
-par(mfrow = c(1, 6))
+.pull-left-2[
+```{r, echo=FALSE, eval=TRUE, out.width='75%', out.height='10%'}
+par(mfrow = c(2, 5))
 
 nbag <- 1:length(bagTr$mtrees)
 
@@ -1345,64 +1372,98 @@ rpart.plot(bagTr$mtrees[[i]]$btree,
 }
 
 ```
-<br>
-**Obs.**: Este exemplo é apenas para intuição do método. Portanto, no bagging cada árvore (aprendiz de base) é crescida sem poda e profunda (alta complexidade).
-
 ]
+
+.pull-right-1[
+**Obs.**: Este exemplo é apenas para intuição do método. Portanto, no bagging cada árvore (aprendiz de base) é crescida sem poda e profunda (alta complexidade).
+]
+
 ]
 
 .panel[.panel-name[f(x)]
 
 .pull-left-2[
-```{r, echo=FALSE, fig.width=5, fig.height=3, fig.cap=""}
+```{r, echo=FALSE, fig.width=5, fig.height=3, fig.cap="", message=FALSE}
+df <- data.table::setDF(data)
 
-prebag <- 1:length(bagTr$mtrees)
-results <- data.frame(NULL)
+predbag <- 1:length(bagTr$mtrees)
 
-for(i in prebag) {
-  pred <- mutate(data, predbag = paste("Tree",prebag[i]))
-  pred$pred <- predict(bagTr$mtrees[[i]]$btree, newdata=data)
-  results <- rbind(results, pred) %>%
-    mutate_if(is.character, as.factor)
+for(i in predbag) { 
+  new <- predict(bagTr$mtrees[[i]]$btree, newdata=df)
+  df[ , ncol(df) + 1] <- new
+  colnames(df)[ncol(df)] <- paste0("Tree", i)
 }
 
-results %>% 
-  ggplot() + 
-  geom_point(aes(x=D, y=V)) +
-  geom_line(aes(x=D, y=pred, 
-             colour=predbag))
+df <- df %>% 
+  mutate(Bagging = rowMeans(select(., starts_with("Tree")))) %>%
+  tidyr::pivot_longer(starts_with(c("Tree", "Bag")),
+                    names_to = "Tree",
+                    values_to = "Pred") %>%
+  mutate_if(is.character, as.factor) 
+
+gg3 <- df %>%
+  filter(Tree != "Bagging") %>%
+  group_by(Tree) %>% 
+  plot_ly(x = ~D, y = ~V, colors = "Paired",
+          type = 'scatter', mode = 'markers') %>% 
+  add_lines(y = ~ Pred, color = ~ Tree, mode = 'lines') %>%
+  layout(title="",
+         font = list(size = 14),
+         xaxis=list(title="Diâmetro (cm)"),
+         yaxis=list(title="Volume (m3)")) %>%
+  add_lines(data = subset(df, Tree == 'Bagging'),
+            y = ~ Pred, mode = 'lines',
+            name = 'Bagging',
+            line = list(color = 'black', 
+                        width = 4)) 
+
+htmltools::tagList(gg3)
+
+# cols <- c("Tree1"="#a6cee3",
+#           "Tree2"="#1f78b4",
+#           "Tree3"="#b2df8a", 
+#           "Tree4" = "#33a02c",
+#           "Tree5"="#fb9a99",
+#           "Tree6"="#e31a1c",
+#           "Tree7"="#fdbf6f", 
+#           "Tree8" = "#ff7f00",
+#           "Tree9"="#cab2d6",
+#           "Tree10"="#ffff99", 
+#           "Bag" = "black"
+#           )
+# df %>%
+#   ggplot() +
+#   geom_point(aes(x=D, y=V)) +
+#   geom_line(aes(x=D, y=Pred,
+#              colour=Tree)) +
+#   scale_color_manual(name="Tree",values=cols) +
+#   geom_line(data = subset(df, Tree == 'Bag'),
+#             aes(x=D, y=Pred),
+#             size = 1.5, linetype = 'solid', color = 'black') +
+#     theme(legend.title=element_blank())
+
 ```
 ]
-
-
+]
 ]
 
-]
-
-
-<!--Slide 20 -->
+<!--Slide XX -->
 ---
-# Regression Tree: pontos fortes e fracos...
-.shadow[
-- **Pontos fortes**:
-  - White model;
-  - Extremamente intuitivo e fácil de interpretar; (regras "se-então");
-  - Predições são simples (média, média ponderada);
-  - Não exige cálculos complexos;
-  - Fácil identificar as variáveis que contribuem p/ a resposta;
-  - Lidam facilmente com valores ausentes, e estes não afetam consideralvelmente a construção da árvore (não há necessidade de imputar os valores ausentes);
-  - Seleção automática de variáveis importantes;
-  - Admite variáveis qualitativas (sem necessidade de transformações); e
-  - Variáveis numéricas: não requer normalização.
+# Bagging: pontos fortes e fracos...
+
+.pull-left-4[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Bagging-PF.png')
+```
+.left[**Fonte**: O Autor.]
 ]
+
 --
 
-<br>
-.shadow[
-- **Pontos fracos**:
-    - Muito instável (alta variância): 
-    Uma pequena mudança nos dados pode implicar em uma grande mudança na estrutura (diferentes regras "se-então") da árvore de decisão.
-    
+.pull-right-4[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Bagging-PFr.png')
+```
 ]
 
 <!--Slide 16 -->
