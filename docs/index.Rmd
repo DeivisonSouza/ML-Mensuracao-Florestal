@@ -93,6 +93,7 @@ style_mono_accent(
 ```{r, load_refs, include=FALSE, cache=FALSE}
 library(RefManageR)
 BibOptions(check.entries = FALSE,
+           style = "markdown",
            bib.style = "authoryear",
            cite.style = "authoryear",
            first.inits = TRUE,
@@ -150,6 +151,8 @@ background-size: cover
 &nbsp;&nbsp;&nbsp;&nbsp;[3.2.1 - Regression Tree](#RT)
 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.2.2 - Bagging](#bag)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2.3 - Random Forest](#rf)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
@@ -555,7 +558,7 @@ knitr::include_graphics('fig/CART-Book.jpg')
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
 - **Proposto**: `r Citet(myBib, "breiman1984classification", .opts = list(max.names = 1, longnamesfirst = F))`;
 - **Problemas**: Classificação e Regressão; e
-- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+- **Hiperparâmetro tuning**: .red[cp] (parâmetro de complexidade).
 
 ]
 
@@ -1229,7 +1232,7 @@ knitr::include_graphics('fig/Breiman1996.png')
 - **Significado:** .red[B]ootstrap .red[Agg]regat.red[ing];
 - **Proposto**: `r Citet(myBib, "breiman1996bagging")`;
 - **Problemas**: Classificação e Regressão; e
-- **Hiperparâmetro tuning**: nbagg (número de replicações de bootstrap);
+- **Hiperparâmetro tuning**: .red[nbagg] (número de replicações de bootstrap);
 ]
 
 <!--Slide 18 -->
@@ -1253,6 +1256,8 @@ knitr::include_graphics('fig/Breiman1996.png')
     <!-- - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. <br> -->
 ]
 ]
+
+
 ---
 # Método Bootstrap
 
@@ -1341,7 +1346,7 @@ data <- data.table::fread("R-scripts/Cedrela.csv")
 set.seed(1)
 bagTr <- bagging(V ~ D + H, data = data, 
                  nbagg = 10, # (Recomendação: 50-250)
-                 coob = F,  # out-of-bag estimate
+                 coob = F,   # out-of-bag estimate
                  control = rpart.control(
                    cp = 0, minsplit = 20, maxdepth = 30))
 ```
@@ -1466,7 +1471,209 @@ knitr::include_graphics('fig/Bagging-PFr.png')
 ```
 ]
 
-<!--Slide 16 -->
+<!--Slide XX -->
+---
+name: rf
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Random Forest**]
+
+`r Citep(myBib, "breiman2001random", .opts = list(max.names = 1, longnamesfirst = F))`
+
+<!-- Slide XX -->
+---
+# Random Forest
+
+.pull-left-1[
+```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Breiman2001-RF.png')
+```
+.center[Fonte: [link.springer.com](https://link.springer.com/article/10.1023/A:1010933404324)]
+
+]
+
+.pull-right-2[
+**Informações gerais:**
+- **Random Forest**: um algoritmo baseado em conjunto de árvores;
+- **Proposto**: `r Citet(myBib, "breiman2001random")`;
+- **Problemas**: Classificação e Regressão; e
+- **Hiperparâmetro tuning**: .red[mtry] (número de preditoras amostradas aleatoriamente como candidatas em cada divisão).
+]
+
+<!--Slide 18 -->
+---
+# Random Forest
+
+.pull-left-6[
+.blockquote[
+- **Ideia principal:**
+
+  - É uma modificação substancial do *bagging*, e objetiva construir uma **coleção de árvores não correlacionadas** e, em seguida, calcular a média das predições individuais (no caso de regressão) `r Citep(myBib, "hastie2016elements")`.<br>
+
+
+- **Motivos**:
+  - Bagging **não reduz de maneira ideal a variância** das predições, pois as árvores são correlacionadas (topo da árvore) `r Citep(myBib, "kuhn2013applied")`.
+  
+  - Portanto, calcular a **média** de predições de **árvores não correlacionadas** reduz de maneira ideal a **variância**.
+
+
+- **Aprediz de base**:
+  - Árvores de regressão, que possui alta variância.
+]
+]
+
+<!--Slide XX -->
+---
+# Random Forest
+
+.pull-left-2[
+.blockquote[
+.center[**Bagging** e **Random Forest**: Diferença?]
+
+A principal diferença entre o **Bagging** e o **Random Forest** é a escolha do tamanho **p** no espaço de preditores originais `r Citep(myBib, "james2013introduction", .opts = list(max.names = 1, longnamesfirst = F))`.
+]
+]
+
+.pull-right-7[
+.blockquote[
+
+**No caso de regressão...**
+
+**Passo 1** - Dado um conjunto de treinamento original $L$ de tamanho $n$, gerar uma amostra *bootstrap* $bi$ de tamanho $n$;
+
+**Passo 2** - Treinar um modelo de árvore de regressão (profunda e não podada) usando a amostra *bootstrap* $bi$. Porém, ao crescer cada árvore fazer a seguinte modificação:
+
+a) Em cada nó de decisão, selecionar um subconjunto aleatório de preditores, $p$;
+
+b) A melhor divisão será escolhida dentre os $p$ preditores candidatos.
+
+**Passo 3** - Salvar o modelo preditivo.
+
+]
+]
+
+---
+# Random Forest
+
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/RF.png')
+```
+
+<!--Slide 19 -->
+---
+# Random Forest
+
+.panelset[
+.panel[.panel-name[Dados]
+.pull-left-1[
+
+.scroll-box-20[
+```{r, echo=FALSE, eval=TRUE}
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+data %>% kable(format= "html") %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"), font_size = 18)
+
+```
+
+]]
+
+.pull-right-2[
+**Implementação no R** (exemplo de brinquedo!)
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+library(randomForest)
+
+data <- data.table::fread("R-scripts/Cedrela.csv")
+
+set.seed(1)
+randomForest(V ~ D + H, 
+             data = data,
+             ntree = 10,       # número de árvores
+             mtry = FALSE,     # número de preditoras
+             maxnodes = NULL,
+             importance = TRUE # importância das preditoras
+             )
+```
+
+]
+]
+
+.panel[.panel-name[Random Forest]
+
+.pull-left-2[
+```{r, echo=FALSE, eval=TRUE, out.width='75%', out.height='10%'}
+par(mfrow = c(2, 5))
+
+nbag <- 1:length(bagTr$mtrees)
+
+for(i in nbag) {
+rpart.plot(bagTr$mtrees[[i]]$btree, 
+           box.palette="RdBu", 
+           shadow.col="gray", 
+           nn=TRUE, 
+           digits = 4,
+           main = paste0("Árvore: ", i)
+           )
+}
+
+```
+]
+
+.pull-right-1[
+**Obs.**: Este exemplo é apenas para intuição do método. Portanto, no bagging cada árvore (aprendiz de base) é crescida sem poda e profunda (alta complexidade).
+]
+
+]
+
+.panel[.panel-name[f(x)]
+
+.pull-left-2[
+```{r, echo=FALSE, fig.width=5, fig.height=3, fig.cap="", message=FALSE}
+df <- data.table::setDF(data)
+
+predbag <- 1:length(bagTr$mtrees)
+
+for(i in predbag) { 
+  new <- predict(bagTr$mtrees[[i]]$btree, newdata=df)
+  df[ , ncol(df) + 1] <- new
+  colnames(df)[ncol(df)] <- paste0("Tree", i)
+}
+
+df <- df %>% 
+  mutate(Bagging = rowMeans(select(., starts_with("Tree")))) %>%
+  tidyr::pivot_longer(starts_with(c("Tree", "Bag")),
+                    names_to = "Tree",
+                    values_to = "Pred") %>%
+  mutate_if(is.character, as.factor) 
+
+gg4 <- df %>%
+  filter(Tree != "Bagging") %>%
+  group_by(Tree) %>% 
+  plot_ly(x = ~D, y = ~V, colors = "Paired",
+          type = 'scatter', mode = 'markers') %>% 
+  add_lines(y = ~ Pred, color = ~ Tree, mode = 'lines') %>%
+  layout(title="",
+         font = list(size = 14),
+         xaxis=list(title="Diâmetro (cm)"),
+         yaxis=list(title="Volume (m3)")) %>%
+  add_lines(data = subset(df, Tree == 'Bagging'),
+            y = ~ Pred, mode = 'lines',
+            name = 'Bagging',
+            line = list(color = 'black', 
+                        width = 4)) 
+
+htmltools::tagList(gg4)
+
+```
+]
+]
+]
+
+
+<!--Slide 19 -->
 ---
 # Iniciar apresentação de algumas técnicas
 - Antes, fazer uma introdução informando a ideia de predizer
@@ -1738,6 +1945,7 @@ knitr::include_graphics('fig/sh.png')
 ```{r refs1, echo=FALSE, results="asis"}
 PrintBibliography(myBib, start = 1, end = 5)
 ```
+
 ---
 # Referências
 <br>
@@ -1745,6 +1953,7 @@ PrintBibliography(myBib, start = 1, end = 5)
 ```{r refs2, echo=FALSE, results="asis"}
 PrintBibliography(myBib, start = 6, end = 10)
 ```
+
 ---
 # Referências
 <br>
@@ -1757,7 +1966,22 @@ PrintBibliography(myBib, start = 11, end = 15)
 <br>
 
 ```{r refs4, echo=FALSE, results="asis"}
-PrintBibliography(myBib, start = 16, end = 19)
+PrintBibliography(myBib, start = 16, end = 20)
+```
+
+---
+# Referências
+<br>
+
+```{r refs5, echo=FALSE, results="asis"}
+PrintBibliography(myBib, start = 21, end = 25)
+```
+---
+# Referências
+<br>
+
+```{r refs6, echo=FALSE, results="asis"}
+PrintBibliography(myBib, start = 26, end = 29)
 ```
 
 ---

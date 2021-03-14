@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[13/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[14/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -90,6 +90,8 @@ background-size: cover
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.1 - Regression Tree](#RT)
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.2 - Bagging](#bag)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.3 - Random Forest](#rf)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
@@ -188,7 +190,7 @@ background-size: cover
 
 &lt;!--Slide 5 --&gt;
 ---
-# As duas culturas...(Breiman, 2001)
+# As duas culturas...(Breiman, 2001a)
 
 .pull-left-2[
 .blockquote[
@@ -217,7 +219,7 @@ background-size: cover
 .center[Fonte: [en.wikipedia.org](https://en.wikipedia.org/wiki/Leo_Breiman)]
 ]
 
-.content-box-blue[.center[Statistical modeling: The two cultures (Breiman, 2001).]
+.content-box-blue[.center[Statistical modeling: The two cultures (Breiman, 2001a).]
 ]
 
 &lt;!-- Slide XX --&gt;
@@ -680,7 +682,7 @@ background-size: cover
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
 - **Proposto**: Breiman, et al. (1984);
 - **Problemas**: Classificação e Regressão; e
-- **Hiperparâmetro tuning**: cp (parâmetro de complexidade).
+- **Hiperparâmetro tuning**: .red[cp] (parâmetro de complexidade).
 
 ]
 
@@ -2132,7 +2134,7 @@ background-size: cover
 - **Significado:** .red[B]ootstrap .red[Agg]regat.red[ing];
 - **Proposto**: Breiman (1996);
 - **Problemas**: Classificação e Regressão; e
-- **Hiperparâmetro tuning**: nbagg (número de replicações de bootstrap);
+- **Hiperparâmetro tuning**: .red[nbagg] (número de replicações de bootstrap);
 ]
 
 &lt;!--Slide 18 --&gt;
@@ -2156,6 +2158,8 @@ background-size: cover
     &lt;!-- - **Vantagens**: Ajuda a reduzir a variação, minimizar o overfitting (sobreajuste) e, por conseguinte, melhorar o desempenho preditivo. &lt;br&gt; --&gt;
 ]
 ]
+
+
 ---
 # Método Bootstrap
 
@@ -2438,7 +2442,7 @@ data &lt;- data.table::fread("R-scripts/Cedrela.csv")
 set.seed(1)
 bagTr &lt;- bagging(V ~ D + H, data = data, 
                  nbagg = 10, # (Recomendação: 50-250)
-                 coob = F,  # out-of-bag estimate
+                 coob = F,   # out-of-bag estimate
                  control = rpart.control(
                    cp = 0, minsplit = 20, maxdepth = 30))
 ```
@@ -2486,7 +2490,362 @@ bagTr &lt;- bagging(V ~ D + H, data = data,
 &lt;img src="fig/Bagging-PFr.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
-&lt;!--Slide 16 --&gt;
+&lt;!--Slide XX --&gt;
+---
+name: rf
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Random Forest**]
+
+(Breiman, 2001b)
+
+&lt;!-- Slide XX --&gt;
+---
+# Random Forest
+
+.pull-left-1[
+&lt;img src="fig/Breiman2001-RF.png" width="80%" style="display: block; margin: auto;" /&gt;
+.center[Fonte: [link.springer.com](https://link.springer.com/article/10.1023/A:1010933404324)]
+
+]
+
+.pull-right-2[
+**Informações gerais:**
+- **Random Forest**: um algoritmo baseado em conjunto de árvores;
+- **Proposto**: Breiman (2001b);
+- **Problemas**: Classificação e Regressão; e
+- **Hiperparâmetro tuning**: .red[mtry] (número de preditoras amostradas aleatoriamente como candidatas em cada divisão).
+]
+
+&lt;!--Slide 18 --&gt;
+---
+# Random Forest
+
+.pull-left-6[
+.blockquote[
+- **Ideia principal:**
+
+  - É uma modificação substancial do *bagging*, e objetiva construir uma **coleção de árvores não correlacionadas** e, em seguida, calcular a média das predições individuais (no caso de regressão) (Hastie, Tibshirani, and Friedman, 2016).&lt;br&gt;
+
+
+- **Motivos**:
+  - Bagging **não reduz de maneira ideal a variância** das predições, pois as árvores são correlacionadas (topo da árvore) (Kuhn and Johnson, 2013).
+  
+  - Portanto, calcular a **média** de predições de **árvores não correlacionadas** reduz de maneira ideal a **variância**.
+
+
+- **Aprediz de base**:
+  - Árvores de regressão, que possui alta variância.
+]
+]
+
+&lt;!--Slide XX --&gt;
+---
+# Random Forest
+
+.pull-left-2[
+.blockquote[
+.center[**Bagging** e **Random Forest**: Diferença?]
+
+A principal diferença entre o **Bagging** e o **Random Forest** é a escolha do tamanho **p** no espaço de preditores originais (James, et al., 2013).
+]
+]
+
+.pull-right-7[
+.blockquote[
+
+**No caso de regressão...**
+
+**Passo 1** - Dado um conjunto de treinamento original `\(L\)` de tamanho `\(n\)`, gerar uma amostra *bootstrap* `\(bi\)` de tamanho `\(n\)`;
+
+**Passo 2** - Treinar um modelo de árvore de regressão (profunda e não podada) usando a amostra *bootstrap* `\(bi\)`. Porém, ao crescer cada árvore fazer a seguinte modificação:
+
+a) Em cada nó de decisão, selecionar um subconjunto aleatório de preditores, `\(p\)`;
+
+b) A melhor divisão será escolhida dentre os `\(p\)` preditores candidatos.
+
+**Passo 3** - Salvar o modelo preditivo.
+
+]
+]
+
+---
+# Random Forest
+
+&lt;img src="fig/RF.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+&lt;!--Slide 19 --&gt;
+---
+# Random Forest
+
+.panelset[
+.panel[.panel-name[Dados]
+.pull-left-1[
+
+.scroll-box-20[
+&lt;table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Arv &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; D &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; H &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; V &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 83.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.56 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 90.40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.68 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.71 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 96.45 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.81 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.91 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.08 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.80 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.44 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 124.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.06 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 101.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 73.53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 77.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 98.36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.38 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.56 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.89 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 59.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 140.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.83 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 74.48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 57.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.29 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.78 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 128.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.58 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.79 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 102.81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.49 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.58 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.88 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]]
+
+.pull-right-2[
+**Implementação no R** (exemplo de brinquedo!)
+
+
+```r
+library(randomForest)
+
+data &lt;- data.table::fread("R-scripts/Cedrela.csv")
+
+set.seed(1)
+randomForest(V ~ D + H, 
+             data = data,
+             ntree = 10,       # número de árvores
+             mtry = FALSE,     # número de preditoras
+             maxnodes = NULL,
+             importance = TRUE # importância das preditoras
+             )
+## 
+## Call:
+##  randomForest(formula = V ~ D + H, data = data, ntree = 10, mtry = FALSE,      maxnodes = NULL, importance = TRUE) 
+##                Type of random forest: regression
+##                      Number of trees: 10
+## No. of variables tried at each split: 1
+## 
+##           Mean of squared residuals: 4.947002
+##                     % Var explained: 51.47
+```
+
+]
+]
+
+.panel[.panel-name[Random Forest]
+
+.pull-left-2[
+&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" width="75%" height="10%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right-1[
+**Obs.**: Este exemplo é apenas para intuição do método. Portanto, no bagging cada árvore (aprendiz de base) é crescida sem poda e profunda (alta complexidade).
+]
+
+]
+
+.panel[.panel-name[f(x)]
+
+.pull-left-2[
+<div id="htmlwidget-f91fe9273a55a20accf2" style="width:100%;height:400px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f91fe9273a55a20accf2">{"x":{"visdat":{"456e4a00aa05":["function () ","plotlyVisDat"],"456e5a0a7003":["function () ","data"]},"cur_data":"456e5a0a7003","attrs":{"456e4a00aa05":{"x":{},"y":{},"mode":"markers","colors":"Paired","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"456e4a00aa05.1":{"x":{},"y":{},"mode":"lines","colors":"Paired","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","color":{},"inherit":true},"456e5a0a7003":{"x":{},"y":{},"mode":"lines","colors":"Paired","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","name":"Bagging","line":{"color":"black","width":4},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"","font":{"size":14},"xaxis":{"domain":[0,1],"automargin":true,"title":"Diâmetro (cm)"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Volume (m3)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[83,83,83,83,83,83,83,83,83,83,90.4,90.4,90.4,90.4,90.4,90.4,90.4,90.4,90.4,90.4,95.17,95.17,95.17,95.17,95.17,95.17,95.17,95.17,95.17,95.17,86.58,86.58,86.58,86.58,86.58,86.58,86.58,86.58,86.58,86.58,96.45,96.45,96.45,96.45,96.45,96.45,96.45,96.45,96.45,96.45,57.93,57.93,57.93,57.93,57.93,57.93,57.93,57.93,57.93,57.93,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.08,76.08,76.08,76.08,76.08,76.08,76.08,76.08,76.08,76.08,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,66.85,66.85,66.85,66.85,66.85,66.85,66.85,66.85,66.85,66.85,124.14,124.14,124.14,124.14,124.14,124.14,124.14,124.14,124.14,124.14,101.22,101.22,101.22,101.22,101.22,101.22,101.22,101.22,101.22,101.22,73.53,73.53,73.53,73.53,73.53,73.53,73.53,73.53,73.53,73.53,75.12,75.12,75.12,75.12,75.12,75.12,75.12,75.12,75.12,75.12,77.35,77.35,77.35,77.35,77.35,77.35,77.35,77.35,77.35,77.35,82.12,82.12,82.12,82.12,82.12,82.12,82.12,82.12,82.12,82.12,75.76,75.76,75.76,75.76,75.76,75.76,75.76,75.76,75.76,75.76,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,76.39,98.36,98.36,98.36,98.36,98.36,98.36,98.36,98.36,98.36,98.36,86,86,86,86,86,86,86,86,86,86,63,63,63,63,63,63,63,63,63,63,59,59,59,59,59,59,59,59,59,59,140.06,140.06,140.06,140.06,140.06,140.06,140.06,140.06,140.06,140.06,95.49,95.49,95.49,95.49,95.49,95.49,95.49,95.49,95.49,95.49,74.48,74.48,74.48,74.48,74.48,74.48,74.48,74.48,74.48,74.48,57.93,57.93,57.93,57.93,57.93,57.93,57.93,57.93,57.93,57.93,82.76,82.76,82.76,82.76,82.76,82.76,82.76,82.76,82.76,82.76,128.92,128.92,128.92,128.92,128.92,128.92,128.92,128.92,128.92,128.92,70.03,70.03,70.03,70.03,70.03,70.03,70.03,70.03,70.03,70.03,102.81,102.81,102.81,102.81,102.81,102.81,102.81,102.81,102.81,102.81,85.94,85.94,85.94,85.94,85.94,85.94,85.94,85.94,85.94,85.94,70.66,70.66,70.66,70.66,70.66,70.66,70.66,70.66,70.66,70.66],"y":[4.56,4.56,4.56,4.56,4.56,4.56,4.56,4.56,4.56,4.56,7.68,7.68,7.68,7.68,7.68,7.68,7.68,7.68,7.68,7.68,6.71,6.71,6.71,6.71,6.71,6.71,6.71,6.71,6.71,6.71,5.16,5.16,5.16,5.16,5.16,5.16,5.16,5.16,5.16,5.16,5.81,5.81,5.81,5.81,5.81,5.81,5.81,5.81,5.81,5.81,2.91,2.91,2.91,2.91,2.91,2.91,2.91,2.91,2.91,2.91,5.12,5.12,5.12,5.12,5.12,5.12,5.12,5.12,5.12,5.12,4.8,4.8,4.8,4.8,4.8,4.8,4.8,4.8,4.8,4.8,4.1,4.1,4.1,4.1,4.1,4.1,4.1,4.1,4.1,4.1,3.44,3.44,3.44,3.44,3.44,3.44,3.44,3.44,3.44,3.44,11.06,11.06,11.06,11.06,11.06,11.06,11.06,11.06,11.06,11.06,7.22,7.22,7.22,7.22,7.22,7.22,7.22,7.22,7.22,7.22,5.43,5.43,5.43,5.43,5.43,5.43,5.43,5.43,5.43,5.43,3.13,3.13,3.13,3.13,3.13,3.13,3.13,3.13,3.13,3.13,4,4,4,4,4,4,4,4,4,4,6.18,6.18,6.18,6.18,6.18,6.18,6.18,6.18,6.18,6.18,3.15,3.15,3.15,3.15,3.15,3.15,3.15,3.15,3.15,3.15,4.13,4.13,4.13,4.13,4.13,4.13,4.13,4.13,4.13,4.13,9.38,9.38,9.38,9.38,9.38,9.38,9.38,9.38,9.38,9.38,6.56,6.56,6.56,6.56,6.56,6.56,6.56,6.56,6.56,6.56,1.89,1.89,1.89,1.89,1.89,1.89,1.89,1.89,1.89,1.89,2.22,2.22,2.22,2.22,2.22,2.22,2.22,2.22,2.22,2.22,11.83,11.83,11.83,11.83,11.83,11.83,11.83,11.83,11.83,11.83,6.2,6.2,6.2,6.2,6.2,6.2,6.2,6.2,6.2,6.2,4.1,4.1,4.1,4.1,4.1,4.1,4.1,4.1,4.1,4.1,2.29,2.29,2.29,2.29,2.29,2.29,2.29,2.29,2.29,2.29,3.78,3.78,3.78,3.78,3.78,3.78,3.78,3.78,3.78,3.78,17.58,17.58,17.58,17.58,17.58,17.58,17.58,17.58,17.58,17.58,4.79,4.79,4.79,4.79,4.79,4.79,4.79,4.79,4.79,4.79,7.49,7.49,7.49,7.49,7.49,7.49,7.49,7.49,7.49,7.49,7.58,7.58,7.58,7.58,7.58,7.58,7.58,7.58,7.58,7.58,2.88,2.88,2.88,2.88,2.88,2.88,2.88,2.88,2.88,2.88],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[2.93909090909091,2.93909090909091,2.93909090909091,2.93909090909091,2.93909090909091,2.93909090909091,2.93909090909091,4.32333333333333,4.32333333333333,4.32333333333333,4.32333333333333,4.32333333333333,4.32333333333333,4.32333333333333,4.32333333333333,4.32333333333333,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475,8.7475],"mode":"lines","type":"scatter","name":"Tree1","marker":{"color":"rgba(31,120,180,1)","line":{"color":"rgba(31,120,180,1)"}},"textfont":{"color":"rgba(31,120,180,1)"},"error_y":{"color":"rgba(31,120,180,1)"},"error_x":{"color":"rgba(31,120,180,1)"},"line":{"color":"rgba(31,120,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,2.71916666666667,5.82666666666667,5.82666666666667,5.82666666666667,5.82666666666667,5.82666666666667,5.82666666666667,5.82666666666667,5.82666666666667,8.06875,8.06875,8.06875,8.06875,8.06875,8.06875,8.06875,8.06875],"mode":"lines","type":"scatter","name":"Tree10","marker":{"color":"rgba(178,223,138,1)","line":{"color":"rgba(178,223,138,1)"}},"textfont":{"color":"rgba(178,223,138,1)"},"error_y":{"color":"rgba(178,223,138,1)"},"error_x":{"color":"rgba(178,223,138,1)"},"line":{"color":"rgba(178,223,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,3.06076923076923,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,5.38583333333333,11.1114285714286,11.1114285714286,11.1114285714286,11.1114285714286,11.1114285714286,11.1114285714286],"mode":"lines","type":"scatter","name":"Tree2","marker":{"color":"rgba(51,160,44,1)","line":{"color":"rgba(51,160,44,1)"}},"textfont":{"color":"rgba(51,160,44,1)"},"error_y":{"color":"rgba(51,160,44,1)"},"error_x":{"color":"rgba(51,160,44,1)"},"line":{"color":"rgba(51,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,3.75153846153846,5.71428571428571,5.71428571428571,5.71428571428571,5.71428571428571,5.71428571428571,5.71428571428571,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333,9.39583333333333],"mode":"lines","type":"scatter","name":"Tree3","marker":{"color":"rgba(251,154,153,1)","line":{"color":"rgba(251,154,153,1)"}},"textfont":{"color":"rgba(251,154,153,1)"},"error_y":{"color":"rgba(251,154,153,1)"},"error_x":{"color":"rgba(251,154,153,1)"},"line":{"color":"rgba(251,154,153,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[2.08285714285714,2.08285714285714,2.08285714285714,2.08285714285714,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,4.075,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556,6.98555555555556],"mode":"lines","type":"scatter","name":"Tree4","marker":{"color":"rgba(227,26,28,1)","line":{"color":"rgba(227,26,28,1)"}},"textfont":{"color":"rgba(227,26,28,1)"},"error_y":{"color":"rgba(227,26,28,1)"},"error_x":{"color":"rgba(227,26,28,1)"},"line":{"color":"rgba(227,26,28,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,3.36142857142857,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,6.22090909090909,11.6985714285714,11.6985714285714,11.6985714285714,11.6985714285714,11.6985714285714],"mode":"lines","type":"scatter","name":"Tree5","marker":{"color":"rgba(253,191,111,1)","line":{"color":"rgba(253,191,111,1)"}},"textfont":{"color":"rgba(253,191,111,1)"},"error_y":{"color":"rgba(253,191,111,1)"},"error_x":{"color":"rgba(253,191,111,1)"},"line":{"color":"rgba(253,191,111,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,3.67923076923077,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,5.32666666666667,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429,10.3571428571429],"mode":"lines","type":"scatter","name":"Tree6","marker":{"color":"rgba(255,127,0,1)","line":{"color":"rgba(255,127,0,1)"}},"textfont":{"color":"rgba(255,127,0,1)"},"error_y":{"color":"rgba(255,127,0,1)"},"error_x":{"color":"rgba(255,127,0,1)"},"line":{"color":"rgba(255,127,0,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,3.57,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647,7.4635294117647],"mode":"lines","type":"scatter","name":"Tree7","marker":{"color":"rgba(202,178,214,1)","line":{"color":"rgba(202,178,214,1)"}},"textfont":{"color":"rgba(202,178,214,1)"},"error_y":{"color":"rgba(202,178,214,1)"},"error_x":{"color":"rgba(202,178,214,1)"},"line":{"color":"rgba(202,178,214,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,3.98294117647059,7.616,7.616,7.616,7.616,7.616,7.616,7.616,7.616,7.616,7.616,7.616,7.616,7.616],"mode":"lines","type":"scatter","name":"Tree8","marker":{"color":"rgba(106,61,154,1)","line":{"color":"rgba(106,61,154,1)"}},"textfont":{"color":"rgba(106,61,154,1)"},"error_y":{"color":"rgba(106,61,154,1)"},"error_x":{"color":"rgba(106,61,154,1)"},"line":{"color":"rgba(106,61,154,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.59,3.59,3.59,3.59,3.59,3.59,3.59,3.59,3.59,3.59,3.59,4.868,4.868,4.868,4.868,4.868,4.868,4.868,4.868,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727,8.27272727272727],"mode":"lines","type":"scatter","name":"Tree9","marker":{"color":"rgba(255,255,153,1)","line":{"color":"rgba(255,255,153,1)"}},"textfont":{"color":"rgba(255,255,153,1)"},"error_y":{"color":"rgba(255,255,153,1)"},"error_x":{"color":"rgba(255,255,153,1)"},"line":{"color":"rgba(255,255,153,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.93,57.93,59,63,66.85,70.03,70.66,73.53,74.48,75.12,75.76,76.08,76.39,76.39,76.39,77.35,82.12,82.76,83,85.94,86,86.58,90.4,95.17,95.49,96.45,98.36,101.22,102.81,124.14,128.92,140.06],"y":[3.27370229280523,3.27370229280523,3.27370229280523,3.27370229280523,3.47291657851952,3.47291657851952,3.47291657851952,3.61134082094376,3.61134082094376,3.61134082094376,3.61134082094376,4.13639082094376,4.13639082094376,4.13639082094376,4.13639082094376,4.13639082094376,5.37178026483321,5.37178026483321,5.37178026483321,6.7559673711909,6.7559673711909,6.7559673711909,7.62716975214328,7.62716975214328,7.85137808547661,7.85137808547661,8.42393760928614,8.97170384305237,8.97170384305237,8.97170384305237,8.97170384305237,8.97170384305237],"mode":"lines","type":"scatter","name":"Bagging","line":{"color":"black","width":4},"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+]
+]
+
+
+&lt;!--Slide 19 --&gt;
 ---
 # Iniciar apresentação de algumas técnicas
 - Antes, fazer uma introdução informando a ideia de predizer
@@ -2748,7 +3107,13 @@ In: &lt;em&gt;Machine learning&lt;/em&gt; 24.2, pp. 123&amp;ndash;140.
 DOI: &lt;a href="https://doi.org/10.1007/BF00058655"&gt;10.1007/BF00058655&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;cite&gt;Breiman, L.
-(2001).
+(2001b).
+&amp;ldquo;Random forests&amp;rdquo;.
+In: &lt;em&gt;Machine learning&lt;/em&gt; 45.1, pp. 5&amp;ndash;32.
+URL: &lt;a href="https://link.springer.com/content/pdf/10.1023/A:1010933404324.pdf"&gt;https://link.springer.com/content/pdf/10.1023/A:1010933404324.pdf&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Breiman, L.
+(2001a).
 &amp;ldquo;Statistical modeling: The two cultures (with comments and a rejoinder by the author)&amp;rdquo;.
 In: &lt;em&gt;Statistical science&lt;/em&gt; 16.3, pp. 199&amp;ndash;231.
 DOI: &lt;a href="https://doi.org/10.1214/ss/1009213726"&gt;10.1214/ss/1009213726&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
@@ -2758,17 +3123,11 @@ DOI: &lt;a href="https://doi.org/10.1214/ss/1009213726"&gt;10.1214/ss/1009213726
 &amp;ldquo;Classification and Regression Trees&amp;rdquo;.
 &lt;/p&gt;&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Corte, A. P. D., D. V. Souza, F. E. Rex, et al.
-(2020).
-&amp;ldquo;Forest inventory with high-density UAV-Lidar: Machine learning approaches for predicting individual tree attributes&amp;rdquo;.
-In: &lt;em&gt;Computers and Electronics in Agriculture&lt;/em&gt; 179, p. 105815.
-DOI: &lt;a href="https://doi.org/10.1016/j.compag.2020.105815"&gt;10.1016/j.compag.2020.105815&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;Gama, J., A. C. P. d. L. CARVALHO, K. Faceli, et al.
+(2015).
+&lt;em&gt;Extração de conhecimento de dados: data mining&lt;/em&gt;.
+ISBN: 978-972-618-811-7.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Diamantopoulou, M. J.
-(2005).
-&amp;ldquo;Artificial neural networks as an alternative tool in pine bark volume estimation&amp;rdquo;.
-In: &lt;em&gt;Computers and electronics in agriculture&lt;/em&gt; 48.3, pp. 235&amp;ndash;244.
-DOI: &lt;a href="https://doi.org/10.1016/j.compag.2005.04.002"&gt;10.1016/j.compag.2005.04.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 ---
 # Referências
 &lt;br&gt;
@@ -2803,6 +3162,7 @@ New York: Springer.
 &lt;em&gt;Aprendizado de máquina: uma abordagem estat\'istica&lt;/em&gt;.
 268 pp.
 ISBN: 978-65-00-02410-4.&lt;/cite&gt;&lt;/p&gt;
+
 ---
 # Referências
 &lt;br&gt;
@@ -2840,29 +3200,18 @@ DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&
 # Referências
 &lt;br&gt;
 
-&lt;p&gt;&lt;cite&gt;Montaño, R. A. N. R., C. R. Sanquetta, J. Wojciechowski, et al.
-(2017).
-&amp;ldquo;Artificial Intelligence Models to Estimate Biomass of Tropical Forest Trees&amp;rdquo;.
-In: &lt;em&gt;Polibits&lt;/em&gt; 56, pp. 29&amp;ndash;37.
-DOI: &lt;a href="https://doi.org/10.17562/PB-56-4"&gt;10.17562/PB-56-4&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Nieto, P. G., J. M. Torres, M. A. Fernández, et al.
-(2012).
-&amp;ldquo;Support vector machines and neural networks used to evaluate paper manufactured using Eucalyptus globulus&amp;rdquo;.
-In: &lt;em&gt;Applied Mathematical Modelling&lt;/em&gt; 36.12, pp. 6137&amp;ndash;6145.
-DOI: &lt;a href="https://doi.org/10.1016/j.apm.2012.02.016"&gt;10.1016/j.apm.2012.02.016&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;cite&gt;Nunes, M. H. and E. B. Görgens
-(2016).
-&amp;ldquo;Artificial intelligence procedures for tree taper estimation within a complex vegetation mosaic in Brazil&amp;rdquo;.
-In: &lt;em&gt;PloS one&lt;/em&gt; 11.5, p. e0154738.
-DOI: &lt;a href="https://doi.org/10.1371/journal.pone.0154738"&gt;10.1371/journal.pone.0154738&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+---
+# Referências
+&lt;br&gt;
 
-&lt;p&gt;&lt;cite&gt;Özçelik, R., M. J. Diamantopoulou, J. R. Brooks, et al.
-(2010).
-&amp;ldquo;Estimating tree bole volume using artificial neural network models for four species in Turkey&amp;rdquo;.
-In: &lt;em&gt;Journal of environmental management&lt;/em&gt; 91.3, pp. 742&amp;ndash;753.
-DOI: &lt;a href="https://doi.org/10.1016/j.jenvman.2009.10.002"&gt;10.1016/j.jenvman.2009.10.002&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+---
+# Referências
+&lt;br&gt;
+
+
 
 ---
 class: inverse, top
@@ -3156,6 +3505,11 @@ Font Size
 .pull-right-2 {
   float: right;
   width: 60%;
+}
+
+.pull-right-7 {
+  float: right;
+  width: 80%;
 }
 
 .pull-left-3 {
