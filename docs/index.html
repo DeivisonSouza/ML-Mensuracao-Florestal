@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[14/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[15/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -92,6 +92,8 @@ background-size: cover
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.2 - Bagging](#bag)
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2.3 - Random Forest](#rf)
+
+&amp;nbsp;&amp;nbsp;[3.3 - Métodos de Reamostragem](#mr)
 
 [4 - Aprendizado de Máquina com linguagem R](#AMLR)
 
@@ -2562,9 +2564,9 @@ A principal diferença entre o **Bagging** e o **Random Forest** é a escolha do
 
 **Passo 2** - Treinar um modelo de árvore de regressão (profunda e não podada) usando a amostra *bootstrap* `\(bi\)`. Porém, ao crescer cada árvore fazer a seguinte modificação:
 
-a) Em cada nó de decisão, selecionar um subconjunto aleatório de preditores, `\(p\)`;
+a) Em cada nó de decisão, selecionar um subconjunto aleatório de `\(m\)` preditoras;
 
-b) A melhor divisão será escolhida dentre os `\(p\)` preditores candidatos.
+b) A melhor divisão será escolhida dentre as `\(m\)` preditoras candidatas.
 
 **Passo 3** - Salvar o modelo preditivo.
 
@@ -2845,58 +2847,62 @@ randomForest(V ~ D + H,
 ]
 
 
-&lt;!--Slide 19 --&gt;
+&lt;!--Slide XX --&gt;
 ---
-# Iniciar apresentação de algumas técnicas
-- Antes, fazer uma introdução informando a ideia de predizer
-a f(x), e portanto existente inúmeras técnicas de AM para isso...Obviamente, falar que a primeira ideia é fazer RL...
-- Usar base de dados de nativa (falar com Bruno), selecionar algumas árvores...
-- Inserir uma figura com as principais técnicas de IA
-- No CART:
- . Iniciar: mostrando uma árvore e explicando seus elementos;
- . mostrar o passo a passo das divisões binárias (figura);
- . Detalhar o calculo matemático, baseando-se nos dados usados
- para criar a árvore mostrada...
+name: mr
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
 
+.font200[**Métodos de Reamostragem**]
+
+.font100[**Como escolher dentre diversos &lt;br&gt; modelos de aprendizado de máquina?**]
+
+&lt;!--Slide XX --&gt;
 ---
-# .font80[Percepções e reflexões para Mensuração Florestal]
+# Métodos de Reamostragem
 
-**Sob a ótica preditivista**:
+.pull-left-2[
+.blockquote[
+- **Motivação**
 
-**1 - Competitividade**: AM tem mostrado competitividade frente aos métodos tradicionais para modelar relações dendrométricas;
-
-**2 - Superioridade**: Existem relatos de maior acurácia para modelos de AM frente à RL. Mas, estes ainda são pontuais/poucos, e algumas vezes os ganhos de acurácia não parecem ser expressivos.
-
-**3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
-
-**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos. &lt;br&gt;
+  - Precisa-se de um mecanismo para **escolher o melhor modelo** dentre diversos.
 
 
-**Mais recursos podem melhorar o desempenho preditivo de modelos aprendidos usando a cultura de modelagem algorítmica.**
+- **Melhor modelo**
 
-&lt;!--Slide 13 --&gt;
+  - *Grosso modo*, é aquele que possui a melhor capacidade de **predizer novas observações** (menor erro de predição).
+
+
+- **Desempenho preditivo** 
+
+  - Assim sendo, é fundamental **estimar o desempenho esperado** de um modelo preditivo quando usado para predizer **novas observações**.
+
+]
+]
+
+.pull-right-1[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;Os métodos de reamostragem são usados para estimar o desempenho de um modelo em predizer novas observações. &lt;br&gt;
+
+A abordagem mais usual é usar algum tipo de **validação cruzada**.
+]
+
+&lt;!--Slide XX --&gt;
 ---
-name: AS
-# Aprendizado Supervisionado
+# Métodos de Reamostragem
 
-&lt;img src="fig/intuicao-ML.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-.left[.footnote[Fonte: O Autor.]] 
-
----
-# Avaliação de modelos
-
----
-# Underfitting e Overfitting
-
----
-# Divisão de dados
+&lt;br&gt; **Mas, antes disso...**
 
 .blockquote[
-Em geral, na literatura de AM reporta-se a três tipos de conjuntos de dados (Witten, et al., 2017):
+**Tipos de conjuntos de dados...** &lt;br&gt;
 
-- **Conjunto de aprendizado** (treino) 
-    - Usado para construir os modelos preditivos (classificação ou regressão).
+
+&lt;br&gt;Existem três tipos de conjuntos de dados (Witten, et al., 2017):
+
+
+- **Conjunto de treinamento** (aprendizado) 
+    - Usado para construir/aprender/treinar os modelos preditivos (classificação ou regressão).
     
     
 - **Conjunto de validação**
@@ -2904,37 +2910,135 @@ Em geral, na literatura de AM reporta-se a três tipos de conjuntos de dados (Wi
     
 
 - **Conjunto de teste**
-  - Usado para estimar o desempenho preditivo final do modelo otimizado (tuning model). 
+  - Usado para estimar o desempenho preditivo final do modelo otimizado (*tuning model*). 
     
 ]
+
+&lt;!--Slide XX --&gt;
 ---
 # Métodos de Reamostragem
 
+.pull-left-2[
 .blockquote[
+**Tipos de validação cruzada...** &lt;br&gt;
 
 - **Hold-out validation**
-    - Separa 2/3 para treinamento e 1/3 para teste.
     
 - **k-fold Cross-Validation**
-    - Particiona o conjunto de treino em *k* subconjuntos
-disjuntos (*k*-1), e testa no conjunto de validação (hold-out).
-    
-- **Leave-one-out Cross-Validation**
-  - k=n
 
-- **Bootstrap**
-  - Amostragem com reposição.
+- **Repeated k-fold cross validation**
+
+- **Leave-One-Out Cross-Validation**
+]
+]
+
+&lt;!--Slide XX --&gt;
+---
+# .font80[Métodos de Reamostragem: Hold-out validation]
+
+.pull-left-3[
+
 ]
 
 
-&lt;!--Slide6 --&gt;
+.pull-right-3[
+.center[**Implementação**]
+
+**1** - Dividir o conjunto de dados em duas partes:
+**treinamento** e **validação**.
+
+  - Comumente: 70%/30% ou 80%/20% (treino/validação)
+
+**2** - Usar uma parte para treinar o modelo (70% ou 80%), e a outra para validar (30% ou 20%).
+
+**3** - Calcular o desempenho no conjunto de validação.
+]
+
+.pull.bottom[
+**Problema**: 
+
+- Fornece uma estimativa de alta variação.
+- O erro de predição no conjunto de validação pode mudar muito, dependendo de qual observação seja aleatorizada no conjunto de validação.
+]
+
+
+&lt;!--Slide XX --&gt;
 ---
-name: MAM
-# Um modelo de aprendizado de máquina: CART
+# .font80[Métodos de Reamostragem: k-fold Cross-Validation]
 
-&lt;img src="fig/CART.png" width="80%" style="display: block; margin: auto;" /&gt;
+.pull-left-3[
+&lt;img src="gif/kCV10.gif" width="90%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[**Fonte**: O Autor.]] 
+]
 
-.left[.footnote[Fonte: O Autor.]] 
+.pull-right-3[
+.center[**Implementação**]
+
+**1** - Dividir o conjunto de treinamento em k partições iguais e disjuntas; (Recomendação: 5 ou 10);
+
+  - Se k = 10 e existem 70 observações;
+  - Então, cada partição teria 7 observações.
+
+**2** - Usar k-1 partições para treinar o modelo e avaliar na partição que ficou de fora.
+
+  - Conjunto de treinamento: 9 partições (63 observações); e
+  - Conjunto de validação: 1 partição (7 observações).
+
+**3** - Calcular o desempenho no conjunto de validação.
+
+**4** - Repetir as etapas 1, 2 e 3 por k vezes.
+
+**5** - Calcule o desempenho médio no conjunto de validação.
+]
+
+
+&lt;!--Slide XX --&gt;
+---
+# .font80[Métodos de Reamostragem: Leave-One-Out Cross-Validation]
+
+.pull-left-3[
+&lt;img src="gif/LOOCV.gif" width="90%" style="display: block; margin: auto;" /&gt;
+.left[.footnote[**Fonte**: O Autor.]] 
+]
+
+.pull-right-3[
+.center[**Implementação**]
+
+**1** - Dividir o conjunto de treinamento em k = n partições;
+
+- Em que: n = número de observações.
+
+**2** - Usar k-1 partições para treinar o modelo e avaliar na partição que ficou de fora.
+
+  - Conjunto de treinamento: 9 partições (63 observações); e
+  - Conjunto de validação: 1 partição (7 observações).
+
+**3** - Calcular o desempenho no conjunto de validação.
+
+**4** - Repetir as etapas 1, 2 e 3 por k vezes.
+
+**5** - Calcule o desempenho médio no conjunto de validação.
+]
+
+---
+# Qual validação usar?
+
+**Não existe uma regra de ouro!**
+
+**Mas, existem algumas orientações gerais...**
+
+- **k-fold Cross-Validation**
+  - Quando o conjunto de dado disponível é de tamanho médio a grande; e
+  - Mais adequado para métodos com muitos hiperparâmetros de ajuste.
+
+- **Leave-One-Out Cross-Validation**
+  - Quando o conjunto de dado disponível é de tamanho limitado; e
+  - Mais adequado para métodos com poucos hiperparâmetros de ajuste.
+
+
+&lt;!--Slide XX --&gt;
+---
+# Medidas de desempenho
 
 &lt;!-- Slide XX --&gt;
 ---
@@ -2967,6 +3071,24 @@ Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013
                "james2013introduction"))
 ## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019; James, Witten, Hastie, et al., 2013)"
 ```
+
+
+&lt;!--Slide XX --&gt;
+---
+# .font80[Percepções e reflexões para Mensuração Florestal]
+
+**Sob a ótica preditivista**:
+
+**1 - Competitividade**: AM tem mostrado competitividade frente aos métodos tradicionais para modelar relações dendrométricas;
+
+**2 - Superioridade**: Existem relatos de maior acurácia para modelos de AM frente à RL. Mas, estes ainda são pontuais/poucos, e algumas vezes os ganhos de acurácia não parecem ser expressivos.
+
+**3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
+
+**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos. &lt;br&gt;
+
+
+**Mais recursos podem melhorar o desempenho preditivo de modelos aprendidos usando a cultura de modelagem algorítmica.**
 
 &lt;!-- Slide XX --&gt;
 ---
