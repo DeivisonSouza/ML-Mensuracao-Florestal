@@ -154,11 +154,12 @@ background-size: cover
 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.2.3 - Random Forest](#rf)
 
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2.4 - Outros (M5', ...)](#out)
+
 &nbsp;&nbsp;[3.3 - Métodos de Reamostragem](#mr)
 
-[4 - Aprendizado de Máquina com linguagem R](#AMLR)
+&nbsp;&nbsp;[3.4 - Medidas de Desempenho](#md)
 
-[5 - Pacote CARET](#caret)
 ]
 
 <!-- Slide 2 -->
@@ -168,13 +169,24 @@ background-size: cover
 # Conteúdo
 
 .pull-top[
-**Parte 2 - Aplicações nas Ciências Florestais**
+
+**Parte 2 - Aprendizado de máquina com linguagem R**
+
+[1 - Aprendizado de Máquina com linguagem R](#AMLR)
+
+[2 - Pacote CARET](#caret)
+
+[3 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+
+[4 - Aplicação Web com MAM: demonstração.](#shiny)
+
+
+**Parte 3 - Aplicações nas Ciências Florestais**
 
 [1 - Aplicações nas ciências florestais](#aplicacoes)
 
-[2 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+[2 - Considerações finais](#cf)
 
-[3 - Aplicação Web com MAM: um exemplo prático.](#shiny)
 ]
 
 <!-- Slide XX -->
@@ -404,7 +416,7 @@ knitr::include_graphics('fig/ML.png')
 
 <!--Slide 10 -->
 ---
-# A idéia de "Supervisionar"...
+# A ideia de "Supervisionar"...
 
 .blockquote[
 **Em um conjunto de dados...** <br>
@@ -437,7 +449,7 @@ x_{n1} & x_{n2} & \cdots & x_{nn}
 
 .blockquote[
 **O papel de Supervisor...** <br>
-A idéia é que cada $y_{i}$ exerça um papel de .content-box-red[“Professor”], responsável por .content-box-red[“Supervisionar”] o processo de aprendizagem de uma
+A ideia é que cada $y_{i}$ exerça um papel de .content-box-red[“Professor”], responsável por .content-box-red[“Supervisionar”] o processo de aprendizagem de uma
 função $f(x)$ `r Citep(myBib, "hastie2016elements")`.
 ]
 
@@ -1237,6 +1249,7 @@ knitr::include_graphics('fig/Breiman1996.png')
 - **Hiperparâmetro tuning**: .red[nbagg] (número de replicações de bootstrap);
 ]
 
+
 <!--Slide 18 -->
 ---
 # Bagging
@@ -1278,6 +1291,7 @@ knitr::include_graphics('fig/Bootstrap.png')
 
 ]
 
+
 <!--Slide XX -->
 ---
 # Bagging (Bagged Trees)
@@ -1305,6 +1319,7 @@ Esse procedimento pode ser realizado $B$ vezes. Em que: $B$ = número de amostra
 ]
 ]
 
+
 <!--Slide XX -->
 ---
 # Bagging (Bagged Trees)
@@ -1317,6 +1332,7 @@ knitr::include_graphics('fig/Bagg.png')
 {\hat{f}_{(bag)}(x)} = \frac{1}{B}\displaystyle\sum\limits_{b=1}^B\hat{f}^{*b}(x)
 \label{eq:avBAG}
 \end{equation}
+
 
 <!--Slide 19 -->
 ---
@@ -1462,7 +1478,7 @@ htmltools::tagList(gg3)
 ```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics('fig/Bagging-PF.png')
 ```
-.left[**Fonte**: O Autor.]
+.left[.footnote[**Fonte**: O Autor.]]
 ]
 
 --
@@ -1591,11 +1607,11 @@ library(randomForest)
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 set.seed(1)
-randomForest(V ~ D + H, 
+rf <- randomForest(V ~ D + H, 
              data = data,
-             ntree = 10,       # número de árvores
-             mtry = FALSE,     # número de preditoras
-             maxnodes = NULL,
+             ntree = 10,       # número de árvores (padrão = 500)
+             mtry = 1,         # número de preditoras (padrão = p/3)
+             maxnodes = NULL,  # número de nós terminais
              importance = TRUE # importância das preditoras
              )
 ```
@@ -1603,56 +1619,25 @@ randomForest(V ~ D + H,
 ]
 ]
 
-.panel[.panel-name[Random Forest]
-
-.pull-left-2[
-```{r, echo=FALSE, eval=TRUE, out.width='75%', out.height='10%'}
-par(mfrow = c(2, 5))
-
-nbag <- 1:length(bagTr$mtrees)
-
-for(i in nbag) {
-rpart.plot(bagTr$mtrees[[i]]$btree, 
-           box.palette="RdBu", 
-           shadow.col="gray", 
-           nn=TRUE, 
-           digits = 4,
-           main = paste0("Árvore: ", i)
-           )
-}
-
-```
-]
-
-.pull-right-1[
-**Obs.**: Este exemplo é apenas para intuição do método. Portanto, no bagging cada árvore (aprendiz de base) é crescida sem poda e profunda (alta complexidade).
-]
-
-]
-
 .panel[.panel-name[f(x)]
 
 .pull-left-2[
 ```{r, echo=FALSE, fig.width=5, fig.height=3, fig.cap="", message=FALSE}
-df <- data.table::setDF(data)
 
-predbag <- 1:length(bagTr$mtrees)
+pred <- predict(rf, newdata=data, predict.all=T)
 
-for(i in predbag) { 
-  new <- predict(bagTr$mtrees[[i]]$btree, newdata=df)
-  df[ , ncol(df) + 1] <- new
-  colnames(df)[ncol(df)] <- paste0("Tree", i)
-}
-
-df <- df %>% 
-  mutate(Bagging = rowMeans(select(., starts_with("Tree")))) %>%
-  tidyr::pivot_longer(starts_with(c("Tree", "Bag")),
+dfrf <- pred %>% 
+  as.data.frame() %>%
+  bind_cols(data) %>%
+  rename_at(vars(starts_with('ind')), ~ paste("Tree", 1:10)) %>%
+  rename_at(vars(aggregate),~"randomForest") %>%
+  tidyr::pivot_longer(starts_with(c("Tree", "rand")),
                     names_to = "Tree",
                     values_to = "Pred") %>%
-  mutate_if(is.character, as.factor) 
+  mutate_if(is.character, as.factor)
 
-gg4 <- df %>%
-  filter(Tree != "Bagging") %>%
+gg5 <- dfrf %>%
+  filter(Tree != "randomForest") %>%
   group_by(Tree) %>% 
   plot_ly(x = ~D, y = ~V, colors = "Paired",
           type = 'scatter', mode = 'markers') %>% 
@@ -1661,18 +1646,118 @@ gg4 <- df %>%
          font = list(size = 14),
          xaxis=list(title="Diâmetro (cm)"),
          yaxis=list(title="Volume (m3)")) %>%
-  add_lines(data = subset(df, Tree == 'Bagging'),
+  add_lines(data = subset(dfrf, Tree == 'randomForest'),
             y = ~ Pred, mode = 'lines',
-            name = 'Bagging',
+            name = 'randomForest',
             line = list(color = 'black', 
                         width = 4)) 
 
-htmltools::tagList(gg4)
+htmltools::tagList(gg5)
 
 ```
 ]
 ]
 ]
+
+
+<!--Slide XX -->
+---
+# Random Forest: pontos fortes e fracos...
+
+.pull-left-4[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/RF-PF.png')
+```
+.left[.footnote[**Fonte**: O Autor.]]
+]
+
+--
+
+.pull-right-4[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/RF-PFr.png')
+```
+]
+
+
+<!--Slide XX -->
+---
+name: out
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Outros (M5', ...)**]
+
+.font100[**Existem dezenas de algoritmos por experimentar...**]
+
+
+<br>.font100[**CARET: Mais de 200 algoritmos para aprendizado supervisionado.**]
+
+<!--Slide XX -->
+---
+# Model Tree - M5'
+
+.pull-left-1[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/Quilan.png')
+```
+.center[Fonte: [citeseerx](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.34.885)]
+]
+
+.pull-right-2[
+**Informações gerais:**
+- **Model Tree - M5'**: um algoritmo baseado árvores;
+- **Proposto**: `r Citet(myBib, c("quinlan1992learning", "wang1997induction"))`;
+- **Problema**: Regressão; e
+- **Hiperparâmetro tuning**: .red[pruned]: (com poda?); .red[smoothed]: (com suavização?)
+
+
+O M5' foi introduzido por `r Citet(myBib, "wang1997induction")` e aprimorou o algoritmo M5 originalmente proposto por `r Citet(myBib, "quinlan1992learning")`.
+
+]
+
+
+<!--Slide XX -->
+---
+# Model Tree - M5' 
+
+.pull-left-3[
+.blockquote[
+- **Ideia principal:**
+  
+  - Ao contrário das árvores de regressão, as árvores modelos
+  usam **modelos lineares** para predições nos **nós terminais**.
+
+  - Surgiu como uma **alternativa** à árvore de regressão para predição de **variáveis contínuas**.
+
+]
+]
+
+.pull-right-3[
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/M5.png')
+```
+]
+
+<br>
+.center[.content-box-green[**Vejo um grande potencial desse algoritmo para Mensuração Florestal!**]]
+
+
+<!--Slide XX -->
+---
+# Outros algoritmos
+<br>
+
+- **k-Nearest-Neighbor** - k-NN (variações: wkNN)
+
+- **Stochastic Gradient Boosting** - SGB
+
+- **Artificial Neural Networks** - ANN
+
+- **Support Vector Regression** - SVR
+
+- **Extreme Gradient Boosting** - XGBoost
 
 
 <!--Slide XX -->
@@ -1763,9 +1848,14 @@ A abordagem mais usual é usar algum tipo de **validação cruzada**.
 <!--Slide XX -->
 ---
 # .font80[Métodos de Reamostragem: Hold-out validation]
+<br>
 
 .pull-left-3[
 
+```{r, echo=FALSE, out.width="90%"}
+knitr::include_graphics("fig/Hold.png")
+```
+.left[.footnote[**Fonte**: O Autor.]] 
 ]
 
 
@@ -1782,13 +1872,23 @@ A abordagem mais usual é usar algum tipo de **validação cruzada**.
 **3** - Calcular o desempenho no conjunto de validação.
 ]
 
+--
+<br>
+
 .pull.bottom[
-**Problema**: 
+.pull-left-3[
+.shadow[
+<br>.center[**Ponto Fraco**]
 
-- Fornece uma estimativa de alta variação.
-- O erro de predição no conjunto de validação pode mudar muito, dependendo de qual observação seja aleatorizada no conjunto de validação.
+- **Alta variância**: 
+
+  - A estimativa é muito dependente da divisão (ou observações) que são alocadas em cada conjunto.
+
+  - Portanto, não é considerada a abordagem mais adequada para estimar o erro de generalização.
+
 ]
-
+]
+]
 
 <!--Slide XX -->
 ---
@@ -1799,26 +1899,32 @@ A abordagem mais usual é usar algum tipo de **validação cruzada**.
 knitr::include_graphics("gif/kCV10.gif")
 ```
 .left[.footnote[**Fonte**: O Autor.]] 
+
+**Repeated k-fold cross validation**: Simplesmente repete-se o processo (1 a 4) por $m$ vezes.
 ]
 
+
 .pull-right-3[
+.scroll-box-20[
+
 .center[**Implementação**]
 
-**1** - Dividir o conjunto de treinamento em k partições iguais e disjuntas; (Recomendação: 5 ou 10);
+**1** - Dividir o conjunto de treinamento em k partições iguais e disjuntas; (5 ou 10)
 
   - Se k = 10 e existem 70 observações;
   - Então, cada partição teria 7 observações.
 
 **2** - Usar k-1 partições para treinar o modelo e avaliar na partição que ficou de fora.
 
-  - Conjunto de treinamento: 9 partições (63 observações); e
-  - Conjunto de validação: 1 partição (7 observações).
+  - Conjunto de treinamento: 9 partições (63 obs.); e
+  - Conjunto de validação: 1 partição (7 obs.).
 
-**3** - Calcular o desempenho no conjunto de validação.
+**3** - Calcular o desempenho no conjunto de validação (ex.: RMSE)
 
 **4** - Repetir as etapas 1, 2 e 3 por k vezes.
 
-**5** - Calcule o desempenho médio no conjunto de validação.
+**5** - Calcular o desempenho médio no conjunto de validação.
+]
 ]
 
 
@@ -1834,16 +1940,18 @@ knitr::include_graphics("gif/LOOCV.gif")
 ]
 
 .pull-right-3[
+.scroll-box-20[
+
 .center[**Implementação**]
 
 **1** - Dividir o conjunto de treinamento em k = n partições;
 
-- Em que: n = número de observações.
+- Em que: n = número de observações (n = 70).
 
 **2** - Usar k-1 partições para treinar o modelo e avaliar na partição que ficou de fora.
 
-  - Conjunto de treinamento: 9 partições (63 observações); e
-  - Conjunto de validação: 1 partição (7 observações).
+  - Conjunto de treinamento: 69 partições (69 obs.); e
+  - Conjunto de validação: 1 partição (1 obs.).
 
 **3** - Calcular o desempenho no conjunto de validação.
 
@@ -1851,78 +1959,99 @@ knitr::include_graphics("gif/LOOCV.gif")
 
 **5** - Calcule o desempenho médio no conjunto de validação.
 ]
+]
 
----
-# Qual validação usar?
 
-**Não existe uma regra de ouro!**
+<!-- Slide XX -->
+<!-- --- -->
+<!-- # Qual método de validação usar? -->
 
-**Mas, existem algumas orientações gerais...**
+<!-- **Não existe uma regra de ouro!** -->
 
-- **k-fold Cross-Validation**
-  - Quando o conjunto de dado disponível é de tamanho médio a grande; e
-  - Mais adequado para métodos com muitos hiperparâmetros de ajuste.
+<!-- **Mas, existem algumas orientações gerais...** -->
 
-- **Leave-One-Out Cross-Validation**
-  - Quando o conjunto de dado disponível é de tamanho limitado; e
-  - Mais adequado para métodos com poucos hiperparâmetros de ajuste.
+<!-- - **k-fold Cross-Validation** -->
+<!--   - Quando o conjunto de dado disponível é de tamanho médio a grande; e -->
+<!--   - Mais adequado para métodos com muitos hiperparâmetros de ajuste; -->
+<!--   - Custo computacional é maior do que Hold-out validation. -->
+
+<!-- - **Leave-One-Out Cross-Validation** -->
+<!--   - Quando o conjunto de dado disponível é de tamanho limitado; e -->
+<!--   - Mais adequado para métodos com poucos hiperparâmetros de ajuste; -->
+<!--   - Custo computacional é maior do que k-fold Cross-Validation. -->
 
 
 <!--Slide XX -->
 ---
-# Medidas de desempenho
-
-<!-- Slide XX -->
----
+name: md
 class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font250[**Aplicações nas ciências <br> florestais**]
+.font200[**Medidas de Desempenho**]
 
-<!-- Slide XX -->
----
-name: aplicacoes
-# Aplicações nas ciências florestais
-
-```{r, echo=FALSE, out.width='57%', fig.align='center', fig.cap=''}
-knitr::include_graphics('fig/MindMap.png')
-```
-
-.left[.footnote[Fonte: O Autor.]]
-
-<!-- Slide XX -->
----
-name: AMIF
-# .font80[AM na Mensuração Florestal: estudos indicam potencial!]
-
-```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
-knitr::include_graphics('fig/ML-TEC.png')
-```
-.left[.footnote[Fonte: O Autor.]]
-
-```{r}
-Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019",
-               "james2013introduction"))
-```
-
+.font100[**É necessário uma função custo para medir o erro de predição...**]
 
 <!--Slide XX -->
 ---
-# .font80[Percepções e reflexões para Mensuração Florestal]
+# Medidas de desempenho
+<br>
 
-**Sob a ótica preditivista**:
+- **Root Mean Square Error** (RMSE) / **Raiz do Erro Quadrático Médio** (REQM)
 
-**1 - Competitividade**: AM tem mostrado competitividade frente aos métodos tradicionais para modelar relações dendrométricas;
-
-**2 - Superioridade**: Existem relatos de maior acurácia para modelos de AM frente à RL. Mas, estes ainda são pontuais/poucos, e algumas vezes os ganhos de acurácia não parecem ser expressivos.
-
-**3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
-
-**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall). Sobretudo, em florestas equiâneas, em FNI ainda faltam mais estudos. <br>
+\begin{equation}
+{RMSE_{(k)}} =\sqrt{\frac{1}{n}\displaystyle\sum\limits_{i=1}^n\bigg(\hat{y_i}-y_i\bigg)^2}\\\\
+\label{eq:RMSE}
+\end{equation}
 
 
-**Mais recursos podem melhorar o desempenho preditivo de modelos aprendidos usando a cultura de modelagem algorítmica.**
+- **Relative Root Mean Square Error** (rRMSE)
+
+\begin{equation}
+{rRMSE_{(k)}} =\frac{100}{\bar{y}}\sqrt{\frac{1}{n}\displaystyle\sum\limits_{i=1}^n\bigg(\hat{y_i}-y_i\bigg)^2}\\\\
+\label{eq:rRMSE}
+\end{equation}
+
+
+- **Mean Absolute Error** (MAE)
+
+\begin{equation}
+{MAE_{(k)}} =\frac{1}{n}\displaystyle\sum\limits_{i=1}^n|\hat{y_i}-y_i|\\\\
+\label{eq:MAE}
+\end{equation}
+
+
+<!-- Slide XX -->
+---
+# Medidas de desempenho
+<br>
+
+- **Coefficient of Determination** (R²)
+
+\begin{equation}
+{R_{(k)}^2} =\left(\frac{\displaystyle\sum\limits_{i=1}^n
+\bigg(\hat{y_i}-\bar{\hat{y}}\bigg)
+\bigg(y_i-\bar{y}\bigg)}
+{\sqrt{\left [\displaystyle\sum\limits_{i=1}^n
+\bigg(\hat{y_i}-\bar{\hat{y}}\bigg)^2 \right ]
+\left [\displaystyle\sum\limits_{i=1}^n\bigg(y_i-\bar{y}\bigg)^2 \right]}}\right)^2\\\\
+\label{eq:R2}
+\end{equation}
+
+
+- **Prediction Residual Error Sum of Squares** (PRESS)
+
+\begin{equation}
+PRESS = \displaystyle\sum\limits_{i=1}^n\bigg(y_i-\hat{y}_{i,-i}\bigg)^2 %\displaystyle\sum\limits_{i=1}^n\bigg(\frac{y_i-\hat{y}_{i}}{1-h_{ii}}\bigg)^2
+\label{eq:PRESS}
+\end{equation}
+
+A estatística $PRESS$ é baseada na abordagem **Leave-One-Out Cross Validation** (LOOCV).
+
+Os erros de predição para as **amostras de validação** são elevados ao quadrado e somados para formar a estatística PRESS.
+
+< PRESS $\rightarrow$ melhor modelo
+
 
 <!-- Slide XX -->
 ---
@@ -2059,6 +2188,75 @@ knitr::include_graphics('fig/sh.png')
 .thick[.black[Acesse a base para uso na aplicação MLMBio:]] [Biomass-data](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/data.csv)]
 
 ]
+
+
+<!-- Slide XX -->
+---
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font250[**Aplicações nas ciências <br> florestais**]
+
+<!-- Slide XX -->
+---
+name: aplicacoes
+# Aplicações nas ciências florestais
+
+```{r, echo=FALSE, out.width='57%', fig.align='center', fig.cap=''}
+knitr::include_graphics('fig/MindMap.png')
+```
+
+.left[.footnote[Fonte: O Autor.]]
+
+<!-- Slide XX -->
+---
+name: AMIF
+# .font80[AM na Mensuração Florestal: estudos indicam potencial!]
+
+```{r, echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/ML-TEC.png')
+```
+.left[.footnote[Fonte: O Autor.]]
+
+```{r}
+Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013use", "diamantopoulou2005artificial", "ozccelik2010estimating", "schikowski2015estudo", "nunes2016artificial", "Corte2020", "montano2017artificial", "korhonen1997application", "maltamo2001most", "fehrmann2008comparison", "sanquetta2015comparison", "sanquetta2018volume", "souza2019",
+               "james2013introduction"))
+```
+
+
+<!--Slide XX -->
+---
+name: cf
+# Considerações finais
+
+.center[.font150[**Percepções e reflexões para Mensuração Florestal**]]
+<br>
+
+**Sob a ótica preditivista**:
+
+**1 - Competitividade**: AM tem mostrado competitividade frente aos métodos tradicionais para modelar relações dendrométricas.
+
+**2 - Superioridade**: Existem relatos de maior acurácia para modelos de AM frente à RL. Mas, muitas vezes os **ganhos de acurácia não parecem ser expressivos**.
+
+**3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
+
+**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall).
+
+<!--Slide XX -->
+---
+# Considerações finais
+
+.center[.font150[**Pesquisas futuras**]]
+
+1) Reflexão de novas preditoras para melhoria da acurácia
+
+- Refletir a possibilidade de inclusão de novas preditoras;
+
+- Ponderar **diferentes abordagens** de modelagem e **refletir novas variáveis preditoras**, parece ser o caminho a
+seguir na buscar por modelos biométricos mais acurados.
+
+
 
 ---
 # Referências
