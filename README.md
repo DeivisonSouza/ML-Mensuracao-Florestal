@@ -18,16 +18,12 @@ Universidade Federal Rural da Amazônia (UFRA).
 
 # Slide da palestra
 
-O slide da palestra assíncrona intitulada **“Aprendizado de Máquina na
+O slide da palestra síncrona intitulada **“Aprendizado de Máquina na
 Mensuração Florestal: Técnicas, Modelagem e Aplicação Web”** está
 disponível a seguir.
 
 \#:ledger: [Slide da
 apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
-
-<!--
-#:ledger: [Slide da apresentação](https://deivisonsouza.github.io/IA-Potencial-IF/)
--->
 
 # Palestrante :deciduous\_tree:
 
