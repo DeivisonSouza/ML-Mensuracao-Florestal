@@ -12,6 +12,7 @@ encoding: "UTF-8"
 #output: revealjs::revealjs_presentation
 #output: rmdshower::shower_presentation
 header-includes: 
+   - \usepackage{multirow}
    - \usepackage[brazil]{babel}
    - \usepackage{tikz}
    - \usepackage[hidelinks,pdfencoding=auto]{hyperref}
@@ -2224,38 +2225,95 @@ Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013
                "james2013introduction"))
 ```
 
+<!--Slide XX -->
+---
+# AM na Mensuração Florestal: Volume
+
+**Algumas pesquisa de AM na predição do volume...**
+
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/TBV.png')
+```
+FP = Floresta Plantada; FN = Floresta Nativa; ANN = Artificial Neural Network. RL = Regressão Linear. S-H = Schumacher-Hall.
+
+
+<!--Slide XX -->
+---
+# AM na Mensuração Florestal: Altura
+
+**Algumas pesquisa de AM na predição da altura...**
+
+```{r, echo=FALSE, out.width='100%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics('fig/TBA.png')
+```
+FP = Floresta Plantada; FN = Floresta Nativa; ANN = Artificial Neural Network. RL = Regressão Linear. S-H = Schumacher-Hall.
+
 
 <!--Slide XX -->
 ---
 name: cf
 # Considerações finais
 
-.center[.font150[**Percepções e reflexões para Mensuração Florestal**]]
+.center[.font150[**Percepções sobre as pesquisas...**]]
 <br>
 
-**Sob a ótica preditivista**:
+**Sob a ótica preditivista...**
 
-**1 - Competitividade**: AM tem mostrado competitividade frente aos métodos tradicionais para modelar relações dendrométricas.
+.blockquote[
+.center[**Aprendizado de Máquina x Métodos Tradicionais**]
 
-**2 - Superioridade**: Existem relatos de maior acurácia para modelos de AM frente à RL. Mas, muitas vezes os **ganhos de acurácia não parecem ser expressivos**.
+<br>**1 - Desempenho preditivo**
 
-**3. Princípio da parcimônia**: Nestes casos (item 2), invocar o princípio da parcimônia (escolher o modelo mais simples) parece ser mais plausível.
+É fato que MAM têm mostrado competitividade, em termos de desempenho preditivo, frente aos métodos tradicionais.
 
-**4 - Covariáveis tradicionais**: Usar apenas as covariáveis tradicionais (ex.: D e H para modelar o volume) para estimar modelos de AM parece não produzir resultados extremamente superiores do que os métodos tradicionais (ex.: Schumacher-Hall).
+
+<br>**2 - Superioridade**
+
+a) Existem relatos de maior acurácia para MAM (ex.: RNA);
+
+b) No entanto, isso nem sempre acontece e muitas vezes os **ganhos de acurácia não parecem ser expressivos**; e
+
+c) Nestes casos (item b), invocar o **princípio da parcimônia** (escolher o modelo mais simples) parece ser mais plausível.
+]
 
 <!--Slide XX -->
 ---
 # Considerações finais
 
-.center[.font150[**Pesquisas futuras**]]
+.center[.font150[**Percepções sobre as pesquisas...**]]
+<br>
 
-1) Reflexão de novas preditoras para melhoria da acurácia
+**Sob a ótica preditivista...**
+
+.blockquote[
+.center[**Aprendizado de Máquina x Métodos Tradicionais**]
+
+<br>**3 - Covariáveis tradicionais** 
+
+<br>a) Algumas pesquisas consideram **apenas o uso de covariáveis tradicionais** para ajustar MAM.
+
+
+<br>b) Neste casos (item a), na maioria das vezes, os MAM **não apresentam acurácia superior** em relação aos modelos clássicos (ex.: Schumacher-Hall).
+
+
+<br>c) A **adição de novas covariáveis** (qualitativas e quantitativas) parece contribuir para o aumento da acurácia. Neste ponto, é possível que MAM 
+de modo mais expressivo quando usados MAM...
+]
+
+<!--Slide XX -->
+---
+# Considerações finais
+
+.center[.font150[**Relexões para pesquisas futuras...**]]
+
+.blockquote[
+**1 - Novas preditoras para aumento da acurácia**
 
 - Refletir a possibilidade de inclusão de novas preditoras;
 
 - Ponderar **diferentes abordagens** de modelagem e **refletir novas variáveis preditoras**, parece ser o caminho a
 seguir na buscar por modelos biométricos mais acurados.
-
+]
 
 
 ---
