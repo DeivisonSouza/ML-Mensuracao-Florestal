@@ -677,23 +677,31 @@ data %>% kable(format= "html") %>%
 ```
 ]]
 .pull-right[
-**Meta**: Estimar uma função de regressão $f(x)$ usando o algoritmo CART para predizer o volume $\left(\normalsize V = f(D,H)\right)$
+**Implementação no R** (exemplo de brinquedo!)
 
-**Foco**: Como é o processo de crescimento de uma árvore CART?
+```{r, echo=TRUE, eval=TRUE}
+library(rpart)
 
-]
-]
-
-.panel[.panel-name[CART]
-.pull-left[
-```{r, echo=FALSE, fig.width=5, fig.height=3, warning=FALSE, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0/minsplit = 20)', dpi=600, eval=TRUE, message=FALSE}
 set.seed(1)
 data2 <- data %>% select(-Arv)
 
 tree <- rpart(V ~ ., 
               data = data2, 
               method="anova", 
-              control = rpart.control(cp = 0, minsplit = 20))
+              control = rpart.control(
+                cp = 0,       
+                minsplit = 20
+                ))
+```
+**cp** = parâmetro custo-complexidade.
+
+**minsplit** = número mínimo de obs. p/ tentar uma divisão.
+]
+]
+
+.panel[.panel-name[CART]
+.pull-left[
+```{r, echo=FALSE, fig.width=5, fig.height=3, warning=FALSE, fig.align='center', fig.cap='Árvore CART (rpart/cp = 0/minsplit = 20)', dpi=600, eval=TRUE, message=FALSE}
 
 rattle::fancyRpartPlot(tree,
                        yesno=2,
@@ -2081,6 +2089,24 @@ Os erros de predição para as **amostras de validação** são elevados ao quad
 
 < PRESS $\rightarrow$ melhor modelo
 
+<!-- --- -->
+<!-- # Inferência é possível! -->
+
+<!-- <br>**Aprendizado de Máquina**: **foco** principal é a **predição**. -->
+
+<!-- Na maioria das vezes, modelos extremamente complexos são aprendidos, em geral, com alto poder preditivo. -->
+
+<!-- <br>**Dilema**: $\Uparrow$ complexidade x $\Downarrow$ interpretabilidade  -->
+
+
+<!-- <br> **Ah, então não é possível extrair explicações do tipo:** -->
+
+<!-- - Qual a importância relativa de preditoras para o modelo preditivo? -->
+
+<!-- - Qual a relação (ou efeito) marginal entre resposta-preditor no modelo? -->
+
+<!-- <br> **Sim, é possível! Já existem alguns métodos e frameworks desenvolvidos...** -->
+
 
 <!-- Slide XX -->
 ---
@@ -2315,7 +2341,7 @@ name: cf
 
 <br>**1 - Desempenho preditivo**
 
-É fato que MAM têm mostrado competitividade, em termos de desempenho preditivo, frente aos métodos tradicionais.
+MAM têm mostrado competitividade, em termos de desempenho preditivo, frente aos métodos tradicionais.
 
 
 <br>**2 - Superioridade**
@@ -2324,8 +2350,9 @@ a) Existem relatos de maior acurácia para MAM (ex.: RNA);
 
 b) No entanto, isso nem sempre acontece e muitas vezes os **ganhos de acurácia não parecem ser expressivos**; e
 
-c) Nestes casos (item b), invocar o **princípio da parcimônia** (escolher o modelo mais simples) parece ser mais plausível.
+c) Nestes casos (item b), usar o **princípio da parcimônia** (escolher o modelo mais simples) parece ser mais plausível.
 ]
+
 
 <!--Slide XX -->
 ---
@@ -2341,32 +2368,59 @@ c) Nestes casos (item b), invocar o **princípio da parcimônia** (escolher o mo
 
 <br>**3 - Covariáveis tradicionais** 
 
-<br>a) Algumas pesquisas consideram **apenas o uso de covariáveis tradicionais** para ajustar MAM.
+<br>a) Algumas pesquisas consideram **apenas o uso de covariáveis tradicionais** para ajustar MAM. Por exemplo: $v = f(D,H)$
 
 
 <br>b) Neste casos (item a), na maioria das vezes, os MAM **não apresentam acurácia superior** em relação aos modelos clássicos (ex.: Schumacher-Hall).
 
-
-<br>c) A **adição de novas covariáveis** (qualitativas e quantitativas) parece contribuir para o aumento da acurácia. Neste ponto, é possível que MAM 
-de modo mais expressivo quando usados MAM...
 ]
+
 
 <!--Slide XX -->
 ---
 # Considerações finais
 
-.center[.font150[**Relexões para pesquisas futuras...**]]
+.center[.font150[**Relexões para pesquisas futuras usando AM...**]]
 
 .blockquote[
-**1 - Novas preditoras para aumento da acurácia**
+<br>**1 - Novas preditoras + Diferentes algoritmos**
 
-- Refletir a possibilidade de inclusão de novas preditoras;
+<br>Ponderar **diferentes abordagem de AM** e refletir **novas variáveis preditoras** parece ser um bom caminho a seguir na buscar por modelos mais acurados.
 
-- Ponderar **diferentes abordagens** de modelagem e **refletir novas variáveis preditoras**, parece ser o caminho a
-seguir na buscar por modelos biométricos mais acurados.
+- **Dificuldades**: 
+
+É preciso identificar essas variáveis.
+
+É preciso ponderar o custo (prático e financeiro) de determinação em campo.
+
+É preciso compreender os algoritmos e seus hiperparâmetros para não falhar no procedimento de ajuste.
+
+<br> .center[**Em florestais inequiâneas tudo é mais difícil, oneroso,...!**]
+
 ]
 
 
+<!--Slide XX -->
+---
+# Considerações finais
+
+.center[.font150[**Relexões para pesquisas futuras usando AM...**]]
+
+.blockquote[
+<br>**2 - Unindo forças: Métodos tradicionais + Aprendizado de Máquina**
+
+<br>**Ao contrário de buscar superar Schumacher-Hall, por que não unir forças!?**
+
+<br> Usando o conhecimento de domínio...
+
+<br>**Árvores Modelos (M5')**: Modificar o algoritmo M5' para considerar modelos tradicionais nos nós terminais?
+
+- **Dificuldades**: programação + matemática subjacente
+
+]
+
+
+<!--Slide XX -->
 ---
 # Referências
 <br>
