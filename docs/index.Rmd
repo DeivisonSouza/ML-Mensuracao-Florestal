@@ -963,6 +963,7 @@ $\bar{V}$ = `r mean(df5$V)`
 .panel[.panel-name[Regiões]
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=7, fig.height=2, dpi=600}
+
 data <- data.table::fread("R-scripts/Cedrela.csv")
 
 r1 <- data %>% 
