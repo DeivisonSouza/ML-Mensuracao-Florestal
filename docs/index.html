@@ -119,20 +119,25 @@ background-size: cover
 
 [4 - Modelagem no R: uma rápida intuição](#exR)
 
-[5 - Aplicação Web com MAM: demonstração.](#shiny)
+[5 - Aplicação Web: MAM para biomassa e volume](#shiny)
 
+&lt;br&gt;
 
 **Parte 3 - Aplicações nas Ciências Florestais**
 
-[1 - Aplicações nas ciências florestais](#aplicacoes)
+[1 - Principais áreas de aplicações](#paa)
 
-[2 - Considerações finais](#cf)
+[2 - Apredizado de máquina na Mensuração Florestal](#ammf)
+
+[3 - AM vs Métodos Tradicionais](#ammt)
+
+[4 - Considerações finais](#cf)
 
 ]
 
 &lt;br&gt; &lt;br&gt;
 
-.left[.footnote[Imagem de &lt;a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;pen_ash&lt;/a&gt; por &lt;a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;Pixabay&lt;/a&gt;]]
+.center[.footnote[Imagem de &lt;a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;pen_ash&lt;/a&gt; por &lt;a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;Pixabay&lt;/a&gt;]]
 
 
 &lt;!-- Slide XX --&gt;
@@ -3362,35 +3367,28 @@ Link: [Tectona-grandis](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/
 &lt;!-- Slide XX --&gt;
 ---
 name: shiny
-class: inverse, top
+class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-Como disponibilizar os modelos de aprendizado de máquina?
+.font200[Aplicação Web: MAM para biomassa e volume]
 
 .pull-left[
-&lt;img src="fig/sh.png" width="20%" style="display: block; margin: auto;" /&gt;
-
-.thick[.black[Biblioteca Shiny]]
-
-.black[Biblioteca que facilita a criação de aplicativos da Web interativos usando diretamente a Linguagem R.]
-
-.thick[.black[Shinyapps.io:]]
-
-.black[Servidor gratuito para hospedar os aplicativos Shiny.]
-&lt;BR&gt;
-
-.thick[.black[Acesse aplicações Web para predição de biomassa e volume: (Souza, 2020)]]
+Como disponibilizar os modelos de aprendizado de máquina?
 
 .font80[
+**Shiny**: Biblioteca que facilita a criação de aplicativos da Web interativos usando diretamente a Linguagem R.
+
+**Shinyapps.io**: Servidor gratuito para hospedar os aplicativos Shiny.
+]
+
+Acesse as aplicações web desenvolvidas por Souza (2020):
+
 [1-Shiny-MLMBio-Biomassa](https://deivisonsouza.shinyapps.io/MLBiomass/)
 
 [2-Shiny-MLMVol-Volume](https://deivisonsouza.shinyapps.io/MLVolume/)
-]
-]
 
-.column-right[
-.thick[.black[Acesse a base para uso na aplicação MLMBio:]] [Biomass-data](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/data.csv)]
+Acesse a base para uso na aplicação MLMBio: [Biomass-data](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/R-scripts/data.csv)
 
 ]
 
@@ -3401,13 +3399,14 @@ class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font250[**Aplicações nas ciências &lt;br&gt; florestais**]
+.font200[**Parte 3** &lt;br&gt; .green[Aplicações nas ciências florestais]
+]
 
 
 &lt;!-- Slide XX --&gt;
 ---
-name: aplicacoes
-# Aplicações nas ciências florestais
+name: paa
+# Principais áreas de aplicações
 
 &lt;img src="fig/MindMap.png" width="57%" style="display: block; margin: auto;" /&gt;
 
@@ -3415,7 +3414,7 @@ name: aplicacoes
 
 &lt;!-- Slide XX --&gt;
 ---
-name: AMIF
+name: ammf
 # .font80[AM na Mensuração Florestal: estudos indicam potencial!]
 
 &lt;img src="fig/ML-TEC.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -3428,9 +3427,11 @@ Citep(myBib, c("diamantopoulou2010modelling", "nieto2012support", "sanquetta2013
 ## [1] "(Diamantopoulou and Milios, 2010; Nieto, Torres, Fernández, and Galán, 2012; Sanquetta, Wojciechowski, Dalla Corte, Rodrigues, and Maas, 2013; Diamantopoulou, 2005; Özçelik, Diamantopoulou, Brooks, and Wiant Jr, 2010; Schikowski, Corte, and Sanquetta, 2015; Nunes and Görgens, 2016; Corte, Souza, Rex, Sanquetta, Mohan, Silva, Zambrano, Prata, de\nAlmeida, Trautenmüller, Klauberg, de\nMoraes, Sanquetta, Wilkinson, and Broadbent, 2020; Montaño, Sanquetta, Wojciechowski, Mattar, Dalla Corte, and Todt, 2017; Korhonen and Kangas, 1997; Maltamo and Eerikainen, 2001; Fehrmann, Lehtonen, Kleinn, and Tomppo, 2008; Sanquetta, Wojciechowski, Dalla Corte, Behling, Netto, Rodrigues, and Sanquetta, 2015; Sanquetta, Piva, Wojciechowski, Corte, and Schikowski, 2018; Souza, Nievola, Santos, Wojciechowski, Gonçalves, Corte, and Sanquetta, 2019; James, Witten, Hastie, et al., 2013)"
 ```
 
+
 &lt;!--Slide XX --&gt;
 ---
-# AM na Mensuração Florestal: Volume
+name: ammt
+# AM vs Métodos Tradicionais: Volume
 
 **Algumas pesquisa de AM na predição do volume...**
 
@@ -3440,7 +3441,7 @@ FP = Floresta Plantada; FN = Floresta Nativa; ANN = Artificial Neural Network. R
 
 &lt;!--Slide XX --&gt;
 ---
-# AM na Mensuração Florestal: Altura
+# AM vs Métodos Tradicionais: Altura
 
 **Algumas pesquisa de AM na predição da altura...**
 
@@ -3615,22 +3616,6 @@ Springer.&lt;/cite&gt;&lt;/p&gt;
 &amp;ldquo;The most similar neighbour reference in the yield prediction of Pinus kesiya stands in Zambia&amp;rdquo;.
 In: &lt;em&gt;Silva Fennica&lt;/em&gt; 35.4, pp. 437&amp;ndash;451.
 DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
----
-# Referências
-&lt;br&gt;
-
-
-
----
-# Referências
-&lt;br&gt;
-
-
----
-# Referências
-&lt;br&gt;
-
-
 
 ---
 class: inverse, top
