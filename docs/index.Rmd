@@ -1986,25 +1986,31 @@ knitr::include_graphics("gif/LOOCV.gif")
 
 
 <!-- Slide XX -->
-<!-- --- -->
-<!-- # Qual método de validação usar? -->
+---
+# Métodos de Reamostragem: qual escolher?
 
-<!-- **Não existe uma regra de ouro!** -->
+**Não existe uma resposta fechada...**
 
-<!-- **Mas, existem algumas orientações gerais...** -->
+.pull-left-6[
+.blockquote[
+**Mas, teria alguns direcionamentos:**
 
-<!-- - **k-fold Cross-Validation** -->
-<!--   - Quando o conjunto de dado disponível é de tamanho médio a grande; e -->
-<!--   - Mais adequado para métodos com muitos hiperparâmetros de ajuste; -->
-<!--   - Custo computacional é maior do que Hold-out validation. -->
+<br>**1 -** **Prefira o k-fold cross validation** (simples ou repetido) ou **LOOCV** ao invés de hold-out, pois são melhores estimadores do erro de generalização do que Hold-out validation.
 
-<!-- - **Leave-One-Out Cross-Validation** -->
-<!--   - Quando o conjunto de dado disponível é de tamanho limitado; e -->
-<!--   - Mais adequado para métodos com poucos hiperparâmetros de ajuste; -->
-<!--   - Custo computacional é maior do que k-fold Cross-Validation. -->
+<br>**2 -** Pondere sobre o **tamanho da base** de dados e a **quantidade de hiperparâmetros** a serem ajustados (depende do algoritmo).
+
+<br>**a)** **LOOCV** é mais razoável para bases de dados de **menor porte** e para ajustar modelos com **poucos hiperparâmetros**. Isto porque, o método possui naturalmente um maior custo computacional.
+
+<br>**b)** **k-fold CV** é mais razoável para bases de dados de **médio a grande porte**, e quando existem **muitos hiperparâmetros** para ajustar.
+]
+]
+
+.pull-right-8[
+Obs.: Obviamente, a decisão também depende da capacidade computacional que você têm disponível...
+]
 
 
-<!--Slide XX -->
+<!-- Slide XX -->
 ---
 name: md
 class: inverse, middle, left

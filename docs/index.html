@@ -3153,25 +3153,31 @@ A abordagem mais usual é usar algum tipo de **validação cruzada**.
 
 
 &lt;!-- Slide XX --&gt;
-&lt;!-- --- --&gt;
-&lt;!-- # Qual método de validação usar? --&gt;
+---
+# Métodos de Reamostragem: qual escolher?
 
-&lt;!-- **Não existe uma regra de ouro!** --&gt;
+**Não existe uma resposta fechada...**
 
-&lt;!-- **Mas, existem algumas orientações gerais...** --&gt;
+.pull-left-6[
+.blockquote[
+**Mas, teria alguns direcionamentos:**
 
-&lt;!-- - **k-fold Cross-Validation** --&gt;
-&lt;!--   - Quando o conjunto de dado disponível é de tamanho médio a grande; e --&gt;
-&lt;!--   - Mais adequado para métodos com muitos hiperparâmetros de ajuste; --&gt;
-&lt;!--   - Custo computacional é maior do que Hold-out validation. --&gt;
+&lt;br&gt;**1 -** **Prefira o k-fold cross validation** (simples ou repetido) ou **LOOCV** ao invés de hold-out, pois são melhores estimadores do erro de generalização do que Hold-out validation.
 
-&lt;!-- - **Leave-One-Out Cross-Validation** --&gt;
-&lt;!--   - Quando o conjunto de dado disponível é de tamanho limitado; e --&gt;
-&lt;!--   - Mais adequado para métodos com poucos hiperparâmetros de ajuste; --&gt;
-&lt;!--   - Custo computacional é maior do que k-fold Cross-Validation. --&gt;
+&lt;br&gt;**2 -** Pondere sobre o **tamanho da base** de dados e a **quantidade de hiperparâmetros** a serem ajustados (depende do algoritmo).
+
+&lt;br&gt;**a)** **LOOCV** é mais razoável para bases de dados de **menor porte** e para ajustar modelos com **poucos hiperparâmetros**. Isto porque, o método possui naturalmente um maior custo computacional.
+
+&lt;br&gt;**b)** **k-fold CV** é mais razoável para bases de dados de **médio a grande porte**, e quando existem **muitos hiperparâmetros** para ajustar.
+]
+]
+
+.pull-right-8[
+Obs.: Obviamente, a decisão também depende da capacidade computacional que você têm disponível...
+]
 
 
-&lt;!--Slide XX --&gt;
+&lt;!-- Slide XX --&gt;
 ---
 name: md
 class: inverse, middle, left
@@ -3909,6 +3915,11 @@ Font Size
 .pull-right-2 {
   float: right;
   width: 60%;
+}
+
+.pull-right-8 {
+  float: right;
+  width: 15%;
 }
 
 .pull-right-7 {
