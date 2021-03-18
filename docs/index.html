@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[17/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[18/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -109,15 +109,17 @@ background-size: cover
 
 .pull-top[
 
-**Parte 2 - Aprendizado de máquina com linguagem R**
+**Parte 2 - Aprendizado de Máquina com Linguagem R**
 
-[1 - Aprendizado de Máquina com linguagem R](#AMLR)
+[1 - Bibliotecas no Cran Task View](#bctv)
 
 [2 - Pacote CARET](#caret)
 
-[3 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+[3 - Fluxograma: aprendizado de MAM usando CARET](#fluxo)
 
-[4 - Aplicação Web com MAM: demonstração.](#shiny)
+[4 - Modelagem no R: uma rápida intuição](#exR)
+
+[5 - Aplicação Web com MAM: demonstração.](#shiny)
 
 
 **Parte 3 - Aplicações nas Ciências Florestais**
@@ -128,6 +130,20 @@ background-size: cover
 
 ]
 
+&lt;br&gt; &lt;br&gt;
+
+.left[.footnote[Imagem de &lt;a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;pen_ash&lt;/a&gt; por &lt;a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;Pixabay&lt;/a&gt;]]
+
+
+&lt;!-- Slide XX --&gt;
+---
+name: AR
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Parte 1** &lt;br&gt; .green[Conceitos e fundamentação teórica]]
+
 &lt;!-- Slide XX --&gt;
 ---
 name: AR
@@ -136,6 +152,7 @@ background-image: url(fig/white.jpg)
 background-size: cover
 
 .font200[**Qual é o motivo de fazer &lt;br&gt; análise de regressão?**]
+
 
 &lt;!--Slide 3 --&gt;
 ---
@@ -3227,13 +3244,27 @@ class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font200[**Frameworks para aprendizado &lt;br&gt; de máquina**]
+.font200[**Parte 2** &lt;br&gt; .green[Aprendizado de máquina &lt;br&gt; com linguagem R]]
+
 
 &lt;!-- Slide XX --&gt;
 ---
-name: AMLR
+name: bctv
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Bibliotecas no Cran Task View**]
+&lt;br&gt;
+
+.pull-left-2[
+Fornecer uma orientação sobre os pacotes disponíveis no repositório CRAN que são relevantes para tarefas relacionadas a um determinado tópico.
+]
+
+&lt;!-- Slide XX --&gt;
+---
 class: middle
-# Aprendizado de máquina com linguagem R
+# Bibliotecas no Cran Task View
 
 .pull-left[
 
@@ -3257,13 +3288,15 @@ publicados no CRAN Task View.
 
 .left[.footnote[Fonte: O Autor.]]
 
+
+&lt;!-- Slide XX --&gt;
 ---
 name: caret
 class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font300[.thick[CARET]]
+.font300[CARET]
 	
 .font200[(.red[C]lassication .red[A]nd .red[Re]gression .red[T]raining)]
 	
@@ -3278,43 +3311,55 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 &lt;br&gt; &lt;br&gt;
 
 .left[.footnote[Imagem de &lt;a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;pen_ash&lt;/a&gt; por &lt;a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=5358904"&gt;Pixabay&lt;/a&gt;]]
+
+
+&lt;!-- Slide XX --&gt;
 ---
 # Pacote CARET: Ferramentas
 
 &lt;img src="fig/CARET.png" width="50%" style="display: block; margin: auto;" /&gt;
 
+
+&lt;!-- Slide XX --&gt;
 ---
 name: fluxo
 background-image: url(fig/white.jpg)
 background-size: cover
 
-# Fluxograma - Construção de modelos de AM usando CARET
+# .font80[Fluxograma: aprendizado de MAM usando CARET]
 
 &lt;img src="fig/FM.png" width="90%" style="display: block; margin: auto;" /&gt;
 .left[.footnote[Fonte: Souza (2020).]]
 
+
+&lt;!-- Slide XX --&gt;
 ---
-name: exemploR
-class: inverse, top
+name: exR
+class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-&lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt;
-.pull-left-3[
-MACHINE LEARNING NO R
+.font200[Modelagem no R: uma rápida intuição]
+&lt;br&gt;&lt;br&gt;
 
-&lt;br&gt; &lt;br&gt;
+.font150[Acesse o código R:]
 
-Acesse o R-script:
+Link: [01-wkNN](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/R-scripts/01-wkNN.R)
 
-[01-wkNN](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/01-wkNN.R)
+.font100[(.green[Weighted *k*-Nearest Neighbors])]
 
-Acesse os dados:
+.pull-left-2[
+.font100[Uma variação do *k*-NN que usa funções kernel para ponderar os vizinhos mais próximos de uma determinada observação...]
 
-[Tectona-grandis](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/Tectona.csv)]
+&lt;br&gt;
 
-.footnote[Créditos: Imagem de .segue-yellow[Willas Lima].]
+.font150[Acesse os dados:]
+
+Link: [Tectona-grandis](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/R-scripts/Tectona.csv)
 ]
+
+
+&lt;!-- Slide XX --&gt;
 ---
 name: shiny
 class: inverse, top
@@ -3357,6 +3402,7 @@ background-image: url(fig/white.jpg)
 background-size: cover
 
 .font250[**Aplicações nas ciências &lt;br&gt; florestais**]
+
 
 &lt;!-- Slide XX --&gt;
 ---
@@ -4100,6 +4146,7 @@ slides > slide {
  ****************/
 .red { color: red; }
 
+.green { color: #006622; }
 
 /******************
  * Coloured content boxes
@@ -4196,11 +4243,11 @@ slides > slide {
     box-shadow: 3px 3px 3px #111;
 }
 .shadow {
-    -moz-border-radius: 5px #aaa;
+    -moz-border-radius: 5px;
     -moz-box-shadow: 5px 5px 5px #aaa;
     -webkit-box-shadow: 5px 5px 5px #aaa;
     box-shadow: 5px 5px 5px #aaa;
-    border-radius: 2px #aaa;
+    border-radius: 2px;
 }
 
 

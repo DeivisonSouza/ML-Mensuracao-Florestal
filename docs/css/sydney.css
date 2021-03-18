@@ -351,6 +351,7 @@ slides > slide {
  ****************/
 .red { color: red; }
 
+.green { color: #006622; }
 
 /******************
  * Coloured content boxes
@@ -447,11 +448,11 @@ slides > slide {
     box-shadow: 3px 3px 3px #111;
 }
 .shadow {
-    -moz-border-radius: 5px #aaa;
+    -moz-border-radius: 5px;
     -moz-box-shadow: 5px 5px 5px #aaa;
     -webkit-box-shadow: 5px 5px 5px #aaa;
     box-shadow: 5px 5px 5px #aaa;
-    border-radius: 2px #aaa;
+    border-radius: 2px;
 }
 
 

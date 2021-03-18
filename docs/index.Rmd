@@ -171,15 +171,17 @@ background-size: cover
 
 .pull-top[
 
-**Parte 2 - Aprendizado de máquina com linguagem R**
+**Parte 2 - Aprendizado de Máquina com Linguagem R**
 
-[1 - Aprendizado de Máquina com linguagem R](#AMLR)
+[1 - Bibliotecas no Cran Task View](#bctv)
 
 [2 - Pacote CARET](#caret)
 
-[3 - Aprendizado de Máquina no R: exemplo prático](#exemploR)
+[3 - Fluxograma: aprendizado de MAM usando CARET](#fluxo)
 
-[4 - Aplicação Web com MAM: demonstração.](#shiny)
+[4 - Modelagem no R: uma rápida intuição](#exR)
+
+[5 - Aplicação Web com MAM: demonstração.](#shiny)
 
 
 **Parte 3 - Aplicações nas Ciências Florestais**
@@ -190,6 +192,20 @@ background-size: cover
 
 ]
 
+<br> <br>
+
+.left[.footnote[Imagem de <a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5358904">pen_ash</a> por <a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5358904">Pixabay</a>]]
+
+
+<!-- Slide XX -->
+---
+name: AR
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Parte 1** <br> .green[Conceitos e fundamentação teórica]]
+
 <!-- Slide XX -->
 ---
 name: AR
@@ -198,6 +214,7 @@ background-image: url(fig/white.jpg)
 background-size: cover
 
 .font200[**Qual é o motivo de fazer <br> análise de regressão?**]
+
 
 <!--Slide 3 -->
 ---
@@ -2060,13 +2077,27 @@ class: inverse, middle, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font200[**Frameworks para aprendizado <br> de máquina**]
+.font200[**Parte 2** <br> .green[Aprendizado de máquina <br> com linguagem R]]
+
 
 <!-- Slide XX -->
 ---
-name: AMLR
+name: bctv
+class: inverse, middle, left
+background-image: url(fig/white.jpg)
+background-size: cover
+
+.font200[**Bibliotecas no Cran Task View**]
+<br>
+
+.pull-left-2[
+Fornecer uma orientação sobre os pacotes disponíveis no repositório CRAN que são relevantes para tarefas relacionadas a um determinado tópico.
+]
+
+<!-- Slide XX -->
+---
 class: middle
-# Aprendizado de máquina com linguagem R
+# Bibliotecas no Cran Task View
 
 .pull-left[
 
@@ -2092,13 +2123,15 @@ publicados no CRAN Task View.
 
 .left[.footnote[Fonte: O Autor.]]
 
+
+<!-- Slide XX -->
 ---
 name: caret
 class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-.font300[.thick[CARET]]
+.font300[CARET]
 	
 .font200[(.red[C]lassication .red[A]nd .red[Re]gression .red[T]raining)]
 	
@@ -2113,6 +2146,9 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 <br> <br>
 
 .left[.footnote[Imagem de <a href="https://pixabay.com/pt/users/pen_ash-5526837/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5358904">pen_ash</a> por <a href="https://pixabay.com/pt/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5358904">Pixabay</a>]]
+
+
+<!-- Slide XX -->
 ---
 # Pacote CARET: Ferramentas
 
@@ -2120,40 +2156,49 @@ Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 knitr::include_graphics('fig/CARET.png')
 ```
 
+
+<!-- Slide XX -->
 ---
 name: fluxo
 background-image: url(fig/white.jpg)
 background-size: cover
 
-# Fluxograma - Construção de modelos de AM usando CARET
+# .font80[Fluxograma: aprendizado de MAM usando CARET]
 
 ```{r, echo=FALSE, out.width='90%', fig.align='center', fig.cap=''}
 knitr::include_graphics('fig/FM.png')
 ```
 .left[.footnote[Fonte: `r Citet(myBib, "souza2020Tese")`.]]
 
+
+<!-- Slide XX -->
 ---
-name: exemploR
-class: inverse, top
+name: exR
+class: inverse, left
 background-image: url(fig/white.jpg)
 background-size: cover
 
-<br> <br> <br> <br> <br>
-.pull-left-3[
-MACHINE LEARNING NO R
+.font200[Modelagem no R: uma rápida intuição]
+<br><br>
 
-<br> <br>
+.font150[Acesse o código R:]
 
-Acesse o R-script:
+Link: [01-wkNN](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/R-scripts/01-wkNN.R)
 
-[01-wkNN](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/01-wkNN.R)
+.font100[(.green[Weighted *k*-Nearest Neighbors])]
 
-Acesse os dados:
+.pull-left-2[
+.font100[Uma variação do *k*-NN que usa funções kernel para ponderar os vizinhos mais próximos de uma determinada observação...]
 
-[Tectona-grandis](https://deivisonsouza.github.io/IA-Potencial-IF/R-scripts/Tectona.csv)]
+<br>
 
-.footnote[Créditos: Imagem de .segue-yellow[Willas Lima].]
+.font150[Acesse os dados:]
+
+Link: [Tectona-grandis](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/R-scripts/Tectona.csv)
 ]
+
+
+<!-- Slide XX -->
 ---
 name: shiny
 class: inverse, top
@@ -2198,6 +2243,7 @@ background-image: url(fig/white.jpg)
 background-size: cover
 
 .font250[**Aplicações nas ciências <br> florestais**]
+
 
 <!-- Slide XX -->
 ---
