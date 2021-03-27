@@ -1,11 +1,13 @@
 
-# Olá, seja bem vindo(a)\! :deciduous\_tree: :smiley: :grin:
+# Olá, seja bem vindo(a)! :deciduous\_tree: :smiley: :grin:
 
 :calendar: **19 de Março de 2021**
 
 :alarm\_clock: **18h00min - 22h00min**
 
-# Descrição (em construção)
+**Este repositório está licenciado nos termos da licença MIT.**
+
+# Descrição
 
 Este repositório guarda os arquivos .Rmd e .R usados na palestra
 intitulada **“Aprendizado de Máquina na Mensuração Florestal: Técnicas,
