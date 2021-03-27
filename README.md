@@ -5,8 +5,7 @@
 
 :alarm\_clock: **18h00min - 22h00min**
 
-**Este repositório está licenciado nos termos da licença**
-[MIT](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/LICENSE.md).
+**Este repositório está licenciado nos termos da licença MIT.**
 
 # Descrição
 
