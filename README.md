@@ -1,5 +1,5 @@
 
-# Olá, seja bem vindo(a)! :deciduous\_tree: :smiley: :grin:
+# Olá, seja bem vindo(a)! :deciduous\_tree: :smiley: :grin: :deciduous\_tree:
 
 :calendar: **19 de Março de 2021**
 
