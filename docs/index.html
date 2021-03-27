@@ -4,6 +4,7 @@
     <title>Aprendizado de Máquina  na Mensuração Florestal:</title>
     <meta charset="utf-8" />
     <meta name="author" content=" Prof. Dr. Deivison Venicio Souza" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
@@ -27,7 +28,7 @@ class: center, middle, inverse, title-slide
 ## Técnicas, Modelagem e Aplicação Web <BR> <BR> <BR> <BR>
 ### <BR> Prof. Dr. Deivison Venicio Souza
 ### <div class="line-block">Universidade Federal do Pará (UFPA) <BR> <BR></div>
-### <p>.center[18/março/2021 <BR> Altamira, Pará <BR> ]</p>
+### <p>.center[27/março/2021 <BR> Altamira, Pará <BR> ]</p>
 
 ---
 
@@ -192,7 +193,7 @@ background-size: cover
 # Uma análise de regressão...
 
 .blockquote[
-.center[**Motivos estatísticos** (Izbicki and Santos, 2020)]
+.center[**Motivos estatísticos** ]
 
 - **Inferencial**: Tirar conclusões sobre a população.
   - Interpretar parâmetros;
@@ -212,7 +213,7 @@ Qual efeito no volume para uma unidade de mudança no diâmetro da árvore?
 --
 
 .content-box-blue[
-.center[**Portanto, para um determinado problema o foco pode ser claramente inferencial ou preditivo, e para outros pode ser a mistura de ambos** (Izbicki and Santos, 2020).]
+.center[**Portanto, para um determinado problema o foco pode ser claramente inferencial ou preditivo, e para outros pode ser a mistura de ambos** .]
 ]
 
 &lt;!-- Slide XX --&gt;
@@ -226,7 +227,7 @@ background-size: cover
 
 &lt;!--Slide 5 --&gt;
 ---
-# As duas culturas...(Breiman, 2001a)
+# As duas culturas...
 
 .pull-left-2[
 .blockquote[
@@ -255,7 +256,7 @@ background-size: cover
 .center[Fonte: [en.wikipedia.org](https://en.wikipedia.org/wiki/Leo_Breiman)]
 ]
 
-.content-box-blue[.center[Statistical modeling: The two cultures (Breiman, 2001a).]
+.content-box-blue[.center[Statistical modeling: The two cultures .]
 ]
 
 &lt;!-- Slide XX --&gt;
@@ -274,7 +275,7 @@ background-size: cover
 **História:**
 - Surgiu em 1959;
 - Arthur Lee Samuel: Cunhou pela primeira vez o termo *Machine Learning*; e
-- Manuscrito: .blue[*Some Studies in Machine Learning Using the Game of Checkers*] &lt;a id='cite-samuel1959some'&gt;&lt;/a&gt;(&lt;a href='https://doi.org/10.1147/rd.33.0210'&gt;Samuel, 1959&lt;/a&gt;).
+- Manuscrito: .blue[*Some Studies in Machine Learning Using the Game of Checkers*] .
 
 --
 
@@ -310,7 +311,7 @@ Pode-se afirmar que um programa de computador aprende uma
 .pull-right[
 .blockquote[
 **Aurélien Géron**&lt;br&gt;
-É a ciência (e arte) de programar computadores de tal forma que eles aprendam a partir de dados (Géron, 2017).
+É a ciência (e arte) de programar computadores de tal forma que eles aprendam a partir de dados .
 ]
 ]
 
@@ -374,7 +375,7 @@ name: tipos
 .blockquote[
 **Em um conjunto de dados...** &lt;br&gt;
 
-(..) para cada observação de preditora(s), `\(x_{i}\)` (i = 1, ..., n), existe uma resposta associada `\(y_{i}\)` (James, et al., 2013).
+(..) para cada observação de preditora(s), `\(x_{i}\)` (i = 1, ..., n), existe uma resposta associada `\(y_{i}\)` .
 ] &lt;br&gt;
 
 \[
@@ -403,7 +404,7 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nn}
 .blockquote[
 **O papel de Supervisor...** &lt;br&gt;
 A ideia é que cada `\(y_{i}\)` exerça um papel de .content-box-red[“Professor”], responsável por .content-box-red[“Supervisionar”] o processo de aprendizagem de uma
-função `\(f(x)\)` (Hastie, Tibshirani, and Friedman, 2016).
+função `\(f(x)\)` .
 ]
 
 &lt;!--Slide 11 --&gt;
@@ -683,7 +684,7 @@ background-size: cover
 
 Mais de 200 algoritmos para aprendizado supervisionado.
 
-(Kuhn and Johnson, 2013; Kuhn, 2018) &lt;br&gt;
+ &lt;br&gt;
 
 Web page: [CARET Package](https://topepo.github.io/caret/index.html)
 
@@ -701,7 +702,7 @@ background-size: cover
 
 .font150[(.red[C]lassification .red[A]nd .red[R]egression .red[T]rees - CART)]
 
-(Breiman, et al., 1984)
+
 
 &lt;!--Slide 15--&gt;
 ---
@@ -716,7 +717,7 @@ background-size: cover
 **Informações gerais:**
 - **CART**: algoritmo mais famoso;
 - **Significado:** .red[C]lassification .red[A]nd .red[R]egression .red[T]rees;
-- **Proposto**: Breiman, et al. (1984);
+- **Proposto**: ;
 - **Problemas**: Classificação e Regressão; e
 - **Hiperparâmetro tuning**: .red[cp] (parâmetro de complexidade).
 
@@ -2168,7 +2169,7 @@ background-size: cover
 
 .font150[(.red[B]ootstrap .red[Agg]regat.red[ing])]
 
-(Breiman, 1996)
+
 
 &lt;!-- Slide 17 --&gt;
 ---
@@ -2184,7 +2185,7 @@ background-size: cover
 **Informações gerais:**
 - **Bagging**: um dos primeiros algoritmo de conjunto (ensemble);
 - **Significado:** .red[B]ootstrap .red[Agg]regat.red[ing];
-- **Proposto**: Breiman (1996);
+- **Proposto**: ;
 - **Problemas**: Classificação e Regressão; e
 - **Hiperparâmetro tuning**: .red[nbagg] (número de replicações de bootstrap);
 ]
@@ -2198,11 +2199,11 @@ background-size: cover
 .blockquote[
 - **Ideia principal:**
 
-  - Ajustar múltiplas versões de um modelo preditivo, e depois agregá-las, para obter uma única predição combinada (Breiman, 1996).&lt;br&gt;
+  - Ajustar múltiplas versões de um modelo preditivo, e depois agregá-las, para obter uma única predição combinada .&lt;br&gt;
 
 
 - **Motivos**:
-  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia (James, et al., 2013).&lt;br&gt;
+  - Reduzir a variância de um método de predição, como as árvores de regressão, e promover melhorias substanciais na acurácia .&lt;br&gt;
   
   
 - **Aprediz de base**:
@@ -2218,7 +2219,7 @@ background-size: cover
 
 .pull-left-3[
 .blockquote[
-É um **método de reamostragem** que consiste em **produzir replicações** de tamanho `\(n\)`, com mesmo tamanho do conjunto de aprendizado, por **amostragem aleatória com reposição** (Gama, et al., 2015).
+É um **método de reamostragem** que consiste em **produzir replicações** de tamanho `\(n\)`, com mesmo tamanho do conjunto de aprendizado, por **amostragem aleatória com reposição** .
 ]
 ]
 
@@ -2236,7 +2237,7 @@ background-size: cover
 
 .pull-left-2[
 .blockquote[
-O bagging pode ser usado para combinar **árvores modelos** (Witten, et al., 2017), e mais comumente **árvores de decisão** (James, et al., 2013).
+O bagging pode ser usado para combinar **árvores modelos** , e mais comumente **árvores de decisão** .
 ]
 ]
 
@@ -2555,7 +2556,7 @@ background-size: cover
 
 .font200[**Random Forest**]
 
-(Breiman, 2001b)
+
 
 &lt;!-- Slide XX --&gt;
 ---
@@ -2570,7 +2571,7 @@ background-size: cover
 .pull-right-2[
 **Informações gerais:**
 - **Random Forest**: um algoritmo baseado em conjunto de árvores;
-- **Proposto**: Breiman (2001b);
+- **Proposto**: ;
 - **Problemas**: Classificação e Regressão; e
 - **Hiperparâmetro tuning**: .red[mtry] (número de preditoras amostradas aleatoriamente como candidatas em cada divisão).
 ]
@@ -2583,11 +2584,11 @@ background-size: cover
 .blockquote[
 - **Ideia principal:**
 
-  - É uma modificação substancial do *bagging*, e objetiva construir uma **coleção de árvores não correlacionadas** e, em seguida, calcular a média das predições individuais (no caso de regressão) (Hastie, Tibshirani, and Friedman, 2016).&lt;br&gt;
+  - É uma modificação substancial do *bagging*, e objetiva construir uma **coleção de árvores não correlacionadas** e, em seguida, calcular a média das predições individuais (no caso de regressão) .&lt;br&gt;
 
 
 - **Motivos**:
-  - Bagging **não reduz de maneira ideal a variância** das predições, pois as árvores são correlacionadas (topo da árvore) (Kuhn and Johnson, 2013).
+  - Bagging **não reduz de maneira ideal a variância** das predições, pois as árvores são correlacionadas (topo da árvore) .
   
   - Portanto, calcular a **média** de predições de **árvores não correlacionadas** reduz de maneira ideal a **variância**.
 
@@ -2605,7 +2606,7 @@ background-size: cover
 .blockquote[
 .center[**Bagging** e **Random Forest**: Diferença?]
 
-A principal diferença entre o **Bagging** e o **Random Forest** é a escolha do tamanho **p** no espaço de preditores originais (James, et al., 2013).
+A principal diferença entre o **Bagging** e o **Random Forest** é a escolha do tamanho **p** no espaço de preditores originais .
 ]
 ]
 
@@ -2922,12 +2923,12 @@ background-size: cover
 .pull-right-2[
 **Informações gerais:**
 - **Model Tree - M5'**: um algoritmo baseado árvores;
-- **Proposto**: Quinlan (1992); Wang and Witten (1997);
+- **Proposto**: ;
 - **Problema**: Regressão; e
 - **Hiperparâmetro tuning**: .red[pruned]: (com poda?); .red[smoothed]: (com suavização?)
 
 
-O M5' foi introduzido por Wang and Witten (1997) e aprimorou o algoritmo M5 originalmente proposto por Quinlan (1992).
+O M5' foi introduzido por  e aprimorou o algoritmo M5 originalmente proposto por .
 
 ]
 
@@ -3023,7 +3024,7 @@ A abordagem mais usual é usar algum tipo de **validação cruzada**.
 **Tipos de conjuntos de dados...** &lt;br&gt;
 
 
-&lt;br&gt;Existem três tipos de conjuntos de dados (Witten, et al., 2017):
+&lt;br&gt;Existem três tipos de conjuntos de dados :
 
 
 - **Conjunto de treinamento** (aprendizado) 
@@ -3345,7 +3346,7 @@ background-size: cover
 	
 .font200[(.red[C]lassication .red[A]nd .red[Re]gression .red[T]raining)]
 	
-(Kuhn and Johnson, 2013; Kuhn, 2018).
+.
 		
 .font120["Constitui um conjunto de funções que tentam simplificar &lt;br&gt; o processo de construção de modelos preditivos."]
 
@@ -3374,7 +3375,7 @@ background-size: cover
 # .font80[Fluxograma: aprendizado de MAM usando CARET]
 
 &lt;img src="fig/FM.png" width="90%" style="display: block; margin: auto;" /&gt;
-.left[.footnote[Fonte: Souza (2020).]]
+.left[.footnote[Fonte: .]]
 
 
 &lt;!-- Slide XX --&gt;
@@ -3616,6 +3617,7 @@ DOI: &lt;a href="https://doi.org/10.1214/ss/1009213726"&gt;10.1214/ss/1009213726
 &lt;em&gt;Extração de conhecimento de dados: data mining&lt;/em&gt;.
 ISBN: 978-972-618-811-7.&lt;/cite&gt;&lt;/p&gt;
 
+&lt;!--Slide XX --&gt;
 ---
 # Referências
 &lt;br&gt;
@@ -3651,6 +3653,7 @@ New York: Springer.
 268 pp.
 ISBN: 978-65-00-02410-4.&lt;/cite&gt;&lt;/p&gt;
 
+&lt;!--Slide XX --&gt;
 ---
 # Referências
 &lt;br&gt;
@@ -3685,6 +3688,14 @@ Springer.&lt;/cite&gt;&lt;/p&gt;
 In: &lt;em&gt;Silva Fennica&lt;/em&gt; 35.4, pp. 437&amp;ndash;451.
 DOI: &lt;a href="https://doi.org/10.14214/sf.579"&gt;10.14214/sf.579&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
+&lt;!--Slide XX --&gt;
+---
+# Referências
+&lt;br&gt;
+
+
+
+&lt;!--Slide XX --&gt;
 ---
 class: inverse, top
 background-image: url(fig/white.jpg)
@@ -3754,6 +3765,11 @@ Os slides, códigos e demais arquivos desta apresentação estão disponíveis n
 &lt;!-- 			child [methods c] { node {C7} } }; --&gt;
 &lt;!-- 		\end{tikzpicture} --&gt;
 &lt;!-- ``` --&gt;
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

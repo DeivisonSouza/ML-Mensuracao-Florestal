@@ -62,6 +62,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r xaringanExtra, echo=FALSE, eval=TRUE}
+#remotes::install_github("gadenbuie/xaringanExtra")
 library(xaringanExtra)
 # use_logo(
 #   image_url = "fig/ufpa.png",
@@ -2430,6 +2431,7 @@ c) Nestes casos (item b), usar o **princípio da parcimônia** (escolher o model
 PrintBibliography(myBib, start = 1, end = 5)
 ```
 
+<!--Slide XX -->
 ---
 # Referências
 <br>
@@ -2438,6 +2440,7 @@ PrintBibliography(myBib, start = 1, end = 5)
 PrintBibliography(myBib, start = 6, end = 10)
 ```
 
+<!--Slide XX -->
 ---
 # Referências
 <br>
@@ -2446,6 +2449,16 @@ PrintBibliography(myBib, start = 6, end = 10)
 PrintBibliography(myBib, start = 11, end = 15)
 ```
 
+<!--Slide XX -->
+---
+# Referências
+<br>
+
+```{r refs4, echo=FALSE, results="asis"}
+PrintBibliography(myBib, start = 16, end = 20)
+```
+
+<!--Slide XX -->
 ---
 class: inverse, top
 background-image: url(fig/white.jpg)
