@@ -1835,30 +1835,30 @@ A abordagem mais usual é usar algum tipo de **validação cruzada**.
 ]
 
 <!--Slide XX -->
----
-# Métodos de Reamostragem
+<!-- --- -->
+<!-- # Métodos de Reamostragem -->
 
-<br> **Mas, antes disso...**
+<!-- <br> **Mas, antes disso...** -->
 
-.blockquote[
-**Tipos de conjuntos de dados...** <br>
-
-
-<br>Existem três tipos de conjuntos de dados `r Citep(myBib, "witten2017data", .opts = list(max.names = 1, longnamesfirst = F))`:
+<!-- .blockquote[ -->
+<!-- **Tipos de conjuntos de dados...** <br> -->
 
 
-- **Conjunto de treinamento** (aprendizado) 
-    - Usado para construir/aprender/treinar os modelos preditivos (classificação ou regressão).
-    
-    
-- **Conjunto de validação**
-    - Usado para otimizar os hiperparâmetros dos modelos e escolher a configuração de melhor desempenho preditivo.
-    
+<!-- <br>Existem três tipos de conjuntos de dados `r Citep(myBib, "witten2017data", .opts = list(max.names = 1, longnamesfirst = F))`: -->
 
-- **Conjunto de teste**
-  - Usado para estimar o desempenho preditivo final do modelo otimizado (*tuning model*). 
-    
-]
+
+<!-- - **Conjunto de treinamento** (aprendizado)  -->
+<!--     - Usado para construir/aprender/treinar os modelos preditivos (classificação ou regressão). -->
+
+
+<!-- - **Conjunto de validação** -->
+<!--     - Usado para otimizar os hiperparâmetros dos modelos e escolher a configuração de melhor desempenho preditivo. -->
+
+
+<!-- - **Conjunto de teste** -->
+<!--   - Usado para estimar o desempenho preditivo final do modelo otimizado (*tuning model*).  -->
+
+<!-- ] -->
 
 <!--Slide XX -->
 ---
@@ -2447,15 +2447,6 @@ PrintBibliography(myBib, start = 6, end = 10)
 
 ```{r refs3, echo=FALSE, results="asis"}
 PrintBibliography(myBib, start = 11, end = 15)
-```
-
-<!--Slide XX -->
----
-# Referências
-<br>
-
-```{r refs4, echo=FALSE, results="asis"}
-PrintBibliography(myBib, start = 16, end = 20)
 ```
 
 <!--Slide XX -->
