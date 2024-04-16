@@ -82,7 +82,7 @@ O slide da palestra síncrona intitulada **"Aprendizado de Máquina na Mensuraç
 ```{r, echo = FALSE}
 knitr::kable(
   tibble::tibble(
-    Slide = list_github_files(repo=repo, "Slides/", "html"),
+    Slide = list_github_files(repo=repo, "docs/", "html"),
     Link = paste0("https://deivisonsouza.github.io/", repo, "/", Slide)
   ) %>% 
     dplyr::filter(!stringr::str_detect(Slide,

@@ -49,8 +49,10 @@ disponível a seguir.
 \#:ledger: [Slide da
 apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
 
-| Slide | Link |
-|:------|:-----|
+| Slide                       | Link                                                                                  |
+|:----------------------------|:--------------------------------------------------------------------------------------|
+| docs/R-scripts/02-CART.html | <https://deivisonsouza.github.io/ML-Mensuracao-Florestal/docs/R-scripts/02-CART.html> |
+| docs/index.html             | <https://deivisonsouza.github.io/ML-Mensuracao-Florestal/docs/index.html>             |
 
 # Facilitador :deciduous_tree:
 
