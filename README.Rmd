@@ -2,9 +2,50 @@
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+<!-- README.md is generated from README.Rmd.. Please edit that file.. -->
 
+<!-- badges: start -->
+<!-- badges: end -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(magrittr)
+repo <- "ML-Mensuracao-Florestal"
+```
+
+<!-- Emprestei a função list_github_files() da Curso-R. (https://github.com/curso-r). A ideia desse readme emprestei da Curso-R. Achei excelente!-->
+
+```{r, include = FALSE}
+list_github_files <- function(repo, dir = NULL, ext = NULL) {
+
+  req <- httr::GET(
+    paste0(
+      "https://api.github.com/repos/DeivisonSouza/",
+      repo,
+      "/git/trees/master?recursive=1"
+    )
+  )
+
+  httr::stop_for_status(req)
+
+  arquivos <- unlist(
+    lapply(httr::content(req)$tree, "[", "path"),
+    use.names = FALSE
+  )
+
+  if (!is.null(dir)) {
+    arquivos <- grep(dir, arquivos, value = TRUE, fixed = TRUE)
+  }
+
+  if (!is.null(ext)) {
+    arquivos <- arquivos[grep(paste0(ext, "$"), arquivos)]
+  }
+
+  return(arquivos)
+}
 ```
 
 # Olá, seja bem vindo(a)! :deciduous_tree: :smiley: :grin: :deciduous_tree:
@@ -14,6 +55,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 **Este repositório está licenciado nos termos da licença MIT.**
 
+
+<div>
+  <img src="Slides/fig/slide-title/ufpa.png" width="150" align="middle" class="center">
+  <img src="Slides/fig/slide-title/LMFTCA.png" width="150" align="middle" class="center">
+<div>
+
+<div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0002-2975-0927" href="https://orcid.org/0000-0002-2975-0927" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">https://orcid.org/0000-0002-2975-0927</a></div>
+
+**Lattes**: [http://lattes.cnpq.br/9063094443073532](http://lattes.cnpq.br/9063094443073532)
+
+**Researchgate**: [https://www.researchgate.net/profile/Deivison-Souza](https://www.researchgate.net/profile/Deivison-Souza)
+
+---------------------------------------------------
+
 # Descrição
 
 Este repositório guarda os arquivos .Rmd e .R usados na palestra intitulada **"Aprendizado de Máquina na Mensuração Florestal: Técnicas, Modelagem e Aplicação Web"** ministrada pelo **Prof. Dr. Deivison Venicio Souza** no evento **"Mensuração Florestal: sucessos do passado, desafios correntes e perspectivas futuras"** organizado pelo **Prof. Dr. Rodrigo Geroni** no âmbito da disciplina de **Mensuração Forestal** do Programa de Pós-Graduação em Ciências Florestais da Universidade Federal Rural da Amazônia (UFRA).
@@ -22,8 +77,24 @@ Este repositório guarda os arquivos .Rmd e .R usados na palestra intitulada **"
 
 O slide da palestra síncrona intitulada **"Aprendizado de Máquina na Mensuração Florestal: Técnicas, Modelagem e Aplicação Web"** está disponível a seguir.
 
-# :ledger: [Slide da apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
+#:ledger: [Slide da apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
 
-# Palestrante :deciduous_tree:
+```{r, echo = FALSE}
+knitr::kable(
+  tibble::tibble(
+    Slide = list_github_files(repo=repo, "Slides/", "html"),
+    Link = paste0("https://deivisonsouza.github.io/", repo, "/", Slide)
+  ) %>% 
+    dplyr::filter(!stringr::str_detect(Slide,
+                                       "_files/|_cache/|assets"))
+)
+```
 
-**Deivison Venicio Souza** possui graduação em :deciduous_tree: **Engenharia Florestal** :deciduous_tree: pela Universidade Federal Rural da Amazônia (2008), Mestrado em Ciências Florestais pela Universidade Federal Rural da Amazônia (2011) e Doutorado em Engenharia Florestal pela Universidade Federal do Paraná. No período de 2009 a 2011 exerceu o cargo de Analista Ambiental da Secretaria Estadual de Meio Ambiente do Pará, na Gerência de Projetos Agrossilvipastoris (GEPAF), com atuação direta na etapa de análise técnica, para fins de licenciamento ambiental, de Planos de Manejo Florestal Sustentável (PMFS), Projetos de Desbastes e Reflorestamento e Supressão Florestal. Desde 2011 é professor da Faculdade de Engenharia Florestal da Universidade Federal do Pará, Campus Universitário de Altamira, Pará. É responsável por ministrar as disciplinas Estatística Básica, Dendrometria, Experimentação Florestal e Inventário Florestal, integrantes do desenho curricular do Curso de Graduação em Engenharia Florestal. Tem experiência na área de Gestão e Manejo dos Recursos Florestais, com ênfase em Silvicultura de Florestas Naturais, Inventário Florestal e Mensuração Florestal. Atualmente, seus interesses científicos incluem o uso da inteligência artificial na conservação da biodiversidade (com ênfase no uso de visão computacional) e emprego de técnicas de aprendizado de máquina na modelagem preditiva de variáveis biométricas, com uso das Linguagens R e Python.
+
+# Facilitador :deciduous_tree:
+
+**Deivison Venicio Souza** possui graduação em :deciduous_tree: **Engenharia Florestal** :deciduous_tree: pela Universidade Federal Rural da Amazônia (2008), Mestrado em Ciências Florestais pela Universidade Federal Rural da Amazônia (2011) e Doutorado em Engenharia Florestal pela Universidade Federal do Paraná (2020). No período de 2009 a 2011 exerceu o cargo de Analista Ambiental da Secretaria Estadual de Meio Ambiente do Pará, na Gerência de Projetos Agrossilvipastoris (GEPAF), com atuação direta na etapa de análise técnica, para fins de licenciamento ambiental, de Planos de Manejo Florestal Sustentável (PMFS), Projetos de Desbastes e Reflorestamento e Supressão Florestal. Desde 2011 é professor da Faculdade de Engenharia Florestal da Universidade Federal do Pará, Campus Universitário de Altamira, Pará. É responsável por ministrar as disciplinas Estatística Básica, Dendrometria, Experimentação Florestal e Inventário Florestal, integrantes do desenho curricular do Curso de Graduação em Engenharia Florestal. Tem experiência na área de Gestão e Manejo dos Recursos Florestais, com ênfase em Silvicultura de Florestas Naturais, Inventário Florestal e Mensuração Florestal. Atualmente, é docente permanente do Programa de Pós-Graduação em Biodiversidade e Conservação (PPGBC) da Universidade Federal do Pará (UFPA)/Campus Altamira, responsável pela disciplina Estatística Computacional. Seus interesses científicos incluem o uso da inteligência artificial e visão computacional na conservação da biodiversidade (com ênfase na flora Amazônica explorada comercialmente) e emprego de técnicas de aprendizado de máquina na modelagem preditiva de variáveis biométricas, com uso das Linguagens R e Python. Além disso, tem atuado em projetos sustentáveis com ênfase em inventário e manejo florestal de produtos não madeireiros, estruturação e fortalecimento de cadeias produtivas da sociobiodiversidade, com atuação em comunidades indígenas.
+
+<div>
+  <img src="Slides/fig/slide-title/Foto.jpeg" width="300" align="middle" class="center">
+<div>
