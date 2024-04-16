@@ -13,8 +13,8 @@
 **Este repositório está licenciado nos termos da licença MIT.**
 
 <div>
-<img src="Slides/fig/slide-title/ufpa.png" width="150" align="middle" class="center">
-<img src="Slides/fig/slide-title/LMFTCA.png" width="150" align="middle" class="center">
+<img src="docs/fig/ufpa.png" width="150" align="middle" class="center">
+<img src="docs/fig/LMFTCA.png" width="150" align="middle" class="center">
 <div>
 
 <div itemscope="" itemtype="https://schema.org/Person">
@@ -45,9 +45,6 @@ Universidade Federal Rural da Amazônia (UFRA).
 O slide da palestra síncrona intitulada **“Aprendizado de Máquina na
 Mensuração Florestal: Técnicas, Modelagem e Aplicação Web”** está
 disponível a seguir.
-
-\#:ledger: [Slide da
-apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
 
 | Slide                       | Link                                                                                  |
 |:----------------------------|:--------------------------------------------------------------------------------------|
@@ -87,6 +84,6 @@ e fortalecimento de cadeias produtivas da sociobiodiversidade, com
 atuação em comunidades indígenas.
 
 <div>
-<img src="Slides/fig/slide-title/Foto.jpeg" width="300" align="middle" class="center">
+<img src="docs/fig/Foto.jpeg" width="300" align="middle" class="center">
 <div>
 &#10;
