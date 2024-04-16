@@ -4,6 +4,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 # Olá, seja bem vindo(a)! :deciduous_tree: :smiley: :grin: :deciduous_tree:

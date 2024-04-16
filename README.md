@@ -1,9 +1,9 @@
 
-# Olá, seja bem vindo(a)! :deciduous\_tree: :smiley: :grin: :deciduous\_tree:
+# Olá, seja bem vindo(a)! :deciduous_tree: :smiley: :grin: :deciduous_tree:
 
 :calendar: **19 de Março de 2021**
 
-:alarm\_clock: **18h00min - 22h00min**
+:alarm_clock: **18h00min - 22h00min**
 
 **Este repositório está licenciado nos termos da licença MIT.**
 
@@ -27,10 +27,10 @@ disponível a seguir.
 \#:ledger: [Slide da
 apresentação](https://deivisonsouza.github.io/ML-Mensuracao-Florestal/)
 
-# Palestrante :deciduous\_tree:
+# Palestrante :deciduous_tree:
 
-**Deivison Venicio Souza** possui graduação em :deciduous\_tree:
-**Engenharia Florestal** :deciduous\_tree: pela Universidade Federal
+**Deivison Venicio Souza** possui graduação em :deciduous_tree:
+**Engenharia Florestal** :deciduous_tree: pela Universidade Federal
 Rural da Amazônia (2008), Mestrado em Ciências Florestais pela
 Universidade Federal Rural da Amazônia (2011) e Doutorado em Engenharia
 Florestal pela Universidade Federal do Paraná. No período de 2009 a 2011
